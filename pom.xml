@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.example.csc311groupprojecttodo_list/org.example.csc311groupprojecttodo_list.HelloApplication
+                                org.example.csc311groupprojecttodo_list/org.example.todo_list.App
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

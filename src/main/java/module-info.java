@@ -3,6 +3,8 @@ module org.example.csc311groupprojecttodo_list {
     requires javafx.fxml;
 
 
-    opens org.example.csc311groupprojecttodo_list to javafx.fxml;
-    exports org.example.csc311groupprojecttodo_list;
+    opens org.example.todo_list to javafx.fxml;
+    exports org.example.todo_list;
+    exports org.example.todo_list.fxml_controllers;
+    opens org.example.todo_list.fxml_controllers to javafx.fxml;
 }

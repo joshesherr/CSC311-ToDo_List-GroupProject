@@ -1,9 +1,9 @@
-package org.example.csc311groupprojecttodo_list;
+package org.example.todo_list.fxml_controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class AppController {
     @FXML
     private Label welcomeText;
 
