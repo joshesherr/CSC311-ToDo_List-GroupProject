@@ -1,9 +1,9 @@
-package org.example.todo_list;
+package org.example.todo_list.db;
+
+import org.example.todo_list.models.Person;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 

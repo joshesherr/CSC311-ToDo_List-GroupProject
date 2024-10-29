@@ -1,4 +1,4 @@
-package org.example.todo_list;
+package org.example.todo_list.models;
 
 public class Person {
     private String username_ID;

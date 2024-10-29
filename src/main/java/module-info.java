@@ -8,4 +8,8 @@ module org.example.csc311groupprojecttodo_list {
     exports org.example.todo_list;
     exports org.example.todo_list.fxml_controllers;
     opens org.example.todo_list.fxml_controllers to javafx.fxml;
+    exports org.example.todo_list.db;
+    opens org.example.todo_list.db to javafx.fxml;
+    exports org.example.todo_list.models;
+    opens org.example.todo_list.models to javafx.fxml;
 }

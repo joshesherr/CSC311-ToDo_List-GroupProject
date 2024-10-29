@@ -23,7 +23,7 @@
 }
 
 /* TextField styling */
-#emailTF, #passwordTF {
+.text-field {
     -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
     -fx-background-radius: 5;
     -fx-background-color: #eaf1f8;
@@ -31,8 +31,10 @@
     -fx-font-size: 14px;
 }
 
-/* Button styling */
-#signInBtn, #signUpBtn {
+/* Sign-in button styling (blue) */
+.button {
+    -fx-background-color: #4285f4;
+    -fx-text-fill: white;
     -fx-background-radius: 5;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
@@ -40,25 +42,19 @@
     -fx-cursor: hand;
 }
 
-/* Sign-in button styling (blue) */
-#signInBtn {
-    -fx-background-color: #4285f4;
-    -fx-text-fill: white;
-}
-
-#signInBtn:hover {
+.button:hover {
     -fx-background-color: #357ae8;
 }
 
 /* Sign-up button styling (outlined blue) */
-#signUpBtn {
+#goToRegister, #goToSignIn {
     -fx-background-color: #ffffff;
     -fx-border-color: #4285f4;
     -fx-border-width: 2;
     -fx-text-fill: #4285f4;
 }
 
-#signUpBtn:hover {
+#goToRegister:hover, #goToSignIn:hover {
     -fx-background-color: #eaf1f8;
 }
 

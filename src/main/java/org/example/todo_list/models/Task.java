@@ -1,4 +1,4 @@
-package org.example.todo_list;
+package org.example.todo_list.models;
 
 import java.time.*;
 
