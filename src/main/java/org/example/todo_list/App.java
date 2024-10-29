@@ -11,14 +11,13 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        SceneManager sceneManager = SceneManager.getInstance();
-
-        Image icon = new Image(getClass().getResourceAsStream("images/icon2.png"));
-        stage.getIcons().add(icon);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/icon2.png")));
         stage.setTitle("Just Do");
 
+        SceneManager sceneManager = SceneManager.getInstance();
         sceneManager.setPrimaryStage(stage);
-        //Load log in and register views early
+
+        //Load log in and register views into sceneManager
         sceneManager.loadScene("LoginScene");
         sceneManager.loadScene("RegisterScene");
         //Show log in window

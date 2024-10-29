@@ -9,20 +9,24 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class SceneManager {
-    private static SceneManager INSTANCE;
+    private static final SceneManager INSTANCE  = new SceneManager();;
+    /**
+     * Holds loaded scenes that can be shown.
+     */
+    private final HashMap<String, Scene> scenes = new HashMap<>();
     private Stage primaryStage;
 
-    private HashMap<String, Scene> scenes = new HashMap<>();
     public static SceneManager getInstance(){
-        if (INSTANCE == null){
-            INSTANCE = new SceneManager();
-        }
         return INSTANCE;
     }
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
     }
 
+    /**
+     * Loads a fxml file to be shown later.
+     * @param fxmlSceneName the name of the fxml file you wish to load (without '.fxml')
+     */
     public void loadScene(String fxmlSceneName) {
         try {
             // Load the FXML file and create a Scene
@@ -37,6 +41,10 @@ public class SceneManager {
         }
     }
 
+    /**
+     * Shows a new view. The view must have been loaded previously.
+     * @param sceneName the name of the fxml file you wish to show (without '.fxml')
+     */
     public void showScene(String sceneName) {
         Scene scene = scenes.get(sceneName);
         if (scene != null) {

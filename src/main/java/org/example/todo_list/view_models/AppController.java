@@ -1,4 +1,4 @@
-package org.example.todo_list.fxml_controllers;
+package org.example.todo_list.view_models;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
