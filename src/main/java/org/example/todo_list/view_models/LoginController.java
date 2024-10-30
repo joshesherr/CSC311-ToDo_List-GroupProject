@@ -51,6 +51,8 @@ public class LoginController implements Initializable {
 
     public void signIn(ActionEvent actionEvent) {
         //Todo check and validate user info from Database.
+        sceneManager.loadScene("HomeScene");
+        sceneManager.showScene("HomeScene");
     }
 
     public void createAccount(ActionEvent actionEvent) {

@@ -1,3 +1,9 @@
+<center><img style="align-self: center"  src="src%2Fmain%2Fresources%2Forg%2Fexample%2Ftodo_list%2Fimages%2Ficon1.png" alt="logo" width="128"/></center>
+<h1 style="text-align: center">JustDo</h1>
+
+<br/>
+<br/>
+
 <h1>General Description</h1>
 <p>The application will implement a number of features to provide the user with this experience. Creation of a task will include a number of entries that encompass a broad range of typical needs, such as: General tasks, Tests(Quizzes & Exams), Homework, Projects(Personal & Group), Jobs/Work Shifts, and Meetings. The application aims to track the progress of your tasks, set your goals, help users with time management and allow users to interact and share progress with each other while working on shared tasks. 
 </p>

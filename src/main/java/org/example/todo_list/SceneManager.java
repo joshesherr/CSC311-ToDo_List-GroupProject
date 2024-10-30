@@ -27,7 +27,7 @@ public class SceneManager {
      * Loads a fxml file to be shown later.
      * @param fxmlSceneName the name of the fxml file you wish to load (without '.fxml')
      */
-    public void loadScene(String fxmlSceneName) {
+    public boolean loadScene(String fxmlSceneName) {
         try {
             // Load the FXML file and create a Scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("views/"+fxmlSceneName+".fxml"));
@@ -36,22 +36,24 @@ public class SceneManager {
 
             // Store the scene by name
             scenes.put(fxmlSceneName, scene);
+            return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Failed to load scene "+fxmlSceneName);
+            return false;
         }
     }
 
     /**
-     * Shows a new view. The view must have been loaded previously.
+     * Shows a new view. If the view is already loaded it will try to load it.
      * @param sceneName the name of the fxml file you wish to show (without '.fxml')
      */
     public void showScene(String sceneName) {
+        //If scene isn't loaded try to load it. Do not continue if scene can't be loaded.
+        if (!scenes.containsKey(sceneName)) if (!loadScene(sceneName)) return;
+
         Scene scene = scenes.get(sceneName);
-        if (scene != null) {
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } else {
-            System.out.println("Scene not found: " + sceneName);
-        }
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }

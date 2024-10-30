@@ -16,12 +16,10 @@ public class App extends Application {
 
         SceneManager sceneManager = SceneManager.getInstance();
         sceneManager.setPrimaryStage(stage);
+        
+        sceneManager.loadScene("RegisterScene"); //Load register view early for more seamless transitions
 
-        //Load log in and register views into sceneManager
-        sceneManager.loadScene("LoginScene");
-        sceneManager.loadScene("RegisterScene");
-        //Show log in window
-        sceneManager.showScene("LoginScene");
+        sceneManager.showScene("LoginScene"); //Show log in window
     }
 
     public static void main(String[] args) {
