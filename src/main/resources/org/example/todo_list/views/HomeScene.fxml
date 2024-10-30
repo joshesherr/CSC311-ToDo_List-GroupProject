@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="outerBP" prefHeight="416.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Open" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Save As" />
+                  <MenuItem mnemonicParsing="false" text="Preferences" />
+              <MenuItem mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Create">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Task" />
+                  <MenuItem mnemonicParsing="false" text="List" />
+                  <MenuItem mnemonicParsing="false" text="Group " />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" text="Copy" />
+                  <MenuItem mnemonicParsing="false" text="Paste" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Group">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Select Group" />
+                <MenuItem mnemonicParsing="false" text="Remove member" />
+                  <MenuItem mnemonicParsing="false" text="Add member" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+         <effect>
+            <ColorAdjust brightness="-0.17" />
+         </effect>
+      </MenuBar>
+   </top>
+   <center>
+      <BorderPane fx:id="innerTaskBP" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="My Tasks">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Group Tasks">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Completed">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+               <effect>
+                  <ColorAdjust brightness="-0.32" />
+               </effect>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </MenuBar>
+         </top>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+         <center>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ButtonBar buttonMinWidth="25.0" maxWidth="118.0" prefHeight="30.0" prefWidth="146.0" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                    <buttons>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Page" />
+                      <Button mnemonicParsing="false" text="1" />
+                        <Button mnemonicParsing="false" text="2" />
+                        <Button contentDisplay="RIGHT" mnemonicParsing="false" text="3" />
+                    </buttons>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </ButtonBar>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#18892b" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.4" translateX="4.0" translateY="40.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </StackPane>
+                        <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#18892b" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.51" translateX="4.0" translateY="40.0" />
+                           </children>
+                        </StackPane>
+                        <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#871818" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.48" translateX="4.0" translateY="40.0" />
+                           </children>
+                        </StackPane>
+                        <StackPane alignment="CENTER_LEFT" layoutX="118.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#b7ef00" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.4" translateX="4.0" translateY="40.0" />
+                           </children>
+                        </StackPane>
+                        <StackPane alignment="CENTER_LEFT" layoutX="118.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#b7ef00" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.64" translateX="4.0" translateY="40.0" />
+                           </children>
+                        </StackPane>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </HBox>
+                  <HBox layoutX="73.0" layoutY="30.0" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#c428b4" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.79" translateX="4.0" translateY="40.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </StackPane>
+                        <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#12e1c9" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.21" translateX="4.0" translateY="40.0" />
+                           </children>
+                        </StackPane>
+                        <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#12e1c9" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.25" translateX="4.0" translateY="40.0" />
+                           </children>
+                        </StackPane>
+                        <StackPane alignment="CENTER_LEFT" layoutX="118.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#18892b" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.0" translateX="4.0" translateY="40.0" />
+                           </children>
+                        </StackPane>
+                        <StackPane alignment="CENTER_LEFT" layoutX="118.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ccd0d4" height="113.0" stroke="BLACK" strokeType="INSIDE" width="88.0" />
+                              <Circle fill="#ea8e17" radius="9.0" stroke="BLACK" strokeType="INSIDE" translateX="65.0" translateY="-45.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Task Name" translateX="5.0" translateY="-30.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" translateX="5.0" translateY="-15.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Priority Level" translateX="5.0" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" translateX="5.0" translateY="15.0" />
+                              <ProgressBar maxWidth="80.0" progress="0.0" translateX="4.0" translateY="40.0" />
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>
