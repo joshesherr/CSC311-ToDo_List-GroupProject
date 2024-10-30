@@ -19,8 +19,16 @@ public class SceneManager {
     public static SceneManager getInstance(){
         return INSTANCE;
     }
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
     public void setPrimaryStage(Stage stage) {
-        this.primaryStage = stage;
+        primaryStage = stage;
+    }
+
+    public void open() {
+        primaryStage.show();
+        primaryStage.requestFocus();
     }
 
     /**
