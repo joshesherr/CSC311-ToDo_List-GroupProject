@@ -21,7 +21,7 @@
                   <Font size="17.0" />
                </font>
             </Text>
-            <Button id="listOptions" fx:id="listOptions" contentDisplay="GRAPHIC_ONLY" layoutX="228.0" layoutY="15.0" maxHeight="79.0" maxWidth="96.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="96.0" textAlignment="CENTER">
+            <Button id="listOptions" fx:id="optionsBtn" contentDisplay="GRAPHIC_ONLY" layoutX="228.0" layoutY="15.0" maxHeight="79.0" maxWidth="96.0" mnemonicParsing="false" onAction="#showOptions" prefHeight="79.0" prefWidth="96.0" textAlignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
@@ -34,7 +34,7 @@
       <Separator prefWidth="200.0" />
       <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="266.0" VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="addTaskBtn" contentDisplay="GRAPHIC_ONLY" maxHeight="26.0" maxWidth="99.0" minWidth="0.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0">
+            <Button fx:id="addTaskBtn" contentDisplay="GRAPHIC_ONLY" maxHeight="26.0" maxWidth="99.0" minWidth="0.0" mnemonicParsing="false" onAction="#addTask" prefHeight="26.0" prefWidth="99.0">
                <HBox.margin>
                   <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                </HBox.margin>
@@ -50,8 +50,6 @@
          </children>
       </HBox>
       <VBox fx:id="taskBox" prefHeight="200.0" prefWidth="200.0" spacing="8.0" VBox.vgrow="ALWAYS">
-         <fx:include source="Task.fxml" />
-         <fx:include source="Task.fxml" />
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </padding>

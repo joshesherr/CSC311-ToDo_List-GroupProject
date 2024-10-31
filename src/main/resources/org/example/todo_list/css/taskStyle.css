@@ -10,6 +10,11 @@
     -fx-max-height: 20px;
     -fx-background-color: transparent;
 }
+
 .toggle-button:selected {
     -fx-background-image: url('./../images/menu_icons/checkmark-circle-outline_32px.png');
+}
+
+.text-field {
+    -fx-background-color: transparent;
 }

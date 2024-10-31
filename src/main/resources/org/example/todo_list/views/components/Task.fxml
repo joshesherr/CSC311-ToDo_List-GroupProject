@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="9.0" prefWidth="200.0" stylesheets="@../../css/taskStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
+<VBox prefHeight="9.0" prefWidth="200.0" stylesheets="@../../css/taskStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskController">
    <children>
-      <HBox prefHeight="0.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="NEVER">
+      <HBox prefHeight="0.0" prefWidth="200.0" spacing="8.0" VBox.vgrow="NEVER">
          <children>
-            <ToggleButton maxHeight="23.0" maxWidth="20.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="7.0" text="ToggleButton">
+            <ToggleButton maxHeight="98.0" maxWidth="171.0" mnemonicParsing="false" prefHeight="5.0" prefWidth="20.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin>
             </ToggleButton>
-            <Label prefHeight="22.0" prefWidth="157.0" text="Task Name">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Label>
+            <TextField fx:id="taskNameField" prefHeight="11.0" prefWidth="150.0" promptText="Task Name" />
          </children>
       </HBox>
    </children>

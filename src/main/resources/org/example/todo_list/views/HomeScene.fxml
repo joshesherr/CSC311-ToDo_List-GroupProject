@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="452.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
+<VBox prefHeight="480.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <children>
       <MenuBar VBox.vgrow="ALWAYS">
         <menus>
@@ -39,7 +39,7 @@
          <children>
             <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="427.0" prefWidth="135.0" HBox.hgrow="NEVER">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sidebar for options like&#10;filtering, creating new lists, tags/colors, etc.." wrappingWidth="100.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sidebar for options like&#10;filtering, creating new lists, tags/colors, etc..&#10;&#10;Hideable" wrappingWidth="100.0" />
                </children></VBox>
             <ScrollPane prefHeight="427.0" prefWidth="477.0" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
                <content>
