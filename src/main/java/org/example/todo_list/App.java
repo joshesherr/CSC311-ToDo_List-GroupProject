@@ -16,7 +16,7 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/icon_32.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo/icon_32.png")));
         stage.setTitle("Just Do");
         stage.setResizable(false);//Todo to keep things simple windows wont be resizable for now.
 
@@ -46,7 +46,7 @@ public class App extends Application {
     public static void startBackgroundProcess() throws IOException, AWTException {
         String title = "JustDo has started!";
         String message = "We'll be running in the background and notify you when a deadline is coming up!";
-        java.awt.Image image = ImageIO.read(App.class.getResourceAsStream("images/icon_16.png"));
+        java.awt.Image image = ImageIO.read(App.class.getResourceAsStream("images/logo/icon_16.png"));
 
         String os = System.getProperty("os.name");
         if (os.contains("Linux")) {
