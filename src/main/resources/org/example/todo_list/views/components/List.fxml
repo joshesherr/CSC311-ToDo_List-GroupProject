@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox id="listBody" prefHeight="320.0" prefWidth="266.0" stylesheets="@../../css/listStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
+   <children>
+      <AnchorPane prefHeight="69.0" prefWidth="266.0">
+         <children>
+            <Text layoutX="14.0" layoutY="33.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="My List Name">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Button id="listOptions" fx:id="listOptions" contentDisplay="GRAPHIC_ONLY" layoutX="228.0" layoutY="15.0" maxHeight="79.0" maxWidth="96.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="96.0" textAlignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <ProgressBar layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="143.0" progress="0.42" />
+         </children>
+         <padding>
+            <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+         </padding>
+      </AnchorPane>
+      <Separator prefWidth="200.0" />
+      <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="266.0" VBox.vgrow="NEVER">
+         <children>
+            <Button fx:id="addTaskBtn" contentDisplay="GRAPHIC_ONLY" maxHeight="26.0" maxWidth="99.0" minWidth="0.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0">
+               <HBox.margin>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label alignment="CENTER" contentDisplay="TOP" text="Add Task">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <VBox fx:id="taskBox" prefHeight="200.0" prefWidth="200.0" spacing="8.0" VBox.vgrow="ALWAYS">
+         <fx:include source="Task.fxml" />
+         <fx:include source="Task.fxml" />
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </VBox>
+   </children>
+</VBox>

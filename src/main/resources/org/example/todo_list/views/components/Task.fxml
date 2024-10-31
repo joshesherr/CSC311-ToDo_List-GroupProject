@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="9.0" prefWidth="200.0" stylesheets="@../../css/taskStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
+   <children>
+      <HBox prefHeight="0.0" prefWidth="200.0" spacing="16.0" VBox.vgrow="NEVER">
+         <children>
+            <ToggleButton maxHeight="23.0" maxWidth="20.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="7.0" text="ToggleButton">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ToggleButton>
+            <Label prefHeight="22.0" prefWidth="157.0" text="Task Name">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</VBox>

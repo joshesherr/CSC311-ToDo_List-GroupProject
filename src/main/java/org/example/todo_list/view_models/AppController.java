@@ -13,14 +13,6 @@ public class AppController implements Initializable {
 
     SceneManager sceneManager = SceneManager.getInstance();
 
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
     public void logOut(ActionEvent actionEvent) {
         sceneManager.showScene("LoginScene");
     }
