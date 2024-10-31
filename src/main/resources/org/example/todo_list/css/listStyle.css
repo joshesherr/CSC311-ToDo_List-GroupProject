@@ -8,6 +8,15 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
 }
 
+.scroll-pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+}
+.scroll-pane .viewport {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+}
+
 .progress-bar .bar {
     -fx-background-color: #4285f4;
 }
