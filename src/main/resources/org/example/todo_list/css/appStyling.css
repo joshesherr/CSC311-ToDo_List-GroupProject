@@ -1,0 +1,163 @@
+/* Outer and inner BorderPane styling */
+#outerBP {
+    -fx-background-color: #f8fafc;
+}
+
+#innerTaskBP {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d1d9e6;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
+}
+
+/* Menu bar styling */
+#menuBar {
+    -fx-padding: 0;
+    -fx-border-width: 0 0 2px 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 2);
+}
+
+/* Menu styling */
+#menuBarFile, #menuBarCreate, #menuBarEdit, #menuBarGroup, #menuBarHelp {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ecf0f1; /* Light text color */
+    -fx-padding: 8 15;
+}
+
+#menuBarFile:hover, #menuBarCreate:hover, #menuBarEdit:hover, #menuBarGroup:hover, #menuBarHelp:hover {
+    -fx-background-color: #3a4b59; /* Subtle color change on hover */
+    -fx-text-fill: #ffffff;
+}
+
+/* Menu items styling */
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-text-fill: #bdc3c7; /* Softer text color for submenu items */
+    -fx-padding: 6 12;
+}
+
+.menu-item:hover {
+    -fx-background-color: #34495e; /* Slightly brighter hover background */
+    -fx-text-fill: #ffffff; /* Bright text on hover */
+}
+
+/* Divider line between menu items */
+.separator {
+    -fx-border-color: #1c2a35;
+}
+
+/* Button styling */
+#personalTasksBtn, #importantTasksBtn, #homeStuffTasksBtn, #addTaskBtn, #allTasksBtn,
+#criticalTasksBtn, #daysTasksBtn, #groupTasksBtn, #homeBtn, #monthTasksBtn, #weekTasksBtn {
+    -fx-background-color: #aaccf6; /* Primary button color */
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-pref-width: 200;
+    -fx-pref-height: 35;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 4); /* Subtle shadow */
+}
+
+/* Button hover effect */
+#personalTasksBtn:hover, #importantTasksBtn:hover, #homeStuffTasksBtn:hover, #addTaskBtn:hover,
+#allTasksBtn:hover, #criticalTasksBtn:hover, #daysTasksBtn:hover, #groupTasksBtn:hover,
+#homeBtn:hover, #monthTasksBtn:hover, #weekTasksBtn:hover {
+    -fx-background-color: #357ae8; /* Darker shade on hover */
+}
+
+/* Button pressed effect */
+#personalTasksBtn:pressed, #importantTasksBtn:pressed, #homeStuffTasksBtn:pressed, #addTaskBtn:pressed,
+#allTasksBtn:pressed, #criticalTasksBtn:pressed, #daysTasksBtn:pressed, #groupTasksBtn:pressed,
+#homeBtn:pressed, #monthTasksBtn:pressed, #weekTasksBtn:pressed {
+    -fx-background-color: #2e6ac7; /* Darker blue when pressed */
+}
+
+/* Label styling */
+#myTasksLabel, #calendarLabel, #tagsLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50; /* Darker color for distinction */
+    -fx-padding: 10 0;
+    -fx-pref-width: 200;
+    -fx-pref-height: 35;
+}
+/* GridPane styling */
+#gridPane {
+    -fx-background-color: #f8fafc; /* Light neutral background */
+}
+
+/* VBox task container styling */
+#taskContainer {
+    -fx-spacing: 15;
+    -fx-padding: 15;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-color: #4a90e2; /* Light blue border for highlighting */
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0.3, 0, 4);
+    -fx-cursor: hand;
+}
+
+/* Hover effect for task container */
+#taskContainer:hover {
+    -fx-background-color: #f0faff;
+    -fx-border-color: #007bff; /* Darker blue border on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.3), 10, 0.5, 0, 5);
+}
+
+/* Label styling */
+#taskName {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+/* TextArea styling for task description */
+#taskDescription {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4a4a4a;
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 8;
+    -fx-border-color: #d1d9e6;
+    -fx-border-radius: 3;
+    -fx-padding: 10;
+}
+
+/* TextArea focus effect */
+#taskDescription:focused {
+    -fx-border-color: #4a90e2; /* Light blue border on focus */
+    -fx-effect: dropshadow(gaussian, rgba(74, 144, 226, 0.3), 5, 0.3, 0, 4);
+}
+
+#taskDueDate, #taskPriority {
+    -fx-font-size: 13px;
+    -fx-text-fill: #4a4a4a;
+}
+
+/* ProgressBar styling */
+#taskProgressBar {
+    -fx-accent: #4caf50;  /* Green progress bar */
+    -fx-background-color: #e0e0e0; /* Light gray background */
+    -fx-padding: 5;
+    -fx-background-radius: 5;
+}
+
+/* Circle styling for task tag */
+#taskTag {
+    -fx-fill: #ffcc00; /* Default yellow tag color */
+    -fx-radius: 10;
+}
+
+/* Add hover effect to task container */
+#taskContainer:hover {
+    -fx-background-color: #f4f6f8;
+    -fx-background-radius: 8;
+}
+
+
