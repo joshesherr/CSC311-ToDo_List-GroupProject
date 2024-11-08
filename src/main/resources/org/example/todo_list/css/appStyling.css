@@ -1,4 +1,59 @@
-/* Outer and inner BorderPane styling */
+/*-----------------------Lists of tasks styling starts here----------------------------*/
+/* Styling for CheckBox */
+#checkBox {
+    -fx-padding: 5;
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
+}
+
+/* Styling for task label (viewTasksLabel) */
+#viewTasksLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50; /* Darker text for visibility */
+    -fx-padding: 5 10;
+}
+
+/*!* Styling for task button *!*/
+#viewTasksBtn {
+    -fx-background-color: #d0dce3;
+    -fx-border: #4a90e2;
+    -fx-border-width: 2px;
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 15;
+    -fx-cursor: hand;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.3, 0, 2); /* Light shadow */
+}
+
+/*!* Button hover effect *!*/
+#viewTasksBtn:hover {
+    -fx-background-color: #357ae8; /* Darker blue on hover */
+}
+
+/*!* Button pressed effect *!*/
+#viewTasksBtn:pressed {
+    -fx-background-color: #2e6ac7; /* Darkest blue when pressed */
+}
+
+/* Overall task list item container (if applicable) */
+#listTaskContainer {
+    -fx-background-color: #f8faff; /* Light background for task item */
+    -fx-border-color: #d0e2f2; /* Light blue border */
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+/*-----------------------Lists of tasks styling ends here----------------------------*/
+
+
+
+/*---------Styling outer and inner Containers (BorderPane)----------*/
 #outerBP {
     -fx-background-color: #f8fafc;
 }
@@ -11,15 +66,21 @@
     -fx-padding: 15;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
 }
+/* GridPane styling */
+#gridPane {
+    -fx-background-color: #f8fafc; /* Light neutral background */
+    /*-fx-background-image: url;*/
+}
+/*----------------------------------END------------------------------*/
 
-/* Menu bar styling */
+
+
+/* ----------------------Menu bar styling starts-------------------------*/
 #menuBar {
     -fx-padding: 0;
     -fx-border-width: 0 0 2px 0;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 2);
 }
-
-/* Menu styling */
 #menuBarFile, #menuBarCreate, #menuBarEdit, #menuBarGroup, #menuBarHelp {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
@@ -48,8 +109,9 @@
 .separator {
     -fx-border-color: #1c2a35;
 }
+/* ----------------------Menu bar styling ends-------------------------*/
 
-/* Button styling */
+/* ----------------------Filtering and operational bar's styling starts----------------- */
 #personalTasksBtn, #importantTasksBtn, #homeStuffTasksBtn, #addTaskBtn, #allTasksBtn,
 #criticalTasksBtn, #daysTasksBtn, #groupTasksBtn, #homeBtn, #monthTasksBtn, #weekTasksBtn {
     -fx-background-color: #aaccf6; /* Primary button color */
@@ -64,14 +126,14 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 4); /* Subtle shadow */
 }
 
-/* Button hover effect */
+ /*Button hover effect */
 #personalTasksBtn:hover, #importantTasksBtn:hover, #homeStuffTasksBtn:hover, #addTaskBtn:hover,
 #allTasksBtn:hover, #criticalTasksBtn:hover, #daysTasksBtn:hover, #groupTasksBtn:hover,
 #homeBtn:hover, #monthTasksBtn:hover, #weekTasksBtn:hover {
     -fx-background-color: #357ae8; /* Darker shade on hover */
 }
 
-/* Button pressed effect */
+/*!* Button pressed effect *!*/
 #personalTasksBtn:pressed, #importantTasksBtn:pressed, #homeStuffTasksBtn:pressed, #addTaskBtn:pressed,
 #allTasksBtn:pressed, #criticalTasksBtn:pressed, #daysTasksBtn:pressed, #groupTasksBtn:pressed,
 #homeBtn:pressed, #monthTasksBtn:pressed, #weekTasksBtn:pressed {
@@ -87,12 +149,11 @@
     -fx-pref-width: 200;
     -fx-pref-height: 35;
 }
-/* GridPane styling */
-#gridPane {
-    -fx-background-color: #f8fafc; /* Light neutral background */
-}
 
-/* VBox task container styling */
+/* ----------------------Filtering and operational bar's styling ends----------------- */
+
+
+/* ----------------------VBox task details styling starts-----------------------*/
 #taskContainer {
     -fx-spacing: 15;
     -fx-padding: 15;
@@ -148,16 +209,11 @@
     -fx-background-radius: 5;
 }
 
-/* Circle styling for task tag */
-#taskTag {
-    -fx-fill: #ffcc00; /* Default yellow tag color */
-    -fx-radius: 10;
-}
-
 /* Add hover effect to task container */
 #taskContainer:hover {
     -fx-background-color: #f4f6f8;
     -fx-background-radius: 8;
 }
+/* ----------------------VBox task details styling ends-----------------------*/
 
 

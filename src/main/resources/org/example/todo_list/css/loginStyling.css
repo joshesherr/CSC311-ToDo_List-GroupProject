@@ -31,8 +31,8 @@
     -fx-font-size: 14px;
 }
 
-/* Sign-in button styling (blue) */
-.button {
+ /*Sign-in button styling (blue) */
+#signInBtn, #registerBtn {
     -fx-background-color: #4285f4;
     -fx-text-fill: white;
     -fx-background-radius: 5;
@@ -42,7 +42,7 @@
     -fx-cursor: hand;
 }
 
-.button:hover {
+#signInBtn:hover, #registerBtn:hover {
     -fx-background-color: #357ae8;
 }
 

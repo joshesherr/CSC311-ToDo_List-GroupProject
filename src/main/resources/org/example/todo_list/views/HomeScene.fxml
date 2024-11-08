@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -21,7 +22,7 @@
 
 <BorderPane fx:id="outerBP" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../css/appStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <top>
-      <MenuBar fx:id="menuBar" prefWidth="739.0" stylesheets="@../css/appStyling.css" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" prefWidth="739.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu fx:id="menuBarFile" mnemonicParsing="false" text="File">
             <items>
@@ -65,7 +66,7 @@
       </MenuBar>
    </top>
    <center>
-      <BorderPane fx:id="innerTaskBP" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <BorderPane fx:id="innerTaskBP" prefHeight="864.0" prefWidth="1319.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -75,22 +76,59 @@
          <center>
             <GridPane fx:id="gridPane" BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="796.0" minWidth="10.0" prefWidth="420.27532958984375" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1297.0" minWidth="10.0" prefWidth="947.7246704101562" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="796.0" minWidth="10.0" prefWidth="324.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1297.0" minWidth="10.0" prefWidth="1044.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <HBox prefHeight="416.0" prefWidth="459.0">
+                  <HBox prefHeight="416.0" prefWidth="403.0" stylesheets="@../css/appStyling.css">
                      <children>
-                        <VBox prefHeight="416.0" prefWidth="300.0" />
+                        <VBox fx:id="listTaskContainer" alignment="TOP_CENTER" prefHeight="416.0" prefWidth="300.0">
+                           <children>
+                              <Label fx:id="viewTasksLabel" text="Today" />
+                              <Button fx:id="viewTaskBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="305.0" text="Pay the electric bill">
+                                 <graphic>
+                                    <CheckBox fx:id="checkBox" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="viewTaskBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="308.0" text="Book an appotiment with student adviser">
+                                 <graphic>
+                                    <CheckBox fx:id="checkBox" mnemonicParsing="false" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="viewTaskBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Studu for the Data Structure exam 1">
+                                 <graphic>
+                                    <CheckBox fx:id="checkBox" mnemonicParsing="false" />
+                                 </graphic>
+                              </Button>
+                              <Label fx:id="viewTasksLabel" text="Tomorrow" />
+                              <Button fx:id="viewTaskBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" text="Ask mom about hotel">
+                                 <graphic>
+                                    <CheckBox fx:id="checkBox" mnemonicParsing="false" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="viewTaskBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="309.0" text="Do something">
+                                 <graphic>
+                                    <CheckBox fx:id="checkBox" mnemonicParsing="false" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="viewTaskBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="301.0" text="Do something">
+                                 <graphic>
+                                    <CheckBox fx:id="checkBox" mnemonicParsing="false" />
+                                 </graphic>
+                              </Button>
+                           </children></VBox>
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </HBox>
                   <HBox prefHeight="290.0" prefWidth="1157.0" spacing="10.0" GridPane.columnIndex="1">
                      <children>
-                        <VBox fx:id="taskContainer" alignment="CENTER" prefHeight="406.0" prefWidth="300.0">
+                        <VBox fx:id="taskContainer" alignment="CENTER" prefHeight="434.0" prefWidth="300.0">
                            <children>
                               <Label text="TASK DETAILS">
                                  <font>
@@ -132,13 +170,13 @@
          <left>
             <VBox prefHeight="832.0" prefWidth="200.0" spacing="2.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="204.0" text="Home" />
+                  <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Home" />
                   <Button fx:id="addTaskBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Add" />
-                  <Label fx:id="myTasksLabel" text="My Tasks:" />
+                  <Label fx:id="myTasksLabel" prefHeight="43.0" prefWidth="203.0" text="My Tasks:" />
                   <Button fx:id="allTasksBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="208.0" text="All Tasks" />
                   <Button fx:id="personalTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="214.0" text="Pesonal" />
                   <Button fx:id="groupTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="206.0" text="Group" />
-                  <Label fx:id="calendarLabel" text="Calendar:" />
+                  <Label fx:id="calendarLabel" prefHeight="43.0" prefWidth="99.0" text="Calendar:" />
                   <Button fx:id="daysTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="205.0" text="3 Days" />
                   <Button fx:id="weekTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="220.0" text="This Week" />
                   <Button fx:id="monthTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="206.0" text="This Month" />
@@ -147,6 +185,9 @@
                   <Button fx:id="criticalTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="215.0" text="Critical" />
                   <Button fx:id="homeStuffTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="207.0" text="Home Stuff" />
                </children>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
             </VBox>
          </left>
       </BorderPane>

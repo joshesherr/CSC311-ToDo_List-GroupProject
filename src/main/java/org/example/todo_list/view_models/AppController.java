@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.TextFlow;
 import org.example.todo_list.SceneManager;
@@ -20,10 +19,13 @@ public class AppController implements Initializable {
     SceneManager sceneManager = SceneManager.getInstance();
 
     @FXML
-    private Button personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addTaskBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
+    private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addTaskBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
 
     @FXML
-    private Label myTAsksLabel, calendarLabel, tagsLabel;
+    private Label viewTasksLabel, myTAsksLabel, calendarLabel, tagsLabel, taskDueDate, taskName, taskPriority;
+
+    @FXML
+    private CheckBox checkBox;
 
     @FXML
     private GridPane gridPane;
@@ -38,9 +40,6 @@ public class AppController implements Initializable {
     private BorderPane innerTaskBP, outerBP;
 
     @FXML
-    private Label taskDueDate, taskName, taskPriority;
-
-    @FXML
     private TextFlow taskDescription;
 
     @FXML
@@ -50,7 +49,7 @@ public class AppController implements Initializable {
     private Polygon taskTag;
 
     @FXML
-    private VBox taskContainer;
+    private VBox taskContainer, listTaskContainer;
 
     public void logOut(ActionEvent actionEvent) {
         sceneManager.showScene("LoginScene");
