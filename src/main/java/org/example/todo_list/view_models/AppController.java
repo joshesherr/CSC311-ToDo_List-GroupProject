@@ -59,4 +59,10 @@ public class AppController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    @FXML
+    void addTask(ActionEvent event) {
+        sceneManager.loadScene("addTaskScene");
+        sceneManager.showScene("addTaskScene");
+    }
 }

@@ -32,7 +32,7 @@
 }
 
  /*Sign-in button styling (blue) */
-#signInBtn, #registerBtn {
+.button {
     -fx-background-color: #4285f4;
     -fx-text-fill: white;
     -fx-background-radius: 5;
@@ -42,7 +42,7 @@
     -fx-cursor: hand;
 }
 
-#signInBtn:hover, #registerBtn:hover {
+.button:hover{
     -fx-background-color: #357ae8;
 }
 
