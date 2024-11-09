@@ -22,7 +22,7 @@ public class AppController implements Initializable {
     private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addTaskBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
 
     @FXML
-    private Label viewTasksLabel, myTAsksLabel, calendarLabel, tagsLabel, taskDueDate, taskName, taskPriority;
+    private Label viewTasksLabel, myTAsksLabel, calendarLabel, tagsLabel, taskDueDate, taskName, taskPriority, taskLabel;
 
     @FXML
     private CheckBox checkBox;

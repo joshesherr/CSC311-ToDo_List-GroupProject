@@ -1,57 +1,3 @@
-/*-----------------------Lists of tasks styling starts here----------------------------*/
-/* Styling for CheckBox */
-#checkBox {
-    -fx-padding: 5;
-    -fx-opacity: 0.85;
-    -fx-cursor: hand;
-}
-
-/* Styling for task label (viewTasksLabel) */
-#viewTasksLabel {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50; /* Darker text for visibility */
-    -fx-padding: 5 10;
-}
-
-/*!* Styling for task button *!*/
-#viewTasksBtn {
-    -fx-background-color: #d0dce3;
-    -fx-border: #4a90e2;
-    -fx-border-width: 2px;
-    -fx-text-fill: #2c3e50;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-padding: 5 15;
-    -fx-cursor: hand;
-    -fx-alignment: center-left;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.3, 0, 2); /* Light shadow */
-}
-
-/*!* Button hover effect *!*/
-#viewTasksBtn:hover {
-    -fx-background-color: #357ae8; /* Darker blue on hover */
-}
-
-/*!* Button pressed effect *!*/
-#viewTasksBtn:pressed {
-    -fx-background-color: #2e6ac7; /* Darkest blue when pressed */
-}
-
-/* Overall task list item container (if applicable) */
-#listTaskContainer {
-    -fx-background-color: #f8faff; /* Light background for task item */
-    -fx-border-color: #d0e2f2; /* Light blue border */
-    -fx-border-radius: 5;
-    -fx-padding: 10;
-    -fx-spacing: 10;
-    -fx-alignment: center;
-}
-
-/*-----------------------Lists of tasks styling ends here----------------------------*/
-
-
 
 /*---------Styling outer and inner Containers (BorderPane)----------*/
 #outerBP {
@@ -153,15 +99,68 @@
 /* ----------------------Filtering and operational bar's styling ends----------------- */
 
 
+/*-----------------------Lists of tasks styling starts here----------------------------*/
+/* Styling for CheckBox */
+#checkBox {
+    -fx-padding: 5;
+    -fx-opacity: 0.85;
+    -fx-cursor: hand;
+}
+
+/* Styling for task label (viewTasksLabel) */
+#viewTasksLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50; /* Darker text for visibility */
+    -fx-padding: 5 10;
+}
+
+/*!* Styling for task button *!*/
+.button {
+    -fx-background-color: #EAF1F8FF;
+    -fx-border: #4a90e2;
+    /*-fx-border-width: 2px;*/
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 5 15;
+    -fx-cursor: hand;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.3, 0, 2); /* Light shadow */
+}
+
+/*!* Button hover effect *!*/
+.button:hover {
+    -fx-background-color: #357ae8; /* Darker blue on hover */
+}
+
+/*!* Button pressed effect *!*/
+.button:pressed {
+    -fx-background-color: #2e6ac7; /* Darkest blue when pressed */
+}
+
+/* Overall task list item container (if applicable) */
+#listTaskContainer {
+    -fx-background-color: #f8faff; /* Light background for task item */
+    -fx-border-color: #d0e2f2; /* Light blue border */
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+/*-----------------------Lists of tasks styling ends here----------------------------*/
+
 /* ----------------------VBox task details styling starts-----------------------*/
 #taskContainer {
-    -fx-spacing: 15;
-    -fx-padding: 15;
-    -fx-background-color: #ffffff;
+    -fx-spacing: 10;
+    -fx-padding: 10;
+    -fx-background-color: #f8faff;
+    -fx-border-radius: 5;
     -fx-background-radius: 10;
     -fx-border-color: #4a90e2; /* Light blue border for highlighting */
-    -fx-border-width: 2;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0.3, 0, 4);
+    -fx-border-width: 1;
     -fx-cursor: hand;
 }
 
@@ -190,20 +189,15 @@
     -fx-padding: 10;
 }
 
-/* TextArea focus effect */
-#taskDescription:focused {
-    -fx-border-color: #4a90e2; /* Light blue border on focus */
-    -fx-effect: dropshadow(gaussian, rgba(74, 144, 226, 0.3), 5, 0.3, 0, 4);
-}
 
-#taskDueDate, #taskPriority {
+#taskDueDate, #taskPriority, #taskLabel {
     -fx-font-size: 13px;
     -fx-text-fill: #4a4a4a;
 }
 
 /* ProgressBar styling */
 #taskProgressBar {
-    -fx-accent: #4caf50;  /* Green progress bar */
+    -fx-accent: #18d1aa;  /* Green progress bar */
     -fx-background-color: #e0e0e0; /* Light gray background */
     -fx-padding: 5;
     -fx-background-radius: 5;

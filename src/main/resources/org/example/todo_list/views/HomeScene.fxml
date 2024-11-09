@@ -130,12 +130,11 @@
                      <children>
                         <VBox fx:id="taskContainer" alignment="CENTER" prefHeight="434.0" prefWidth="300.0">
                            <children>
-                              <Label text="TASK DETAILS">
+                              <Label text="TASK DETAILS:">
                                  <font>
                                     <Font size="11.0" />
                                  </font>
                               </Label>
-                              <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ff1f1f" height="11.0" stroke="#544e4e" strokeType="INSIDE" width="62.0" />
                               <Label fx:id="taskName" alignment="CENTER" text="Do something">
                                  <font>
                                     <Font name="Adelle Sans Devanagari Bold" size="25.0" />
@@ -151,6 +150,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
+                              <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#ff1f1f" height="11.0" stroke="#544e4e" strokeType="INSIDE" width="62.0" />
                               <TextFlow fx:id="taskDescription" prefHeight="89.0" prefWidth="229.0" textAlignment="CENTER">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah BlahBlah Blah Blah Blah Blah Bla" wrappingWidth="201.46875" />
