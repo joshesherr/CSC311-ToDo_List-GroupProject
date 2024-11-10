@@ -27,6 +27,7 @@ public class App extends Application {
         sceneManager.showScene("LoginScene"); //Show log in window
     }
 
+
     /**
      * The starting point for our cool app.
      */

@@ -31,7 +31,7 @@
     -fx-font-size: 14px;
 }
 
-/* Sign-in button styling (blue) */
+ /*Sign-in button styling (blue) */
 .button {
     -fx-background-color: #4285f4;
     -fx-text-fill: white;
@@ -42,7 +42,7 @@
     -fx-cursor: hand;
 }
 
-.button:hover {
+.button:hover{
     -fx-background-color: #357ae8;
 }
 
