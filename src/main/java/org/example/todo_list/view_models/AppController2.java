@@ -14,7 +14,7 @@ import org.example.todo_list.SceneManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AppController implements Initializable {
+public class AppController2 implements Initializable {
 
     SceneManager sceneManager = SceneManager.getInstance();
 
