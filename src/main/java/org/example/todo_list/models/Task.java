@@ -1,6 +1,7 @@
 package org.example.todo_list.models;
 
 import java.time.*;
+import java.util.ArrayList;
 
 public class Task {
 
@@ -10,16 +11,16 @@ public class Task {
     private String description;
     private boolean completed;
     private int priority;
-    //private ArrayList<Tag> taskTags = new ArrayList<>();
-    //    // Create a default tag that each list will start with and be replaced?
-    //    //Or start empty? Only reason I wonder this is because of color setting in tags,
-    //    //and how we want to use Color
+    private ArrayList<Tag> taskTags = new ArrayList<>();
+        // Create a default tag that each list will start with and be replaced?
+        //Or start empty? Only reason I wonder this is because of color setting in tags,
+        //and how we want to use Color
 
     public Task() {
-        this.title = "";
+        this.title = "Place Holder Title";
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = null;
-        this.description = "";
+        this.description = "Place Holder Description";
         this.priority = Tasks.PRIORITY_LOW;
         this.completed = false;
     }
@@ -42,7 +43,7 @@ public class Task {
     }
 
     public LocalDateTime getStartDateTime() {
-        return startDateTime;
+        return startDateTime==null?LocalDateTime.now():startDateTime;
     }
 
     public void setStartDateTime(LocalDateTime startDateTime) {
@@ -50,7 +51,7 @@ public class Task {
     }
 
     public LocalDateTime getEndDateTime() {
-        return endDateTime;
+        return endDateTime==null?LocalDateTime.now():endDateTime;
     }
 
     public void setEndDateTime(LocalDateTime endDateTime) {
@@ -81,4 +82,11 @@ public class Task {
         this.priority = priority;
     }
 
+    public ArrayList<Tag> getTaskTags() {
+        return taskTags;
+    }
+
+    public void setTaskTags(ArrayList<Tag> taskTags) {
+        this.taskTags = taskTags;
+    }
 }

@@ -59,7 +59,6 @@ public class ListController {
      * Will remove this list from the home screen.
      */
     public void removeSelf() {
-  //      parentController.removeList(root);
+        parentController.removeList(root);
     }
-
 }

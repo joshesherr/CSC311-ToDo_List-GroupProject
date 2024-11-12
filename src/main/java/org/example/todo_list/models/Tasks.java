@@ -7,4 +7,6 @@ public class Tasks {
             PRIORITY_MEDIUM=1,
             PRIORITY_HIGH=2,
             PRIORITY_HIGHEST=3;
+
+    public static final int MAX_TAGS = 5;
 }

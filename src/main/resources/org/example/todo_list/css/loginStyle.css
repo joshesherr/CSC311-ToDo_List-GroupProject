@@ -5,6 +5,21 @@
     -fx-alignment: center;
 }
 
+.button {
+    -fx-background-color: #4285f4;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+}
+.button:hover{
+    -fx-background-color: #357ae8;
+}
+
+.text-field {
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+}
+
 /* VBox container styling */
 #loginContainer {
     -fx-alignment: center;
@@ -20,30 +35,6 @@
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #2d3e50;
-}
-
-/* TextField styling */
-.text-field {
-    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
-    -fx-background-radius: 5;
-    -fx-background-color: #eaf1f8;
-    -fx-padding: 8;
-    -fx-font-size: 14px;
-}
-
- /*Sign-in button styling (blue) */
-.button {
-    -fx-background-color: #4285f4;
-    -fx-text-fill: white;
-    -fx-background-radius: 5;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-padding: 10 20;
-    -fx-cursor: hand;
-}
-
-.button:hover{
-    -fx-background-color: #357ae8;
 }
 
 /* Sign-up button styling (outlined blue) */

@@ -26,7 +26,6 @@
 }
 
 .button {
-    -fx-background-image: url("./../images/menu_icons/add-circle-outline_32px.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: 24px;
     -fx-max-width: 24px;
@@ -34,7 +33,13 @@
     -fx-background-color: transparent;
 }
 
-#listOptions {
+
+
+#addTaskBtn{
+    -fx-background-image: url("./../images/menu_icons/add-circle-outline_32px.png");
+}
+
+#optionsBtn {
     -fx-background-image: url("./../images/menu_icons/ellipsis-horizontal_32px.png");
 }
 

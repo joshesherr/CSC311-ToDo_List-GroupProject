@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox id="listBody" fx:id="root" prefHeight="320.0" prefWidth="266.0" stylesheets="@../../css/listStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
+<VBox id="listBody" fx:id="root" prefHeight="320.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
    <children>
       <AnchorPane prefHeight="69.0" prefWidth="266.0">
          <children>
@@ -24,7 +25,7 @@
                   <Font size="17.0" />
                </font>
             </Text>
-            <Button id="listOptions" fx:id="optionsBtn" contentDisplay="GRAPHIC_ONLY" layoutX="228.0" layoutY="15.0" maxHeight="79.0" maxWidth="96.0" mnemonicParsing="false" onAction="#showOptions" prefHeight="79.0" prefWidth="96.0" textAlignment="CENTER">
+            <Button id="optionsBtn" fx:id="optionsBtn" contentDisplay="GRAPHIC_ONLY" layoutX="228.0" layoutY="15.0" maxHeight="79.0" maxWidth="96.0" mnemonicParsing="false" onAction="#showOptions" prefHeight="79.0" prefWidth="96.0" textAlignment="CENTER">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -46,7 +47,7 @@
       <Separator prefWidth="200.0" />
       <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="266.0" VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="addTaskBtn" contentDisplay="GRAPHIC_ONLY" maxHeight="26.0" maxWidth="99.0" minWidth="0.0" mnemonicParsing="false" onAction="#addTaskBtnPressed" prefHeight="26.0" prefWidth="99.0">
+            <Button id="addTaskBtn" fx:id="addTaskBtn" contentDisplay="GRAPHIC_ONLY" maxHeight="26.0" maxWidth="99.0" minWidth="0.0" mnemonicParsing="false" onAction="#addTaskBtnPressed" prefHeight="19.0" prefWidth="24.0">
                <HBox.margin>
                   <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                </HBox.margin>
@@ -54,7 +55,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" contentDisplay="TOP" text="Add Task">
+            <Label alignment="CENTER" contentDisplay="TOP" prefWidth="51.0" text="Add Task">
                <font>
                   <Font size="14.0" />
                </font>
@@ -74,4 +75,8 @@
          </VBox.margin>
       </ScrollPane>
    </children>
+   <stylesheets>
+      <URL value="@../../css/listStyle.css" />
+      <URL value="@../../css/globalStyle.css" />
+   </stylesheets>
 </VBox>

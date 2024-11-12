@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -49,13 +50,13 @@ public class SceneManager {
             return true;
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Failed to load scene "+fxmlSceneName+".fxml");
+            System.out.println("Failed to load scene"+"views/"+fxmlSceneName+".fxml");
             return false;
         }
     }
 
     /**
-     * Shows a new view. If the view is already loaded it will try to load it.
+     * Shows a new view. If the view is not already loaded it will try to load it.
      * @param sceneName the name of the fxml file you wish to show (without '.fxml')
      */
     public void showScene(String sceneName) {
@@ -64,7 +65,7 @@ public class SceneManager {
 
         Scene scene = scenes.get(sceneName);
 
-        primaryStage.setMaximized(true);
+        //primaryStage.setMaximized(true);
 
         if (!primaryStage.isMaximized()) {
             // Get the screen bounds to center the stage if it is not maximized
@@ -84,6 +85,20 @@ public class SceneManager {
         primaryStage.show();
     }
 
+    /**
+     *
+     * @param sceneName
+     */
+    public void showPopupWindow(String sceneName) {
+        //If scene isn't loaded try to load it. Do not continue if scene can't be loaded.
+        if (!scenes.containsKey(sceneName)) if (!loadScene(sceneName)) return;
 
+        Scene scene = scenes.get(sceneName);
+
+        final Stage popUp = new Stage();
+
+        popUp.setScene(scene);
+        popUp.show();
+    }
 
 }

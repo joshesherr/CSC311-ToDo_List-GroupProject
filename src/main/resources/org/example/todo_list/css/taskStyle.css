@@ -3,12 +3,15 @@
 }
 
 .button {
-    -fx-background-image: url("./../images/menu_icons/ellipsis-vertical_32px.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: 20px;
     -fx-max-width: 20px;
     -fx-max-height: 20px;
     -fx-background-color: transparent;
+}
+
+#optionsBtn {
+    -fx-background-image: url("./../images/menu_icons/ellipsis-vertical_32px.png");
 }
 
 .toggle-button {

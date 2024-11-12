@@ -2,21 +2,30 @@ package org.example.todo_list.view_models;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Polygon;
-import javafx.scene.text.TextFlow;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import org.example.todo_list.SceneManager;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
 
+    public HBox listBox;
+    public AnchorPane root;
     SceneManager sceneManager = SceneManager.getInstance();
+    private static TaskController focusedTaskCon=null;
+    private static TaskDetailsController taskDetailsCon;
+
+    @FXML
+    private VBox taskDetails;
 
     @FXML
     private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addTaskBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
@@ -40,7 +49,7 @@ public class AppController implements Initializable {
     private BorderPane innerTaskBP, outerBP;
 
     @FXML
-    private TextFlow taskDescription;
+    private TextArea taskDescription;
 
     @FXML
     private ProgressBar taskProgressBar;
@@ -60,9 +69,62 @@ public class AppController implements Initializable {
 
     }
 
-    @FXML
-    void addTask(ActionEvent event) {
-        sceneManager.loadScene("addTaskScene");
-        sceneManager.showScene("addTaskScene");
+    //Todo name lists on creation
+    public void addListBtnPressed(ActionEvent actionEvent) {
+        addList();
+    }
+
+    /**
+     * Adds a new list to this home screen.
+     */
+    public void addList() {
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
+            listBox.getChildren().addFirst((Parent) loader.load());
+            ListController listCon = loader.getController();
+            listCon.parentController = this;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showTaskDetails() {
+
+        if (taskDetailsCon == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/TaskDetails.fxml"));
+                root.getChildren().add((Parent) loader.load());
+                taskDetailsCon = loader.getController();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        taskDetailsCon.root.setVisible(true);
+        taskDetailsCon.updateTaskDetails();
+
+    }
+
+    /**
+     * removes a list from the home screen.
+     * @param list The list to remove.
+     */
+    public void removeList(Node list) {
+        listBox.getChildren().remove(list);
+    }
+
+    public static TaskController getFocusedTask() {
+        return focusedTaskCon;
+    }
+    public void setFocusedTask(TaskController taskCon) {
+        focusedTaskCon = taskCon;
+        showTaskDetails();
+    }
+    public static TaskDetailsController getTaskDetailsCon() {
+        return taskDetailsCon;
+    }
+    public static void setTaskDetailsCon(TaskDetailsController taskDetailsCon) {
+        AppController.taskDetailsCon = taskDetailsCon;
     }
 }

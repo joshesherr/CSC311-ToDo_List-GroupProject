@@ -1,15 +1,9 @@
-/* Root container styling */
-#root {
-    -fx-background-color: #f0f4f8;
-    -fx-padding: 20;
-    -fx-alignment: center;
-}
-
 /* Styling for main container */
-#createTaskContainer {
+#root {
+    -fx-font-size: 10px;
     -fx-alignment: center;
-    -fx-spacing: 15;
-    -fx-padding: 20;
+    -fx-spacing: 4;
+    -fx-padding: 10;
     -fx-background-radius: 10;
     -fx-background-color: #ffffff;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
@@ -17,7 +11,6 @@
 
 /* Label styling */
 #descriptionLabel, #dueDateLabel, #nameLabel {
-    -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #2c3e50; /* Dark color for readability */
     -fx-padding: 5 0;
@@ -28,8 +21,6 @@
     -fx-background-color: #ffffff;
     -fx-border-color: #d3e0f0; /* Soft border */
     -fx-border-radius: 5;
-    -fx-padding: 8;
-    -fx-font-size: 14px;
     -fx-prompt-text-fill: #9aa6b8; /* Light color for prompt text */
 }
 
@@ -42,13 +33,12 @@
 }
 
 /* Button styling (shared style) */
-#createTaskBtn {
+#updateTaskBtn {
     -fx-background-color: #4285f4;
     -fx-text-fill: white;
     -fx-background-radius: 5;
-    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-padding: 10 20;
+    -fx-padding: 8 15;
     -fx-cursor: hand;
 }
 
@@ -58,6 +48,16 @@
     -fx-border-width: 2;
     -fx-text-fill: #4285f4;
     -fx-background-radius: 5;
+}
+
+#hideBtn {
+    -fx-background-image: url("./../images/menu_icons/close-circle-outline_32px.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20px;
+    -fx-max-width: 20px;
+    -fx-max-height: 20px;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 
 #addTagBtn:hover, #personalTaskBtn:hover, #shareTaskBtn:hover {

@@ -44,3 +44,17 @@
     -fx-max-height: 0;
     -fx-opacity: 0;
 }
+
+.button {
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.button:hover{
+}
+
+.text-field {
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+    -fx-background-radius: 5;
+    -fx-background-color: #eaf1f8;
+}

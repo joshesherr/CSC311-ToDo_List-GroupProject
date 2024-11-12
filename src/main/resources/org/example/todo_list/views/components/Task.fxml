@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -10,11 +11,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" alignment="CENTER_LEFT" prefHeight="9.0" prefWidth="266.0" stylesheets="@../../css/taskStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskController">
+<VBox fx:id="root" alignment="CENTER_LEFT" prefHeight="9.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="200.0" spacing="8.0" VBox.vgrow="ALWAYS">
          <children>
-            <ToggleButton maxHeight="24.0" maxWidth="24.0" minHeight="24.0" minWidth="24.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="24.0">
+            <ToggleButton focusTraversable="false" maxHeight="24.0" maxWidth="24.0" minHeight="7.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -22,8 +23,8 @@
                   <Insets top="2.0" />
                </HBox.margin>
             </ToggleButton>
-            <TextField fx:id="taskNameField" prefHeight="26.0" prefWidth="202.0" promptText="Task Name" />
-            <Button fx:id="optionsBtn" mnemonicParsing="false" onAction="#showOptions" opacity="0.48" prefWidth="0.0">
+            <TextField fx:id="taskNameField" prefHeight="26.0" prefWidth="199.0" promptText="Task Name" />
+            <Button id="optionsBtn" fx:id="optionsBtn" focusTraversable="false" maxHeight="23.0" maxWidth="23.0" mnemonicParsing="false" onAction="#showOptions" opacity="0.48" prefHeight="23.0" prefWidth="23.0">
                <contextMenu>
                   <ContextMenu fx:id="optionsMenu">
                     <items>
@@ -35,4 +36,8 @@
          </children>
       </HBox>
    </children>
+   <stylesheets>
+      <URL value="@../../css/globalStyle.css" />
+      <URL value="@../../css/taskStyle.css" />
+   </stylesheets>
 </VBox>
