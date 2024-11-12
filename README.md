@@ -1,5 +1,5 @@
 <div align="center">
-  <img style="align-self: center" src="src%2Fmain%2Fresources%2Forg%2Fexample%2Ftodo_list%2Fimages%2Ficon1.png" alt="logo" width="128"/>
+  <img style="align-self: center" src="src%2Fmain%2Fresources%2Forg%2Fexample%2Ftodo_list%2Fimages%2Flogo%2Ficon_256.png" alt="logo" width="128"/>
   <h1>JustDo</h1>
 </div>
 

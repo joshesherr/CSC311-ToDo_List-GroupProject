@@ -1,0 +1,42 @@
+.text {
+    -fx-font-family: Arial;
+}
+
+#listBody {
+    -fx-background-radius: 10;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
+}
+
+.scroll-pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+}
+.scroll-pane .viewport {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #4285f4;
+}
+.progress-bar .track {
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0.5, 0, 3);
+}
+
+.button {
+    -fx-background-image: url("./../images/menu_icons/add-circle-outline_32px.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 24px;
+    -fx-max-width: 24px;
+    -fx-max-height: 24px;
+    -fx-background-color: transparent;
+}
+
+#listOptions {
+    -fx-background-image: url("./../images/menu_icons/ellipsis-horizontal_32px.png");
+}
+
+
+

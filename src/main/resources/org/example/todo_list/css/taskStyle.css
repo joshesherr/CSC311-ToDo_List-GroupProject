@@ -1,0 +1,29 @@
+.text {
+    -fx-font-family: Arial;
+}
+
+.button {
+    -fx-background-image: url("./../images/menu_icons/ellipsis-vertical_32px.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20px;
+    -fx-max-width: 20px;
+    -fx-max-height: 20px;
+    -fx-background-color: transparent;
+}
+
+.toggle-button {
+    -fx-background-image: url("./../images/menu_icons/ellipse-outline_32px.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20px;
+    -fx-max-width: 20px;
+    -fx-max-height: 20px;
+    -fx-background-color: transparent;
+}
+
+.toggle-button:selected {
+    -fx-background-image: url('./../images/menu_icons/checkmark-circle-outline_32px.png');
+}
+
+.text-field {
+    -fx-background-color: transparent;
+}

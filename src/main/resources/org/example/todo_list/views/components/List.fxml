@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox id="listBody" fx:id="root" prefHeight="320.0" prefWidth="266.0" stylesheets="@../../css/listStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
+   <children>
+      <AnchorPane prefHeight="69.0" prefWidth="266.0">
+         <children>
+            <Text layoutX="14.0" layoutY="33.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="My List Name">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Button id="listOptions" fx:id="optionsBtn" contentDisplay="GRAPHIC_ONLY" layoutX="228.0" layoutY="15.0" maxHeight="79.0" maxWidth="96.0" mnemonicParsing="false" onAction="#showOptions" prefHeight="79.0" prefWidth="96.0" textAlignment="CENTER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <contextMenu>
+                  <ContextMenu fx:id="optionsMenu">
+                    <items>
+                       <MenuItem mnemonicParsing="false" text="Rename List" />
+                       <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                       <MenuItem mnemonicParsing="false" onAction="#removeSelf" text="Delete List" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu></Button>
+            <ProgressBar layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="143.0" progress="0.42" />
+         </children>
+         <padding>
+            <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+         </padding>
+      </AnchorPane>
+      <Separator prefWidth="200.0" />
+      <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="266.0" VBox.vgrow="NEVER">
+         <children>
+            <Button fx:id="addTaskBtn" contentDisplay="GRAPHIC_ONLY" maxHeight="26.0" maxWidth="99.0" minWidth="0.0" mnemonicParsing="false" onAction="#addTaskBtnPressed" prefHeight="26.0" prefWidth="99.0">
+               <HBox.margin>
+                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label alignment="CENTER" contentDisplay="TOP" text="Add Task">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="190.0" prefWidth="266.0" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox fx:id="taskBox" prefHeight="185.0" prefWidth="262.0" spacing="8.0">
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </VBox>
+         </content>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </ScrollPane>
+   </children>
+</VBox>

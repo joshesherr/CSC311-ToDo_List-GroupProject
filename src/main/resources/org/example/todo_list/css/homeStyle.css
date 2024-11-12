@@ -1,0 +1,46 @@
+.text {
+    -fx-font-family: Arial;
+}
+
+.context-menu {
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 0px;
+    -fx-background-radius: 6px;
+}
+.menu-item:hover, .menu-item:selected, .menu-item:focused {
+    -fx-background-color: #dcdcdc;
+    -fx-background-radius: 1;
+}
+.menu-item:hover .label, .menu-item:selected .label, .menu-item:focused .label {
+    -fx-text-fill: #000000;
+}
+
+.scroll-pane:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+}
+.scroll-bar .thumb {
+    -fx-background-color: rgba(46, 127, 255, 0.68);
+    -fx-max-width: 20px;
+    -fx-max-height: 20px;
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: #3784ff;
+}
+.scroll-bar .track {
+    visibility: false;
+}
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-shape: null;
+    -fx-background-color: transparent;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+    -fx-opacity: 0;
+}

@@ -1,6 +1,7 @@
 package org.example.todo_list;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class SceneManager {
-    private static final SceneManager INSTANCE  = new SceneManager();;
+    private static final SceneManager INSTANCE  = new SceneManager();
     /**
      * Holds loaded scenes that can be shown.
      */
@@ -46,8 +47,8 @@ public class SceneManager {
             scenes.put(fxmlSceneName, scene);
             return true;
         } catch (IOException e) {
-            //e.printStackTrace();
-            System.out.println("Failed to load scene "+fxmlSceneName);
+            e.printStackTrace();
+            System.out.println("Failed to load scene "+fxmlSceneName+".fxml");
             return false;
         }
     }
@@ -64,4 +65,5 @@ public class SceneManager {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 }
