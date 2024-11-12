@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane fx:id="outerBP" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../css/appStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController2">
+<BorderPane fx:id="outerBP" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../css/appStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <top>
       <MenuBar fx:id="menuBar" prefWidth="739.0" BorderPane.alignment="CENTER">
         <menus>
