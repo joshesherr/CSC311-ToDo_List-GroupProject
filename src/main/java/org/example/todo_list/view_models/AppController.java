@@ -2,23 +2,54 @@ package org.example.todo_list.view_models;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Polygon;
+import javafx.scene.text.TextFlow;
 import org.example.todo_list.SceneManager;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
 
-    public HBox listBox;
     SceneManager sceneManager = SceneManager.getInstance();
+
+    @FXML
+    private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addTaskBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
+
+    @FXML
+    private Label viewTasksLabel, myTAsksLabel, calendarLabel, tagsLabel, taskDueDate, taskName, taskPriority, taskLabel;
+
+    @FXML
+    private CheckBox checkBox;
+
+    @FXML
+    private GridPane gridPane;
+
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private Menu menuBarCreate, menuBarEdit, menuBarFile, menuBarGroup, menuBarHelp;
+
+    @FXML
+    private BorderPane innerTaskBP, outerBP;
+
+    @FXML
+    private TextFlow taskDescription;
+
+    @FXML
+    private ProgressBar taskProgressBar;
+
+    @FXML
+    private Polygon taskTag;
+
+    @FXML
+    private VBox taskContainer, listTaskContainer;
 
     public void logOut(ActionEvent actionEvent) {
         sceneManager.showScene("LoginScene");
@@ -29,34 +60,9 @@ public class AppController implements Initializable {
 
     }
 
-    //Todo name lists on creation
-
-    public void addListBtnPressed(ActionEvent actionEvent) {
-        addList();
+    @FXML
+    void addTask(ActionEvent event) {
+        sceneManager.loadScene("addTaskScene");
+        sceneManager.showScene("addTaskScene");
     }
-
-    /**
-     * Adds a new list to this home screen.
-     */
-    public void addList() {
-        try {
-            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
-            listBox.getChildren().addFirst((Parent) loader.load());
-            ListController listCon = loader.getController();
-            listCon.parentController = this;
-
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * removes a list from the home screen.
-     * @param list The list to remove.
-     */
-    public void removeList(Node list) {
-        listBox.getChildren().remove(list);
-    }
-
 }
