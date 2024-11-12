@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AppController implements Initializable {
+public class AppController2 implements Initializable {
 
     public HBox listBox;
     public AnchorPane root;
