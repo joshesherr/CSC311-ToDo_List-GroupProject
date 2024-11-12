@@ -51,6 +51,15 @@
     -fx-padding: 10 20;
     -fx-cursor: hand;
 }
+
+.button-style {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4285f4;
+    -fx-border-width: 2;
+    -fx-text-fill: #4285f4;
+    -fx-background-radius: 5;
+}
+
 #addTagBtn:hover, #personalTaskBtn:hover, #shareTaskBtn:hover {
     -fx-background-color: #eaf1f8;
 }
