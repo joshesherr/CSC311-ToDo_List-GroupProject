@@ -1,10 +1,10 @@
 
 /*---------Styling outer and inner Containers (BorderPane)----------*/
-#outerBP {
+#root {
     -fx-background-color: #f8fafc;
 }
 
-#innerTaskBP {
+#taskBar {
     -fx-background-color: #ffffff;
     -fx-border-color: #d1d9e6;
     -fx-border-radius: 8;
@@ -13,7 +13,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
 }
 /* GridPane styling */
-#gridPane {
+#scrollPane {
     -fx-background-color: #f8fafc; /* Light neutral background */
     /*-fx-background-image: url;*/
 }
@@ -58,7 +58,7 @@
 /* ----------------------Menu bar styling ends-------------------------*/
 
 /* ----------------------Filtering and operational bar's styling starts----------------- */
-#personalTasksBtn, #importantTasksBtn, #homeStuffTasksBtn, #addTaskBtn, #allTasksBtn,
+#personalTasksBtn, #importantTasksBtn, #homeStuffTasksBtn, #addListBtn, #allTasksBtn,
 #criticalTasksBtn, #daysTasksBtn, #groupTasksBtn, #homeBtn, #monthTasksBtn, #weekTasksBtn {
     -fx-background-color: #aaccf6; /* Primary button color */
     -fx-text-fill: #2c3e50;
@@ -73,14 +73,14 @@
 }
 
  /*Button hover effect */
-#personalTasksBtn:hover, #importantTasksBtn:hover, #homeStuffTasksBtn:hover, #addTaskBtn:hover,
+#personalTasksBtn:hover, #importantTasksBtn:hover, #homeStuffTasksBtn:hover, #addListBtn:hover,
 #allTasksBtn:hover, #criticalTasksBtn:hover, #daysTasksBtn:hover, #groupTasksBtn:hover,
 #homeBtn:hover, #monthTasksBtn:hover, #weekTasksBtn:hover {
     -fx-background-color: #357ae8; /* Darker shade on hover */
 }
 
 /*!* Button pressed effect *!*/
-#personalTasksBtn:pressed, #importantTasksBtn:pressed, #homeStuffTasksBtn:pressed, #addTaskBtn:pressed,
+#personalTasksBtn:pressed, #importantTasksBtn:pressed, #homeStuffTasksBtn:pressed, #addListBtn:pressed,
 #allTasksBtn:pressed, #criticalTasksBtn:pressed, #daysTasksBtn:pressed, #groupTasksBtn:pressed,
 #homeBtn:pressed, #monthTasksBtn:pressed, #weekTasksBtn:pressed {
     -fx-background-color: #2e6ac7; /* Darker blue when pressed */
@@ -115,7 +115,7 @@
     -fx-padding: 5 10;
 }
 
-/*!* Styling for task button *!*/
+/* Styling for task button */
 .button {
     -fx-background-color: #EAF1F8FF;
     -fx-border: #4a90e2;
@@ -130,12 +130,12 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.3, 0, 2); /* Light shadow */
 }
 
-/*!* Button hover effect *!*/
+/* Button hover effect */
 .button:hover {
     -fx-background-color: #357ae8; /* Darker blue on hover */
 }
 
-/*!* Button pressed effect *!*/
+/* Button pressed effect */
 .button:pressed {
     -fx-background-color: #2e6ac7; /* Darkest blue when pressed */
 }

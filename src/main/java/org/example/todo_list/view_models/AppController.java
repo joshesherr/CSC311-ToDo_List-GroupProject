@@ -25,10 +25,7 @@ public class AppController implements Initializable {
     private static TaskDetailsController taskDetailsCon;
 
     @FXML
-    private VBox taskDetails;
-
-    @FXML
-    private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addTaskBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
+    private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
 
     @FXML
     private Label viewTasksLabel, myTAsksLabel, calendarLabel, tagsLabel, taskDueDate, taskName, taskPriority, taskLabel;
@@ -55,10 +52,10 @@ public class AppController implements Initializable {
     private ProgressBar taskProgressBar;
 
     @FXML
-    private Polygon taskTag;
+    private VBox taskContainer, listTaskContainer;
 
     @FXML
-    private VBox taskContainer, listTaskContainer;
+    private ScrollPane scrollPane;
 
     public void logOut(ActionEvent actionEvent) {
         sceneManager.showScene("LoginScene");
