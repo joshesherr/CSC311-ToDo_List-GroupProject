@@ -121,6 +121,7 @@ public class TaskDetailsController implements Initializable {
         });
     }
 
+    //Mouse dragging mouse anchors
     private double mouseAnchorX;
     private double mouseAnchorY;
     @Override
@@ -130,10 +131,25 @@ public class TaskDetailsController implements Initializable {
             mouseAnchorX = e.getX();
             mouseAnchorY = e.getY();
         });
-        root.setOnMouseDragged(e->{
-            root.setLayoutX(e.getSceneX() - mouseAnchorX);
-            root.setLayoutY(e.getSceneY() - mouseAnchorY);
+        root.setOnMouseDragged(e->{//Make Detail window draggable
+            double newX = e.getSceneX()-mouseAnchorX;
+            double newY = e.getSceneY()-mouseAnchorY;
+            root.setLayoutX( newX<0?0.0:(Math.min(newX, SceneManager.getInstance().getPrimaryStage().getWidth()-16-root.getWidth())));//set limits of window dragging
+            root.setLayoutY( newY<0?0.0:(Math.min(newY, SceneManager.getInstance().getPrimaryStage().getHeight()-40-root.getHeight())));
         });
+
+
+        //Any time one of these Nodes are changed, the task instance will update.
+        taskName.textProperty().addListener((ov, oldValue, newValue) -> {
+            AppController.getFocusedTask().taskNameField.setText(newValue);//Task will be updated from TaskControllers Listener on taskNameField
+        });
+        taskDescription.textProperty().addListener((ov, oldValue, newValue) -> {
+            AppController.getFocusedTask().getTask().setDescription(newValue);
+        });
+        taskDueDate.valueProperty().addListener((ov, oldValue, newValue) -> {
+            AppController.getFocusedTask().getTask().setEndDateTime(newValue.atTime(LocalTime.now()));
+        });
+        //Todo populate the tag field with the proper tags.
     }
 
 
@@ -144,7 +160,6 @@ public class TaskDetailsController implements Initializable {
         taskDueDate.setValue(task.getEndDateTime().toLocalDate());
         //taskPriority.setText( String.valueOf(task.getPriority()) );
         taskDescription.setText( task.getDescription() );
-
     }
 
     public void clearTaskDetails() {
@@ -154,31 +169,13 @@ public class TaskDetailsController implements Initializable {
         taskDescription.setText("");
     }
 
-    public void hideDetails(ActionEvent actionEvent) {
+    public void hideDetails() {
         root.setVisible(false);
     }
 
-    //To Do: Time selection for task creation, default case implementation
-//    @FXML
-//    void createTask(ActionEvent event) {
-//        //Needs validation for task creation, and then building of actual list from the input data
-//      //  if (validation stuff for task creation) {
-//            //Add to User new Task
-//            Task newTask = new Task();
-//            newTask.setTitle(nameTextField.getText().trim());
-//            // Get the selected date from the DatePicker
-//            LocalDate selectedDate = taskDueDate.getValue();
-//            // Get the current time (hours and minutes)
-//            LocalTime currentTime = LocalTime.now();
-//            //Set LocalDateTime in task
-//            LocalDateTime selectedDateTime = LocalDateTime.of(selectedDate, currentTime);
-//            newTask.setEndDateTime(selectedDateTime);
-//            //If no time selected, make it midnight or 11:59PM of selected day by default
-//            newTask.setDescription(taskDescription.getText().trim());
-//
-//            //add priority
-//
-// //       }
-//    }
+    public void deleteTask() {
+        AppController.getFocusedTask().removeSelf();
+        hideDetails();
+    }
 }
 

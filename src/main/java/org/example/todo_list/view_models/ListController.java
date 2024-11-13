@@ -2,24 +2,30 @@ package org.example.todo_list.view_models;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.models.Task;
+import org.example.todo_list.models.TaskList;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ListController {
+public class ListController implements Initializable {
     public Button addTaskBtn;
     public Button optionsBtn;
     public VBox taskBox;
     public ContextMenu optionsMenu;
     public VBox root;
     public AppController parentController;
+    public ProgressBar progressBar;
+    private TaskList taskList;
 
     public void addTaskBtnPressed(ActionEvent actionEvent) {
         addTask();
@@ -33,21 +39,25 @@ public class ListController {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
             taskBox.getChildren().addFirst((Parent) loader.load());
             TaskController taskCon = loader.getController();
+
             taskCon.parentController = this;
             taskCon.taskNameField.requestFocus();
-
+            taskList.addTask( taskCon.getTask() );
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+        updateProgress();
     }
 
     /**
      * Delete a task from this list.
      * @param task The task to delete.
      */
-    public void removeTask(Node task) {
-        taskBox.getChildren().remove(task);
+    public void removeTask(TaskController task) {
+        taskList.removeTask(task.getTask());
+        taskBox.getChildren().remove(task.root);
+        updateProgress();
     }
 
     //Todo Show options right above button. currently it is completely off screen
@@ -59,6 +69,15 @@ public class ListController {
      * Will remove this list from the home screen.
      */
     public void removeSelf() {
-        parentController.removeList(root);
+        parentController.removeList(this);
+    }
+
+    public void updateProgress() {
+        progressBar.setProgress(taskList.getProgress());
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        taskList = new TaskList();
     }
 }

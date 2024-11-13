@@ -110,8 +110,8 @@ public class AppController implements Initializable {
      * removes a list from the home screen.
      * @param list The list to remove.
      */
-    public void removeList(Node list) {
-        listBox.getChildren().remove(list);
+    public void removeList(ListController list) {
+        listBox.getChildren().remove(list.root);
     }
 
     public static TaskController getFocusedTask() {

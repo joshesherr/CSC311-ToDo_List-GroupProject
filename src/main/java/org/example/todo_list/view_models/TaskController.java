@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.example.todo_list.models.Task;
@@ -21,7 +22,8 @@ public class TaskController implements Initializable {
     public ListController parentController;
     public ContextMenu optionsMenu;
     public Button optionsBtn;
-    public Task task;
+    public ToggleButton taskToggleCheck;
+    private Task task;
 
     //Todo Show options right above button. currently it is completely off screen
     public void showOptions(ActionEvent actionEvent) {
@@ -32,7 +34,7 @@ public class TaskController implements Initializable {
      * Will remove this task from this list it's currently in.
      */
     public void removeSelf() {
-        parentController.removeTask(root);
+        parentController.removeTask(this);
     }
 
 
@@ -45,10 +47,13 @@ public class TaskController implements Initializable {
         });
 
         taskNameField.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)) {
-                task.setTitle(newValue);
-                AppController.getTaskDetailsCon().updateTaskDetails();
-            }
+            task.setTitle(newValue);
+            AppController.getTaskDetailsCon().updateTaskDetails();
+        });
+
+        taskToggleCheck.selectedProperty().addListener((ov, oldValue, newValue) -> {
+            task.setCompleted(newValue);
+            parentController.updateProgress();
         });
 
     }

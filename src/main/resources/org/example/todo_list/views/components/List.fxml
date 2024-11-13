@@ -38,7 +38,7 @@
                     </items>
                   </ContextMenu>
                </contextMenu></Button>
-            <ProgressBar layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="143.0" progress="0.42" />
+            <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="143.0" progress="0.0" />
          </children>
          <padding>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />

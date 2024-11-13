@@ -3,9 +3,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ContextMenu?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.HBox?>
@@ -15,7 +12,7 @@
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="200.0" spacing="8.0" VBox.vgrow="ALWAYS">
          <children>
-            <ToggleButton focusTraversable="false" maxHeight="24.0" maxWidth="24.0" minHeight="7.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
+            <ToggleButton fx:id="taskToggleCheck" focusTraversable="false" maxHeight="24.0" maxWidth="24.0" minHeight="7.0" minWidth="20.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="20.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -23,16 +20,7 @@
                   <Insets top="2.0" />
                </HBox.margin>
             </ToggleButton>
-            <TextField fx:id="taskNameField" prefHeight="26.0" prefWidth="199.0" promptText="Task Name" />
-            <Button id="optionsBtn" fx:id="optionsBtn" focusTraversable="false" maxHeight="23.0" maxWidth="23.0" mnemonicParsing="false" onAction="#showOptions" opacity="0.48" prefHeight="23.0" prefWidth="23.0">
-               <contextMenu>
-                  <ContextMenu fx:id="optionsMenu">
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#removeSelf" text="Delete Task" />
-                    </items>
-                  </ContextMenu>
-               </contextMenu>
-            </Button>
+            <TextField fx:id="taskNameField" prefHeight="25.0" prefWidth="255.0" promptText="Task Name" />
          </children>
       </HBox>
    </children>

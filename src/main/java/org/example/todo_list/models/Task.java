@@ -3,7 +3,7 @@ package org.example.todo_list.models;
 import java.time.*;
 import java.util.ArrayList;
 
-public class Task {
+public class Task implements Comparable {
 
     private String title;
     private LocalDateTime startDateTime;
@@ -17,10 +17,10 @@ public class Task {
         //and how we want to use Color
 
     public Task() {
-        this.title = "Place Holder Title";
+        this.title = "";
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = null;
-        this.description = "Place Holder Description";
+        this.description = "";
         this.priority = Tasks.PRIORITY_LOW;
         this.completed = false;
     }
@@ -88,5 +88,10 @@ public class Task {
 
     public void setTaskTags(ArrayList<Tag> taskTags) {
         this.taskTags = taskTags;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }
