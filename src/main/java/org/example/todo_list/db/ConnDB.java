@@ -1,7 +1,9 @@
 package org.example.todo_list.db;
 
 import org.example.todo_list.models.Person;
+import org.example.todo_list.models.Task;
 import org.example.todo_list.models.TaskList;
+import java.time.*;
 
 import java.sql.*;
 
@@ -49,7 +51,7 @@ public class ConnDB {
         }
     }
 
-    //TODO: How does person connect to tasks? Figure this out
+    //TODO: How does person connect to tasks? Figure this out -> Whats the right way to pass this method
     public void insertList(TaskList tl) {
         connectToDatabase();
         try {
@@ -59,6 +61,7 @@ public class ConnDB {
             //How can i store multiple tasks, sharedUser ID's, and tags here?
             //-> SharedUsers probably should happen later, dont happen when task list is created?
             //-> Tags can possibly be stored in a related table that has 5 VARCHARS for each
+            //Current method does not store anything beyond title and progress bar value
             String sql = "INSERT INTO task_list (title, progress) VALUES (?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, tl.getTitle());
@@ -78,6 +81,30 @@ public class ConnDB {
         }
     }
 
+    //TODO: Decide if DateTimes stored as objects or strings with a formatter?
+    public void insertTask(Task task) {
+        connectToDatabase();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            //-> Tags can possibly be stored in a related table that has 5 VARCHARS for each
+            String sql = "INSERT INTO task_list (title, startDateTime, endDateTime, description, priority, completed) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, task.getTitle());
+            preparedStatement.setObject(2, LocalDateTime.now());
+            preparedStatement.setObject(3, task.getEndDateTime());
+            preparedStatement.setString(4, task.getDescription());
+            preparedStatement.setString(5, String.valueOf(task.getPriority()));    //Priority currently being converted to a string
+            preparedStatement.setBoolean(6, task.isCompleted());
+            int row = preparedStatement.executeUpdate();
+            if (row > 0) {
+                System.out.println("A new Task " + task.getTitle() + " was created successfully.");
+            }
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      *
@@ -149,7 +176,7 @@ public class ConnDB {
     //Method to retrieve id from database where it is auto-incremented via email search.
     /**
      * @param p user being searched
-     * @param id of user to be returned
+    // * @param id of user to be returned
      */
     public int retrieveId(Person p) {
         connectToDatabase();
