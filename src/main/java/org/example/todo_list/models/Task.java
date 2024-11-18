@@ -21,7 +21,7 @@ public class Task implements Comparable {
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = null;
         this.description = "";
-        this.priority = Tasks.PRIORITY_LOW;
+        this.priority = TaskEnums.PRIORITY_LOW;
         this.completed = false;
     }
 
