@@ -9,11 +9,10 @@ import javafx.scene.layout.VBox;
 import org.example.todo_list.SceneManager;
 import org.example.todo_list.models.Tag;
 import org.example.todo_list.models.Task;
-import org.example.todo_list.models.Tasks;
+import org.example.todo_list.models.TaskEnums;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -48,7 +47,7 @@ public class TaskDetailsController implements Initializable {
         // The TaskList in List class will do the following features:
         //Replace local tag arraylist with the one in the created List
         //Max size can be decided on later or set by user, but we should make a max just for creation
-        if (listTags.size() < Tasks.MAX_TAGS) {
+        if (listTags.size() < TaskEnums.MAX_TAGS) {
             // When the button is clicked, show a pop-up dialog to input the tag
                 TextInputDialog dialog = new TextInputDialog();
                 dialog.setTitle("Add New Tag");
@@ -81,7 +80,7 @@ public class TaskDetailsController implements Initializable {
                         //This code will break if user wants to remove excess tags, no way to remove tags yet
                         //If tags are removed and list is < MAX_TAGS, reenable button -> How to do that if button is disabled
                         //Revisit the issue later
-                        if (listTags.size() >= Tasks.MAX_TAGS) {
+                        if (listTags.size() >= TaskEnums.MAX_TAGS) {
                             addTagBtn.setDisable(true);
                             addTagBtn.setVisible(false);
                             addTagBtnBox.getChildren().removeLast();

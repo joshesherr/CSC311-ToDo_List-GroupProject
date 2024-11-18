@@ -21,7 +21,7 @@ public class Task implements Comparable {
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = null;
         this.description = "";
-        this.priority = Tasks.PRIORITY_LOW;
+        this.priority = TaskEnums.PRIORITY_LOW;
         this.completed = false;
     }
 
@@ -89,6 +89,8 @@ public class Task implements Comparable {
     public void setTaskTags(ArrayList<Tag> taskTags) {
         this.taskTags = taskTags;
     }
+
+
 
     @Override
     public int compareTo(Object o) {

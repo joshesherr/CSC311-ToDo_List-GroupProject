@@ -1,6 +1,6 @@
 package org.example.todo_list.models;
 
-public class Tasks {
+public class TaskEnums {
 
     public static final int
             PRIORITY_LOW =0,

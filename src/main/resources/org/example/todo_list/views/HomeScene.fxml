@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
+<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <children>
       <VBox prefHeight="526.0" prefWidth="818.0" stylesheets="@../css/globalStyle.css">
          <children>
@@ -60,7 +60,7 @@
             </MenuBar>
             <HBox fillHeight="false" prefHeight="503.0" prefWidth="660.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="427.0" prefWidth="135.0" HBox.hgrow="NEVER">
+                  <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="427.0" prefWidth="135.0" spacing="2.0" HBox.hgrow="NEVER">
                      <children>
                         <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Home" />
                         <Button fx:id="addListBtn" mnemonicParsing="false" onAction="#addListBtnPressed" prefHeight="35.0" prefWidth="200.0" text="Add" />
@@ -77,10 +77,16 @@
                         <Button fx:id="criticalTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="215.0" text="Critical" />
                         <Button fx:id="homeStuffTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="135.0" text="Home Stuff" />
                      </children>
+                     <HBox.margin>
+                        <Insets left="2.0" top="5.0" />
+                     </HBox.margin>
                   </VBox>
                   <ScrollPane pannable="true" prefHeight="501.0" prefWidth="448.0" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
                      <content>
-                        <HBox fx:id="listBox" prefHeight="334.0" prefWidth="0.0" spacing="16.0" />
+                        <HBox fx:id="listBox" prefHeight="334.0" prefWidth="0.0" spacing="16.0">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></HBox>
                      </content>
                      <padding>
                         <Insets top="40.0" />

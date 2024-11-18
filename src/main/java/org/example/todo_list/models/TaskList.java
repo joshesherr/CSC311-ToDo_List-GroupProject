@@ -18,6 +18,7 @@ public class TaskList {
         this.title = "";
         this.tasks = new PriorityQueue<>();
     }
+
     public TaskList(String title) {
         this.title = title;
     }
@@ -45,6 +46,7 @@ public class TaskList {
 
         return (double) completedTaskCount / taskCount;
     }
+
 
     public void addTask(Task task) {
         tasks.add(task);
