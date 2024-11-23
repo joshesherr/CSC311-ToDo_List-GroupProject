@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.LoginController">
+<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.RegisterController">
    <children>
       <VBox fx:id="loginContainer" alignment="CENTER" layoutX="176.0" layoutY="47.0" prefHeight="606.0" prefWidth="449.0">
          <children>
@@ -49,6 +49,7 @@
                   <Insets left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
             </TextField>
+            <Label fx:id="errorMsg" />
             <Button fx:id="registerBtn" mnemonicParsing="false" onAction="#createAccount" prefHeight="30.0" prefWidth="164.0" text="Create Account">
                <VBox.margin>
                   <Insets top="20.0" />
