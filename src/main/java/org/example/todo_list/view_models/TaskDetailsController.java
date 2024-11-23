@@ -100,27 +100,74 @@ public class TaskDetailsController implements Initializable {
      * @param tag The tag object to be edited.
      */
     private void editTag(Button button, Tag tag) {
+
+        ContextMenu tagContext = new ContextMenu();
         // Add an action listener to edit the tag when the button is clicked
-        button.setOnAction(e -> {
-            // Open dialog to edit tag
-            TextInputDialog editDialog = new TextInputDialog(tag.getName());
-            editDialog.setTitle("Edit Tag");
-            editDialog.setHeaderText(null);
-            editDialog.setContentText("Edit tag:");
+        MenuItem editTag = new MenuItem("Edit Tag");
+        editTag.setOnAction(e -> openEditDialog(button, tag));
 
-            // Capture new input and update the tag name
-            Optional<String> editResult = editDialog.showAndWait();
-            editResult.ifPresent(editedTagInput -> {
-                String trimmedTagInput = editedTagInput.trim();
-                //listTags param must be changed when List stuff is figured out for storing tags
-                if (!trimmedTagInput.isEmpty() && !listTags.contains(new Tag(trimmedTagInput))) {
-                    // Update the tag name
-                    tag.setName(trimmedTagInput);
+        MenuItem deleteTag = deleteTag(button, tag);
 
-                    // Update the button text to reflect the new tag name
-                    button.setText(trimmedTagInput);
+        // Add delete and edit option to the context menu
+        tagContext.getItems().addAll(editTag, deleteTag);
+
+        // Attach context menu to the new tag button
+        button.setOnContextMenuRequested(event -> tagContext.show(button, event.getScreenX(), event.getScreenY()));
+
+        //Left click opens tag editing, in addition to context menu
+        button.setOnAction(e -> openEditDialog(button, tag));
+    }
+
+    //Extracted method for deleteTag functionality
+    private MenuItem deleteTag(Button button, Tag tag) {
+        MenuItem deleteTag = new MenuItem("Delete Tag");
+        // Delete tag action event
+        deleteTag.setOnAction(event -> {
+            // Remove the tag from the tag list
+            listTags.remove(tag);
+            System.out.println("listTags size: " + listTags.size());
+            // Remove the button from its parent container
+            HBox parentBox = (HBox) button.getParent();
+            parentBox.getChildren().remove(button);
+
+            //if deleting tags brings you below 5, add tag button back to appropriate box
+            if (listTags.size() < TaskEnums.MAX_TAGS) {
+                addTagBtn.setDisable(false);
+                addTagBtn.setVisible(true);
+
+                if (addTagBtnBox.getChildren().size() < MAX_TAGS_PER_ROW) {
+                    if (!addTagBtnBox.getChildren().contains(addTagBtn)) {
+                        addTagBtnBox.getChildren().add(addTagBtn);
+                    }
+                } else {
+                    if (!lowerTagBtnBox.getChildren().contains(addTagBtn)) {
+                        lowerTagBtnBox.getChildren().add(addTagBtn);
+                    }
                 }
-            });
+            }
+
+        });
+        return deleteTag;
+    }
+
+    private void openEditDialog(Button button, Tag tag) {
+        // Open dialog to edit tag
+        TextInputDialog editDialog = new TextInputDialog(tag.getName());
+        editDialog.setTitle("Edit Tag");
+        editDialog.setHeaderText(null);
+        editDialog.setContentText("Edit tag:");
+
+        // Capture new input and update the tag name
+        Optional<String> editResult = editDialog.showAndWait();
+        editResult.ifPresent(editedTagInput -> {
+            String trimmedTagInput = editedTagInput.trim();
+            if (!trimmedTagInput.isEmpty() && !listTags.contains(new Tag(trimmedTagInput))) {
+                // Update the tag name
+                tag.setName(trimmedTagInput);
+
+                // Update the button text to reflect the new tag name
+                button.setText(trimmedTagInput);
+            }
         });
     }
 
@@ -169,6 +216,7 @@ public class TaskDetailsController implements Initializable {
         taskName.setText("");
         taskDueDate.setValue(LocalDate.now());
         //taskPriority.setText("");
+        //clearTaskButtons needed
         taskDescription.setText("");
     }
 
