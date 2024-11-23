@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/appStyling.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/appStyling.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <children>
       <VBox prefHeight="800.0" prefWidth="1000.0" stylesheets="@../css/globalStyle.css">
          <children>
@@ -24,7 +24,8 @@
                         <MenuItem mnemonicParsing="false" text="Save" />
                         <MenuItem mnemonicParsing="false" text="Save As" />
                         <MenuItem mnemonicParsing="false" text="Preferences" />
-                        <MenuItem mnemonicParsing="false" onAction="#logOut" text="Exit" />
+                        <MenuItem mnemonicParsing="false" onAction="#logOut" text="Logout" />
+                        <MenuItem mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
                      </items>
                   </Menu>
                   <Menu fx:id="menuBarCreate" mnemonicParsing="false" text="Create">

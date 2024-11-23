@@ -61,6 +61,11 @@ public class AppController implements Initializable {
         sceneManager.showScene("LoginScene");
     }
 
+    @FXML
+    void exitProgram(ActionEvent event) {
+        System.exit(0);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
