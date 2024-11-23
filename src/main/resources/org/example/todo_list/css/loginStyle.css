@@ -18,6 +18,14 @@
 .text-field {
     -fx-padding: 8;
     -fx-font-size: 14px;
+    -fx-pref-height: 30;
+    -fx-pref-width: 300;
+}
+#passwordTF,  #passwordTF .label{
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-pref-height: 30;
+    -fx-border-width: 300;
 }
 
 /* VBox container styling */
