@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.example.todo_list.SceneManager;
 import org.example.todo_list.db.ConnDB;
 import org.example.todo_list.models.Person;
 
@@ -20,6 +21,7 @@ public class RegisterController {
 
     private ConnDB DBconnection = new ConnDB();
     private Person p;
+    SceneManager sceneManager;
 
     @FXML
     private TextField usernameRF, firstNameRF, lastNameRF, emailRF, passwordRF;
@@ -43,6 +45,8 @@ public class RegisterController {
      */
     @FXML
     public void initialize() {
+        sceneManager = SceneManager.getInstance();
+
         // Add listeners to input fields
         usernameRF.textProperty().addListener((observable, oldValue, newValue) -> validateInputs());
         firstNameRF.textProperty().addListener((observable, oldValue, newValue) -> validateInputs());
@@ -148,9 +152,12 @@ public class RegisterController {
             checkStmt.close();
             rs.close();
             conn.close();
+            sceneManager.showScene("HomeScene");
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
     @FXML

@@ -65,8 +65,8 @@ public class SceneManager {
 
         Scene scene = scenes.get(sceneName);
 
-        //primaryStage.setMaximized(true);
-
+//        primaryStage.setMaximized(true);
+//
 //        if (!primaryStage.isMaximized()) {
 //            // Get the screen bounds to center the stage if it is not maximized
 //            Screen screen = Screen.getPrimary();
