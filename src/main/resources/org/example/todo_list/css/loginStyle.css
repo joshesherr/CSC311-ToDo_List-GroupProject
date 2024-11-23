@@ -54,3 +54,11 @@
     -fx-fit-width: 100;
     -fx-fit-height: 100;
 }
+
+
+/* Label for incorrect password messages */
+#errorMsg {
+    -fx-text-fill: #d32f2f; /* red for error messages */
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}

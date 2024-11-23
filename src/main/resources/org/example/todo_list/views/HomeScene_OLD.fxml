@@ -170,7 +170,7 @@
          <left>
             <VBox prefHeight="832.0" prefWidth="200.0" spacing="2.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" text="Home" />
+                  <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="34.0" prefWidth="180.0" text="Home" />
                   <Button fx:id="addTaskBtn" mnemonicParsing="false" onAction="#addTask" prefHeight="35.0" prefWidth="200.0" text="Add" />
                   <Label fx:id="myTasksLabel" prefHeight="43.0" prefWidth="203.0" text="My Tasks:" />
                   <Button fx:id="allTasksBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="208.0" text="All Tasks" />

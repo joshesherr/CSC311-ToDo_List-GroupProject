@@ -19,6 +19,15 @@ public class Person {
         this.position = position;
     }
 
+    public Person(String username_ID, String password, String firstName, String lastName, String email) {
+        this.username_ID = username_ID;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+
     public String getUsername_ID() {
         return username_ID;
     }
