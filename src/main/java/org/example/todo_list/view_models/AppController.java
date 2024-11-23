@@ -58,7 +58,7 @@ public class AppController implements Initializable {
     private ScrollPane scrollPane;
 
     public void logOut(ActionEvent actionEvent) {
-        sceneManager.showScene("LoginScene");
+        System. exit(0);
     }
 
     @Override
