@@ -25,6 +25,9 @@ public class ListController implements Initializable {
     public VBox root;
     public AppController parentController;
     public ProgressBar progressBar;
+    /**
+     * The TaskList instance this view is representing
+     */
     private TaskList taskList;
 
     public void addTaskBtnPressed(ActionEvent actionEvent) {
@@ -61,8 +64,9 @@ public class ListController implements Initializable {
     }
 
     //Todo Show options right above button. currently it is completely off screen
-    public void showOptions(ActionEvent actionEvent) {
-        optionsMenu.show(optionsBtn, optionsBtn.getLayoutX(), optionsBtn.getLayoutY());
+    public void showOptions(ActionEvent e) {
+        System.out.println(e);
+        //
     }
 
     /**
@@ -72,6 +76,9 @@ public class ListController implements Initializable {
         parentController.removeList(this);
     }
 
+    /**
+     * Update this list views progress bar.
+     */
     public void updateProgress() {
         progressBar.setProgress(taskList.getProgress());
     }
@@ -79,5 +86,9 @@ public class ListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         taskList = new TaskList();
+
+        optionsBtn.setOnMouseClicked(e -> {
+            optionsMenu.show(optionsBtn, SceneManager.getInstance().getPrimaryStage().getX() + e.getSceneX(), SceneManager.getInstance().getPrimaryStage().getY()+ e.getSceneY());
+        });
     }
 }
