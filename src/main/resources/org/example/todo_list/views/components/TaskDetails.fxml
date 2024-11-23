@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="root" fx:id="root" alignment="TOP_CENTER" prefHeight="348.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskDetailsController">
+<VBox id="root" fx:id="root" alignment="TOP_CENTER" prefHeight="392.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskDetailsController">
    <children>
       <VBox>
          <VBox.margin>
@@ -43,19 +43,29 @@
       </VBox>
       <DatePicker fx:id="taskDueDate" prefHeight="18.0" prefWidth="170.0" promptText="Due Date">
          <VBox.margin>
-            <Insets />
+            <Insets top="-10.0" />
          </VBox.margin></DatePicker>
-      <HBox fx:id="addTagBtnBox" alignment="CENTER" spacing="10.0">
+      <VBox>
          <children>
-            <Button fx:id="addTagBtn" maxHeight="23.0" maxWidth="76.0" mnemonicParsing="false" onAction="#addTagClicked" prefHeight="22.0" prefWidth="72.0" text="Add Tag">
-               <font>
-                  <Font size="8.0" />
-               </font></Button>
+            <HBox fx:id="addTagBtnBox" alignment="CENTER" spacing="10.0">
+               <children>
+                  <Button id="addTagBtn" fx:id="addTagBtn" maxHeight="25.0" maxWidth="76.0" mnemonicParsing="false" onAction="#addTagClicked" prefHeight="22.0" prefWidth="85.0" text="Add Tag">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="lowerTagBtnBox" alignment="CENTER" prefHeight="30.0" prefWidth="376.0" spacing="10.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
          </children>
-         <padding>
-            <Insets bottom="5.0" top="5.0" />
-         </padding>
-      </HBox>
+      </VBox>
       <TextArea fx:id="taskDescription" prefHeight="119.0" prefWidth="376.0" promptText="Description" wrapText="true" />
       <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="156.0" spacing="2.0">
          <children>

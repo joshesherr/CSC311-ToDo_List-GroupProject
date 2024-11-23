@@ -35,9 +35,10 @@ public class TaskDetailsController implements Initializable {
     public VBox root;
 
     @FXML
-    private HBox addTagBtnBox;
+    private HBox addTagBtnBox, lowerTagBtnBox;
 
     private ArrayList<Tag> listTags = new ArrayList<>();
+    private static final int MAX_TAGS_PER_ROW = 3;
     // This is a temp List ^^^^^^^ Must be adjusted once code is refined a bit
     //Removing this will break below code until proper adjustments made
     @FXML
@@ -68,6 +69,7 @@ public class TaskDetailsController implements Initializable {
                         // Display the tags name
                         Button newBtn = new Button(newTag.getName());
                         newBtn.getStyleClass().add("button-style");
+                        newBtn.setId(addTagBtn.getId());
 
                         // Add action listener for editing tag (moved to a separate method)
                         editTag(newBtn, newTag);
@@ -75,15 +77,18 @@ public class TaskDetailsController implements Initializable {
                         //Could do a for each loop here and create new buttons based on Tag Name values stored in list
                         //that always adds button last, or maybe an observable list too
                         //Or it could just be by index or size using add(), revisit
-                        addTagBtnBox.getChildren().addFirst(newBtn);  // Replace button with tag label
-
+                        if (addTagBtnBox.getChildren().size() < MAX_TAGS_PER_ROW) {
+                            addTagBtnBox.getChildren().addFirst(newBtn);  // Replace button with tag btn if last tag
+                        } else {
+                            lowerTagBtnBox.getChildren().addFirst(newBtn);
+                        }
                         //This code will break if user wants to remove excess tags, no way to remove tags yet
                         //If tags are removed and list is < MAX_TAGS, reenable button -> How to do that if button is disabled
                         //Revisit the issue later
                         if (listTags.size() >= TaskEnums.MAX_TAGS) {
                             addTagBtn.setDisable(true);
                             addTagBtn.setVisible(false);
-                            addTagBtnBox.getChildren().removeLast();
+                            addTagBtnBox.getChildren().removeLast(); // same as managed i believe
                         }
                     }
             });
@@ -91,7 +96,6 @@ public class TaskDetailsController implements Initializable {
     }
     /**
      * Adds functionality to the button that allows the user to edit the tag name.
-     *
      * @param button The button associated with the tag.
      * @param tag The tag object to be edited.
      */
