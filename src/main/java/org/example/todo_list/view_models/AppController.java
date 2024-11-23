@@ -58,7 +58,12 @@ public class AppController implements Initializable {
     private ScrollPane scrollPane;
 
     public void logOut(ActionEvent actionEvent) {
-        System. exit(0);
+        sceneManager.showScene("LoginScene");
+    }
+
+    @FXML
+    void exitProgram(ActionEvent event) {
+        System.exit(0);
     }
 
     @Override
