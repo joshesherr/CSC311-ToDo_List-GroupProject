@@ -116,7 +116,7 @@
 }
 
 /* Styling for task button */
-.button {
+.side-btn {
     -fx-background-color: #EAF1F8FF;
     -fx-border: #4a90e2;
     /*-fx-border-width: 2px;*/

@@ -23,6 +23,9 @@ public class TaskController implements Initializable {
     public ContextMenu optionsMenu;
     public Button optionsBtn;
     public ToggleButton taskToggleCheck;
+    /**
+     * The Task instance this view is representing
+     */
     private Task task;
 
     //Todo Show options right above button. currently it is completely off screen
