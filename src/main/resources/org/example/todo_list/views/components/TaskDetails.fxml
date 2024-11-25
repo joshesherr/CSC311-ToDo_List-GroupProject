@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="root" fx:id="root" alignment="TOP_CENTER" prefHeight="392.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskDetailsController">
+<VBox id="root" fx:id="root" alignment="TOP_CENTER" prefHeight="365.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskDetailsController">
    <children>
       <VBox>
          <VBox.margin>

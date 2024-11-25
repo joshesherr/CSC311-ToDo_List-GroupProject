@@ -96,8 +96,11 @@ public class AppController implements Initializable {
         if (taskDetailsCon == null) {
             try {
                 FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/TaskDetails.fxml"));
-                root.getChildren().add((Parent) loader.load());
+                Parent taskDetailsRoot = (Parent) loader.load();
+                root.getChildren().add(taskDetailsRoot);
                 taskDetailsCon = loader.getController();
+                taskDetailsRoot.setLayoutX(235);
+                taskDetailsRoot.setLayoutY(420);
             } catch (IOException e) {
                 e.printStackTrace();
             }

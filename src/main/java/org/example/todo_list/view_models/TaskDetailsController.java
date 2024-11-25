@@ -24,6 +24,7 @@ public class TaskDetailsController implements Initializable {
     public TextField taskName;
     public DatePicker taskDueDate;
     SceneManager sceneManager;
+    public AppController parentController;
 
     @FXML
     private Button addTagBtn, createTaskBtn, personalTaskBtn, shareTaskBtn;
@@ -43,6 +44,7 @@ public class TaskDetailsController implements Initializable {
     //Removing this will break below code until proper adjustments made
     @FXML
     void addTagClicked(ActionEvent event) {
+
         //IMPORTANT!!!!!!!!!!!!!!!!!!!!! Not full implementation for following reasons:
         //However a task is currently stored needs a list of tags -> this code must be updated
         // The TaskList in List class will do the following features:
@@ -176,6 +178,8 @@ public class TaskDetailsController implements Initializable {
     private double mouseAnchorY;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         sceneManager = SceneManager.getInstance();
         root.setOnMousePressed(e->{
             mouseAnchorX = e.getX();
@@ -201,6 +205,7 @@ public class TaskDetailsController implements Initializable {
         });
         //Todo populate the tag field with the proper tags.
     }
+
 
 
     public void updateTaskDetails() {

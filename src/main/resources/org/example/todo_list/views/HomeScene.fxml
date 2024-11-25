@@ -14,9 +14,9 @@
 
 <AnchorPane fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/globalStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <children>
-      <VBox prefHeight="800.0" prefWidth="1000.0" stylesheets="@../css/appStyling.css">
+      <VBox prefHeight="850.0" prefWidth="1000.0" stylesheets="@../css/appStyling.css">
          <children>
-            <MenuBar id="menuBar" fx:id="menuBar" prefHeight="36.0" prefWidth="839.0">
+            <MenuBar id="menuBar" fx:id="menuBar" prefHeight="36.0" prefWidth="1037.0">
                <menus>
                   <Menu id="menu" fx:id="menuBarFile" mnemonicParsing="false" text="File">
                      <items>
@@ -61,7 +61,7 @@
             </MenuBar>
             <HBox fillHeight="false" prefHeight="800.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" prefHeight="768.0" prefWidth="226.0" spacing="10.0" HBox.hgrow="NEVER">
+                  <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" prefHeight="823.0" prefWidth="226.0" spacing="10.0" HBox.hgrow="NEVER">
                      <children>
                         <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Home" />
                         <Button fx:id="addListBtn" mnemonicParsing="false" onAction="#addListBtnPressed" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Add" />
@@ -82,13 +82,18 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </VBox>
-                  <ScrollPane id="scrollPane" fx:id="scrollPane" pannable="true" prefHeight="747.0" prefWidth="738.0" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
-                     <content>
-                        <HBox fx:id="listBox" prefHeight="322.0" prefWidth="771.0" spacing="16.0" />
-                     </content>
+                  <ScrollPane id="scrollPane" fx:id="scrollPane" pannable="true" prefHeight="820.0" prefWidth="774.0" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
+                     <content>
+                        <VBox prefHeight="719.0" prefWidth="756.0">
+                           <children>
+                              <HBox fx:id="listBox" prefHeight="365.0" prefWidth="756.0" spacing="16.0" />
+                              <HBox fx:id="taskDetailsBox" prefHeight="361.0" prefWidth="756.0" />
+                           </children>
+                        </VBox>
+                     </content>
                   </ScrollPane>
                </children>
             </HBox>

@@ -11,7 +11,7 @@
 }
 /* GridPane styling */
 #scrollPane {
-    -fx-background-image: url("org/example/todo_list/images/hard_work.jpg"); /* Replace with your image path */
+    /*-fx-background-image: url("org/example/todo_list/images/hard_work.jpg"); !* Replace with your image path *!*/
     -fx-background-repeat: no-repeat; /* Options: repeat, no-repeat */
     -fx-background-position: center center; /* Positioning */
     -fx-background-size: cover;
