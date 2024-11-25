@@ -125,7 +125,7 @@ public class TaskDetailsController implements Initializable {
         deleteTag.setOnAction(event -> {
             // Remove the tag from the tag list
             listTags.remove(tag);
-            System.out.println("listTags size: " + listTags.size());
+    //        System.out.println("listTags size: " + listTags.size()); Debugging statement
             // Remove the button from its parent container
             HBox parentBox = (HBox) button.getParent();
             parentBox.getChildren().remove(button);
