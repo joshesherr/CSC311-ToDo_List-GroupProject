@@ -133,8 +133,8 @@ public class RegisterController {
     void createAccount(ActionEvent event) {
         p = new Person(usernameRF.getText(), firstNameRF.getText(), lastNameRF.getText(), emailRF.getText(), passwordRF.getText());
 
-//        DBconnection.connectToServer();
-//        DBconnection.createTablePerson();
+        DBconnection.connectToServer();
+        DBconnection.createTablePerson();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
@@ -162,6 +162,6 @@ public class RegisterController {
 
     @FXML
     void goToSignIn(ActionEvent event) {
-
+        sceneManager.showScene("LoginScene");
     }
 }

@@ -1,21 +1,20 @@
 
 /*---------Styling outer and inner Containers (BorderPane)----------*/
-#root {
+.root {
     -fx-background-color: #f8fafc;
 }
 
 #taskBar {
     -fx-background-color: #ffffff;
     -fx-border-color: #d1d9e6;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-    -fx-padding: 15;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
+    -fx-padding: 10;
 }
 /* GridPane styling */
 #scrollPane {
-    -fx-background-color: #f8fafc; /* Light neutral background */
-    /*-fx-background-image: url;*/
+    -fx-background-image: url("org/example/todo_list/images/hard_work.jpg"); /* Replace with your image path */
+    -fx-background-repeat: no-repeat; /* Options: repeat, no-repeat */
+    -fx-background-position: center center; /* Positioning */
+    -fx-background-size: cover;
 }
 /*----------------------------------END------------------------------*/
 
@@ -23,37 +22,43 @@
 
 /* ----------------------Menu bar styling starts-------------------------*/
 #menuBar {
+    -fx-background-color: #023047;
     -fx-padding: 0;
     -fx-border-width: 0 0 2px 0;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 2);
 }
-#menuBarFile, #menuBarCreate, #menuBarEdit, #menuBarGroup, #menuBarHelp {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #ecf0f1; /* Light text color */
+#menu {
+    -fx-background-color: #023047;
     -fx-padding: 8 15;
 }
 
-#menuBarFile:hover, #menuBarCreate:hover, #menuBarEdit:hover, #menuBarGroup:hover, #menuBarHelp:hover {
-    -fx-background-color: #3a4b59; /* Subtle color change on hover */
-    -fx-text-fill: #ffffff;
+#menu .label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ecf0f1; /* Light text color */
+}
+
+#menu:hover {
+    -fx-background-color: #fb8500; /* Subtle color change on hover */
+}
+
+#menu:hover .label {
+    -fx-text-fill: #023047;
 }
 
 /* Menu items styling */
-.menu-item {
-    -fx-background-color: transparent;
-    -fx-text-fill: #bdc3c7; /* Softer text color for submenu items */
+.menu-item:hover {
+    -fx-background-color: #8ecae6;
     -fx-padding: 6 12;
 }
 
-.menu-item:hover {
-    -fx-background-color: #34495e; /* Slightly brighter hover background */
-    -fx-text-fill: #ffffff; /* Bright text on hover */
+.menu-item:hover .label {
+    -fx-text-fill: #023047; /* Softer text color for submenu items */
 }
 
+
 /* Divider line between menu items */
-.separator {
-    -fx-border-color: #1c2a35;
+#menuBar #menu .separator {
+    -fx-border-color: #ffffff;
 }
 /* ----------------------Menu bar styling ends-------------------------*/
 
@@ -96,118 +101,116 @@
     -fx-pref-height: 35;
 }
 
+
+
 /* ----------------------Filtering and operational bar's styling ends----------------- */
 
 
-/*-----------------------Lists of tasks styling starts here----------------------------*/
-/* Styling for CheckBox */
-#checkBox {
-    -fx-padding: 5;
-    -fx-opacity: 0.85;
-    -fx-cursor: hand;
-}
+/*!*-----------------------Lists of tasks styling starts here----------------------------*!*/
+/*!* Styling for CheckBox *!*/
+/*#checkBox {*/
+/*    -fx-padding: 5;*/
+/*    -fx-opacity: 0.85;*/
+/*    -fx-cursor: hand;*/
+/*}*/
 
-/* Styling for task label (viewTasksLabel) */
-#viewTasksLabel {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50; /* Darker text for visibility */
-    -fx-padding: 5 10;
-}
+/*!* Styling for task label (viewTasksLabel) *!*/
+/*#viewTasksLabel {*/
+/*    -fx-font-size: 16px;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-text-fill: #2c3e50; !* Darker text for visibility *!*/
+/*    -fx-padding: 5 10;*/
+/*}*/
 
-/* Styling for task button */
-.side-btn {
-    -fx-background-color: #EAF1F8FF;
-    -fx-border: #4a90e2;
-    /*-fx-border-width: 2px;*/
-    -fx-text-fill: #2c3e50;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-padding: 5 15;
-    -fx-cursor: hand;
-    -fx-alignment: center-left;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.3, 0, 2); /* Light shadow */
-}
-
-/* Button hover effect */
-.button:hover {
-    -fx-background-color: #357ae8; /* Darker blue on hover */
-}
-
-/* Button pressed effect */
-.button:pressed {
-    -fx-background-color: #2e6ac7; /* Darkest blue when pressed */
-}
-
-/* Overall task list item container (if applicable) */
-#listTaskContainer {
-    -fx-background-color: #f8faff; /* Light background for task item */
-    -fx-border-color: #d0e2f2; /* Light blue border */
-    -fx-border-radius: 5;
-    -fx-padding: 10;
-    -fx-spacing: 10;
-    -fx-alignment: center;
-}
-
-/*-----------------------Lists of tasks styling ends here----------------------------*/
-
-/* ----------------------VBox task details styling starts-----------------------*/
-#taskContainer {
-    -fx-spacing: 10;
-    -fx-padding: 10;
-    -fx-background-color: #f8faff;
-    -fx-border-radius: 5;
-    -fx-background-radius: 10;
-    -fx-border-color: #4a90e2; /* Light blue border for highlighting */
-    -fx-border-width: 1;
-    -fx-cursor: hand;
-}
-
-/* Hover effect for task container */
-#taskContainer:hover {
-    -fx-background-color: #f0faff;
-    -fx-border-color: #007bff; /* Darker blue border on hover */
-    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.3), 10, 0.5, 0, 5);
-}
-
-/* Label styling */
-#taskName {
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50;
-}
-
-/* TextArea styling for task description */
-#taskDescription {
-    -fx-font-size: 14px;
-    -fx-text-fill: #4a4a4a;
-    -fx-background-color: #f8fafc;
-    -fx-background-radius: 8;
-    -fx-border-color: #d1d9e6;
-    -fx-border-radius: 3;
-    -fx-padding: 10;
-}
+/*!* Styling for task button *!*/
+/*.side-btn {*/
+/*    -fx-background-color: #EAF1F8FF;*/
+/*    -fx-border: #4a90e2;*/
+/*    !*-fx-border-width: 2px;*!*/
+/*    -fx-text-fill: #2c3e50;*/
+/*    -fx-font-size: 14px;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-background-radius: 5;*/
+/*    -fx-padding: 5 15;*/
+/*    -fx-cursor: hand;*/
+/*    -fx-alignment: center-left;*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.3, 0, 2); !* Light shadow *!*/
+/*}*/
 
 
-#taskDueDate, #taskPriority, #taskLabel {
-    -fx-font-size: 13px;
-    -fx-text-fill: #4a4a4a;
-}
+/*!* Button pressed effect *!*/
+/*.button:pressed {*/
+/*    -fx-background-color: #2e6ac7; !* Darkest blue when pressed *!*/
+/*}*/
 
-/* ProgressBar styling */
-#taskProgressBar {
-    -fx-accent: #18d1aa;  /* Green progress bar */
-    -fx-background-color: #e0e0e0; /* Light gray background */
-    -fx-padding: 5;
-    -fx-background-radius: 5;
-}
+/*!* Overall task list item container (if applicable) *!*/
+/*#listTaskContainer {*/
+/*    -fx-background-color: #f8faff; !* Light background for task item *!*/
+/*    -fx-border-color: #d0e2f2; !* Light blue border *!*/
+/*    -fx-border-radius: 5;*/
+/*    -fx-padding: 10;*/
+/*    -fx-spacing: 10;*/
+/*    -fx-alignment: center;*/
+/*}*/
 
-/* Add hover effect to task container */
-#taskContainer:hover {
-    -fx-background-color: #f4f6f8;
-    -fx-background-radius: 8;
-}
-/* ----------------------VBox task details styling ends-----------------------*/
+/*!*-----------------------Lists of tasks styling ends here----------------------------*!*/
+
+/*!* ----------------------VBox task details styling starts-----------------------*!*/
+/*#taskContainer {*/
+/*    -fx-spacing: 10;*/
+/*    -fx-padding: 10;*/
+/*    -fx-background-color: #f8faff;*/
+/*    -fx-border-radius: 5;*/
+/*    -fx-background-radius: 10;*/
+/*    -fx-border-color: #4a90e2; !* Light blue border for highlighting *!*/
+/*    -fx-border-width: 1;*/
+/*    -fx-cursor: hand;*/
+/*}*/
+
+/*!* Hover effect for task container *!*/
+/*#taskContainer:hover {*/
+/*    -fx-background-color: #f0faff;*/
+/*    -fx-border-color: #007bff; !* Darker blue border on hover *!*/
+/*    -fx-effect: dropshadow(gaussian, rgba(0, 123, 255, 0.3), 10, 0.5, 0, 5);*/
+/*}*/
+
+/*!* Label styling *!*/
+/*#taskName {*/
+/*    -fx-font-size: 18px;*/
+/*    -fx-font-weight: bold;*/
+/*    -fx-text-fill: #2c3e50;*/
+/*}*/
+
+/*!* TextArea styling for task description *!*/
+/*#taskDescription {*/
+/*    -fx-font-size: 14px;*/
+/*    -fx-text-fill: #4a4a4a;*/
+/*    -fx-background-color: #f8fafc;*/
+/*    -fx-background-radius: 8;*/
+/*    -fx-border-color: #d1d9e6;*/
+/*    -fx-border-radius: 3;*/
+/*    -fx-padding: 10;*/
+/*}*/
+
+
+/*#taskDueDate, #taskPriority, #taskLabel {*/
+/*    -fx-font-size: 13px;*/
+/*    -fx-text-fill: #4a4a4a;*/
+/*}*/
+
+/*!* ProgressBar styling *!*/
+/*#taskProgressBar {*/
+/*    -fx-accent: #18d1aa;  !* Green progress bar *!*/
+/*    -fx-background-color: #e0e0e0; !* Light gray background *!*/
+/*    -fx-padding: 5;*/
+/*    -fx-background-radius: 5;*/
+/*}*/
+
+/*!* Add hover effect to task container *!*/
+/*#taskContainer:hover {*/
+/*    -fx-background-color: #f4f6f8;*/
+/*    -fx-background-radius: 8;*/
+/*}*/
+/*!* ----------------------VBox task details styling ends-----------------------*!*/
 
 
