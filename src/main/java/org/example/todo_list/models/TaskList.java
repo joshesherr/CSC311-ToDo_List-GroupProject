@@ -10,8 +10,6 @@ public class TaskList {
     private PriorityQueue<Task> tasks;
     private double progress=0.0;
     private ArrayList<Tag> listTags = new ArrayList<>(); //This may actually be not needed here but in Task instead
-    // Create a default tag that each list will start with and be replaced?
-    //Or start empty? Only reason I wonder this is because of color setting in tags,
     //and how we want to use Color
 
     public TaskList() {
@@ -22,8 +20,6 @@ public class TaskList {
     public TaskList(String title) {
         this.title = title;
     }
-
-
 
     public String getTitle() {
         return title;
@@ -47,10 +43,10 @@ public class TaskList {
         return (double) completedTaskCount / taskCount;
     }
 
-
     public void addTask(Task task) {
         tasks.add(task);
     }
+
     public void removeTask(Task task) {
         tasks.remove(task);
     }

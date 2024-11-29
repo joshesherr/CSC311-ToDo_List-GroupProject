@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/globalStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/globalStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <children>
       <VBox prefHeight="850.0" prefWidth="1000.0" stylesheets="@../css/appStyling.css">
          <children>
@@ -30,8 +30,8 @@
                   </Menu>
                   <Menu id="menu" fx:id="menuBarCreate" mnemonicParsing="false" text="Create">
                      <items>
+                        <MenuItem mnemonicParsing="false" onAction="#addListBtnPressed" text="List" />
                         <MenuItem mnemonicParsing="false" text="Task" />
-                        <MenuItem mnemonicParsing="false" text="List" />
                         <MenuItem mnemonicParsing="false" text="Group " />
                      </items>
                   </Menu>
@@ -64,9 +64,9 @@
                   <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" prefHeight="823.0" prefWidth="226.0" spacing="10.0" HBox.hgrow="NEVER">
                      <children>
                         <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Home" />
-                        <Button fx:id="addListBtn" mnemonicParsing="false" onAction="#addListBtnPressed" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Add" />
-                        <Label fx:id="myTasksLabel" prefHeight="2.0" prefWidth="135.0" text="My Tasks:" />
-                        <Button fx:id="allTasksBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="208.0" styleClass="side-btn" text="All Tasks" />
+                        <Button fx:id="addListBtn" mnemonicParsing="false" onAction="#addListBtnPressed" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Add List" />
+                        <Label fx:id="myTasksLabel" prefHeight="2.0" prefWidth="135.0" text="My Lists:" />
+                        <Button fx:id="allTasksBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="208.0" styleClass="side-btn" text="All Lists" />
                         <Button fx:id="personalTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="214.0" styleClass="side-btn" text="Pesonal" />
                         <Button fx:id="groupTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="206.0" styleClass="side-btn" text="Group" />
                         <Label fx:id="calendarLabel" prefHeight="0.0" prefWidth="135.0" text="Calendar:" />
