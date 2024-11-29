@@ -33,7 +33,17 @@ public class Task implements Comparable {
         this.priority = priority;
         this.completed = false;
     }
-
+/*
+        Unimplemented as of yet, still testing priority enum idea and best way to implement
+    public Task(String title, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, Priority priority) {
+        this.title = title;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.description = description;
+        this.priority = priority.getPriorityLevel();
+        this.completed = false;
+    }
+*/
     public String getTitle() {
         return title;
     }

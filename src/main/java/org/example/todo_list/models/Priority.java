@@ -13,7 +13,7 @@ public enum Priority {
 
     private final int priorityLevel;
     private final String colorPriority;
-    //Color colorPriority might be preferable
+    //Color colorPriority might be preferable, im not sure how this will interact yet
 
     Priority(int priorityLevel, String colorPriority) {
         this.priorityLevel = priorityLevel;
