@@ -2,6 +2,7 @@ package org.example.todo_list.view_models;
 
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -11,7 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.models.Priority;
 import org.example.todo_list.models.Task;
 
 import javax.swing.event.ChangeEvent;
@@ -27,6 +31,10 @@ public class TaskController implements Initializable {
     public ContextMenu optionsMenu;
     public Button optionsBtn;
     public ToggleButton taskToggleCheck;
+
+    @FXML
+    private Rectangle priorityColorRect;
+
     /**
      * The Task instance this view is representing
      */
@@ -74,4 +82,9 @@ public class TaskController implements Initializable {
         this.task = task;
     }
 
+    public void updatePriorityColor(Color color) {
+        if (priorityColorRect != null) {
+            priorityColorRect.setFill(color);
+        }
+    }
 }

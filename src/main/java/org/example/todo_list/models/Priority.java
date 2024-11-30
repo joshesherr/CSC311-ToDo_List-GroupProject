@@ -5,6 +5,7 @@ import javafx.scene.shape.Rectangle;
 
 //Experimenting with different form of enums for task priority
 public enum Priority {
+    NONE(0, Color.FLORALWHITE), //is none a relevant default case, or default to low?
     LOW(1, Color.GREEN),
     MEDIUM(2, Color.YELLOW),
     HIGH(3, Color.ORANGE),
@@ -12,6 +13,7 @@ public enum Priority {
 
     private final int level;
     private final Color color;
+    //public static final int MAX_TAGS = 5;
 
     Priority(int level, Color color) {
         this.level = level;
@@ -26,16 +28,10 @@ public enum Priority {
         return color;
     }
 
-    public void applyColorToTask(Rectangle rectangle) {
-        rectangle.setFill(this.color);
-    }
-
     //mainly for testing/debugging purposes right now
     @Override
     public String toString() {
-        return "Priority{" + String.valueOf(this.getLevel()) +
-                ", priorityLevel=" + level +
-                ", colorPriority='" + color + '\'' +
-                '}';
+        //Return enum name with only first letter capitalized
+        return name().charAt(0) + name().substring(1).toLowerCase();
     }
 }

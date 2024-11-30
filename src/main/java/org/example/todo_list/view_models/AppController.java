@@ -122,13 +122,16 @@ public class AppController implements Initializable {
     public static TaskController getFocusedTask() {
         return focusedTaskCon;
     }
+
     public void setFocusedTask(TaskController taskCon) {
         focusedTaskCon = taskCon;
         showTaskDetails();
     }
+
     public static TaskDetailsController getTaskDetailsCon() {
         return taskDetailsCon;
     }
+
     public static void setTaskDetailsCon(TaskDetailsController taskDetailsCon) {
         AppController.taskDetailsCon = taskDetailsCon;
     }

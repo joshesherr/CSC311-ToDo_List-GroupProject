@@ -1,5 +1,7 @@
 package org.example.todo_list.models;
 
+import javafx.scene.paint.Color;
+
 import java.time.*;
 import java.util.ArrayList;
 
@@ -11,6 +13,7 @@ public class Task implements Comparable {
     private String description;
     private boolean completed;
     private int priority;
+    private Color color;
     private ArrayList<Tag> taskTags = new ArrayList<>();
         // Create a default tag that each list will start with and be replaced?
         //Or start empty? Only reason I wonder this is because of color setting in tags,
@@ -100,7 +103,13 @@ public class Task implements Comparable {
         this.taskTags = taskTags;
     }
 
+    public Color getColor() {
+        return color;
+    }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     @Override
     public int compareTo(Object o) {

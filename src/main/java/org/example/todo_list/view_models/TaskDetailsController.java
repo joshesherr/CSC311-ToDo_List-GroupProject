@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.models.Priority;
 import org.example.todo_list.models.Tag;
 import org.example.todo_list.models.Task;
 import org.example.todo_list.models.TaskEnums;
@@ -38,10 +39,14 @@ public class TaskDetailsController implements Initializable {
     @FXML
     private HBox addTagBtnBox, lowerTagBtnBox;
 
+    @FXML
+    private ComboBox<Priority> priorityComboBox;
+
     private ArrayList<Tag> listTags = new ArrayList<>();
     private static final int MAX_TAGS_PER_ROW = 3;
     // This is a temp List ^^^^^^^ Must be adjusted once code is refined a bit
     //Removing this will break below code until proper adjustments made
+
     @FXML
     void addTagClicked(ActionEvent event) {
 
@@ -203,6 +208,27 @@ public class TaskDetailsController implements Initializable {
         taskDueDate.valueProperty().addListener((ov, oldValue, newValue) -> {
             AppController.getFocusedTask().getTask().setEndDateTime(newValue.atTime(LocalTime.now()));
         });
+
+        // Populate ComboBox with Priority enum values
+        priorityComboBox.getItems().addAll(Priority.values());
+
+        // Default value
+        priorityComboBox.setValue(Priority.NONE);
+
+        priorityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                Task focusedTask = AppController.getFocusedTask().getTask();
+                focusedTask.setPriority(newValue.getLevel());
+                focusedTask.setColor(newValue.getColor());
+
+                // Update the rectangle in TaskController
+                TaskController focusedTaskController = AppController.getFocusedTask();
+                if (focusedTaskController != null) {
+                    focusedTaskController.updatePriorityColor(newValue.getColor());
+                }
+            }
+        });
+
         //Todo populate the tag field with the proper tags.
     }
 
