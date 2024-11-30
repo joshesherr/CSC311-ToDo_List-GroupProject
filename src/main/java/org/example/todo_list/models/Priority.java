@@ -1,38 +1,41 @@
 package org.example.todo_list.models;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 //Experimenting with different form of enums for task priority
 public enum Priority {
-    PRIORITY_LOW(1, "green"),
-    PRIORITY_MEDIUM(2, "yellow"),
-    PRIORITY_HIGH(3, "orange"),
-    PRIORITY_HIGHEST(4, "red");
+    LOW(1, Color.GREEN),
+    MEDIUM(2, Color.YELLOW),
+    HIGH(3, Color.ORANGE),
+    CRITICAL(4, Color.RED);
 
-    //Is this better this way, or should color be its own enum? Whats easier/less confusing?
-    // Color.GREEN, Color.RED, Color.YELLOW, Color.Orange;
+    private final int level;
+    private final Color color;
 
-
-    private final int priorityLevel;
-    private final String colorPriority;
-    //Color colorPriority might be preferable, im not sure how this will interact yet
-
-    Priority(int priorityLevel, String colorPriority) {
-        this.priorityLevel = priorityLevel;
-        this.colorPriority = colorPriority;
+    Priority(int level, Color color) {
+        this.level = level;
+        this.color = color;
     }
 
-    public int getPriorityLevel() {
-        return priorityLevel;
+    public int getLevel() {
+        return level;
     }
 
-    public String getColorPriority() {
-        return colorPriority;
+    public Color getColor() {
+        return color;
     }
 
+    public void applyColorToTask(Rectangle rectangle) {
+        rectangle.setFill(this.color);
+    }
+
+    //mainly for testing/debugging purposes right now
     @Override
     public String toString() {
-        return "Priority{" +
-                "priorityLevel=" + priorityLevel +
-                ", colorPriority='" + colorPriority + '\'' +
+        return "Priority{" + String.valueOf(this.getLevel()) +
+                ", priorityLevel=" + level +
+                ", colorPriority='" + color + '\'' +
                 '}';
     }
 }

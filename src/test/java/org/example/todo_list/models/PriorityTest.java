@@ -16,6 +16,11 @@ class PriorityTest {
 
     @Test
     void testToString() {
+        int x = 2;
+        int y = 1;
+
+        System.out.println(Priority.CRITICAL.toString());
+
     }
 
     @Test
