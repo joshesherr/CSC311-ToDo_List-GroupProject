@@ -11,10 +11,12 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.db.UserSession;
 import org.example.todo_list.models.TaskList;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ListController implements Initializable {
@@ -25,6 +27,8 @@ public class ListController implements Initializable {
     public VBox root;
     public AppController parentController;
     public ProgressBar progressBar;
+    private String username;
+
 
     @FXML
     private TextField listName;
@@ -33,15 +37,6 @@ public class ListController implements Initializable {
      * The TaskList instance this view is representing
      */
     private TaskList taskList;
-
-
-    //!!!!!!!!!!!!!!!!!!!!!
-    @FXML
-    public void initialize() {
-        listName.textProperty().addListener((observable, oldValue, newValue) -> {
-
-        });
-    }
 
     public void addTaskBtnPressed(ActionEvent actionEvent) {
         addTask();
@@ -98,7 +93,20 @@ public class ListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        username = UserSession.getInstance().getUsername();
         taskList = new TaskList();
+
+        listName.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                try {
+                    taskList.setName(listName.getText());
+                    taskList.setUsername(username);
+                    taskList.saveToDatabase();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         optionsBtn.setOnMouseClicked(e -> {
             optionsMenu.show(optionsBtn, SceneManager.getInstance().getPrimaryStage().getX() + e.getSceneX(), SceneManager.getInstance().getPrimaryStage().getY()+ e.getSceneY());

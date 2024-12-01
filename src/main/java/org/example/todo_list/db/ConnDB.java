@@ -89,7 +89,54 @@ public class ConnDB {
     }
 
 
-    public static void insertTaskList(TaskList taskList) {
+    public void saveTaskListChanges(TaskList taskList) {
+        if (taskList.getName() == null || taskList.getName().isEmpty()) {
+            return;
+        }
+        if (taskList.getIdNum() != -1) {
+            try {
+                Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                String sql = "UPDATE list SET list_name = ? WHERE id_num = ?";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, taskList.getName());
+                preparedStatement.setInt(2, taskList.getIdNum());
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+
+            try {
+                Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                String sql = "INSERT INTO list (list_name) VALUES(?)";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, taskList.getName());
+                preparedStatement.executeUpdate();
+
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int listId = generatedKeys.getInt(1);
+                    taskList.setIdNum(listId);
+                }
+
+                preparedStatement.close();
+
+
+                sql = "INSERT INTO works_on (person_username, list_id) VALUES (?, ?)";
+                preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, taskList.getUsername());
+                preparedStatement.setInt(2, taskList.getIdNum());
+                preparedStatement.executeUpdate();
+
+                preparedStatement.close();
+                conn.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void createTableTask() {
@@ -111,23 +158,6 @@ public class ConnDB {
             e.printStackTrace();
         }
     }
-
-
-
-
-//    Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-//    String sql = "SELECT * FROM users WHERE username = ?";
-//    PreparedStatement preparedStatement = conn.prepareStatement(sql);
-//            preparedStatement.setString(1, username);
-//
-//    ResultSet resultSet = preparedStatement.executeQuery();
-//
-//            while (resultSet.next()) {
-//        usernameMatch = resultSet.getString("username");
-//        passwordMatch = resultSet.getString("password");
-//    }
-//            preparedStatement.close();
-//            conn.close();
 
     public ObservableList<TaskList> queryAllLists(String username) {
         connectToServer();

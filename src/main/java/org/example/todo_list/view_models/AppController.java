@@ -12,9 +12,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import org.example.todo_list.SceneManager;
 import org.example.todo_list.db.UserSession;
+import org.example.todo_list.models.TaskList;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
@@ -25,6 +28,8 @@ public class AppController implements Initializable {
     private static TaskController focusedTaskCon=null;
     private static TaskDetailsController taskDetailsCon;
     private String username;
+    private TaskList taskList = new TaskList();
+    private ListController listCon;
 
 
     @FXML
@@ -72,7 +77,6 @@ public class AppController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         username = UserSession.getInstance().getUsername();
-        System.out.println("Logged in user: " + username);
     }
 
     //Todo name lists on creation
@@ -87,10 +91,9 @@ public class AppController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
             listBox.getChildren().addFirst((Parent) loader.load());
-            ListController listCon = loader.getController();
+            listCon = loader.getController();
             listCon.parentController = this;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

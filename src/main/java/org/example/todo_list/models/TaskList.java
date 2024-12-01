@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
 
 public class TaskList {
     private String username;
-    private int idNum;
+    private int idNum = -1;
     private String name;
     private ArrayList<String> shareUsers;
     private PriorityQueue<Task> tasks;
@@ -16,8 +16,16 @@ public class TaskList {
     private ArrayList<Tag> listTags = new ArrayList<>(); //This may actually be not needed here but in Task instead
     //and how we want to use Color
 
+    private ConnDB connDB = new ConnDB();
+
     public TaskList() {
-        this.name = "";
+        this.name ="";
+        this.tasks = new PriorityQueue<>();
+    }
+
+    public TaskList(String taskName, String username) {
+        this.name = taskName;
+        this.username = username;
         this.tasks = new PriorityQueue<>();
     }
 
@@ -89,6 +97,6 @@ public class TaskList {
     }
 
     public void saveToDatabase() throws SQLException {
-        ConnDB.insertTaskList(this);
+        connDB.saveTaskListChanges(this);
     }
 }
