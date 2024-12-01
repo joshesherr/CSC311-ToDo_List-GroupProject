@@ -142,14 +142,15 @@ public class ConnDB {
     public ObservableList<TaskList> loadingUsersLists(String username) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "SELECT list.list_name FROM works_on INNER JOIN list ON works_on.list_id = list.id_num WHERE works_on.person_username = ?";
+            String sql = "SELECT list.id_num, list.list_name FROM works_on INNER JOIN list ON works_on.list_id = list.id_num WHERE works_on.person_username = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                int id_num = Integer.parseInt(resultSet.getString("id_num"));
                 String list_name = resultSet.getString("list_name");
-                listsData.add(new TaskList(list_name, username));
+                listsData.add(new TaskList(id_num, list_name, username));
             }
             preparedStatement.close();
             conn.close();

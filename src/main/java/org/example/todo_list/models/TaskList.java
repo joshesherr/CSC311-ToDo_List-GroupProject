@@ -23,7 +23,8 @@ public class TaskList {
         this.tasks = new PriorityQueue<>();
     }
 
-    public TaskList(String taskName, String username) {
+    public TaskList(int idNum, String taskName, String username) {
+        this.idNum = idNum;
         this.name = taskName;
         this.username = username;
         this.tasks = new PriorityQueue<>();
