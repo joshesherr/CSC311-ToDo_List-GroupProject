@@ -38,7 +38,29 @@ public class ListController implements Initializable {
     /**
      * The TaskList instance this view is representing
      */
-    private TaskList taskList;
+    public TaskList taskList;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        username = UserSession.getInstance().getUsername();
+        taskList = new TaskList();
+
+        listName.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                try {
+                    taskList.setName(listName.getText());
+                    taskList.setUsername(username);
+                    taskList.saveToDatabase();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        optionsBtn.setOnMouseClicked(e -> {
+            optionsMenu.show(optionsBtn, SceneManager.getInstance().getPrimaryStage().getX() + e.getSceneX(), SceneManager.getInstance().getPrimaryStage().getY()+ e.getSceneY());
+        });
+    }
 
     public void addTaskBtnPressed(ActionEvent actionEvent) {
         addTask();
@@ -55,7 +77,7 @@ public class ListController implements Initializable {
 
             taskCon.parentController = this;
             taskCon.taskNameField.requestFocus();
-            taskList.addTask( taskCon.getTask() );
+            taskList.addTask(taskCon.getTask());
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -88,38 +110,16 @@ public class ListController implements Initializable {
         parentController.removeList(this);
     }
 
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
+        listName.setText(taskList.getName());
+        updateProgress();
+    }
+
     /**
      * Update this list views progress bar.
      */
     public void updateProgress() {
         progressBar.setProgress(taskList.getProgress());
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        username = UserSession.getInstance().getUsername();
-        taskList = new TaskList();
-
-        listName.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                try {
-                    taskList.setName(listName.getText());
-                    taskList.setUsername(username);
-                    taskList.saveToDatabase();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        optionsBtn.setOnMouseClicked(e -> {
-            optionsMenu.show(optionsBtn, SceneManager.getInstance().getPrimaryStage().getX() + e.getSceneX(), SceneManager.getInstance().getPrimaryStage().getY()+ e.getSceneY());
-        });
-    }
-
-    public void setTaskList(TaskList taskList) {
-        this.taskList = taskList;
-        listName.setText(taskList.getName());
-        updateProgress();
     }
 }

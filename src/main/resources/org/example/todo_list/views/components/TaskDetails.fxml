@@ -30,22 +30,24 @@
                   <Insets bottom="10.0" top="-30.0" />
                </VBox.margin>
             </HBox>
-            <TextField fx:id="taskName" alignment="CENTER" prefHeight="21.0" prefWidth="171.0" promptText="Task Name">
+            <TextField fx:id="taskName" alignment="CENTER" prefHeight="22.0" prefWidth="376.0" promptText="Task Name">
                <VBox.margin>
                   <Insets bottom="10.0" top="-20.0" />
                </VBox.margin>
             </TextField>
-            <Separator prefHeight="5.0" prefWidth="180.0">
+            <Separator prefHeight="15.0" prefWidth="378.0">
                <VBox.margin>
                   <Insets bottom="10.0" left="-1.0" right="-1.0" top="-10.0" />
                </VBox.margin>
             </Separator>
          </children>
       </VBox>
-      <DatePicker fx:id="taskDueDate" prefHeight="18.0" prefWidth="170.0" promptText="Due Date">
-         <VBox.margin>
-            <Insets top="-10.0" />
-         </VBox.margin></DatePicker>
+      <HBox alignment="CENTER" prefHeight="22.0" prefWidth="376.0" spacing="15.0">
+         <children>
+            <DatePicker fx:id="taskDueDate" prefHeight="20.0" prefWidth="170.0" promptText="Due Date" />
+            <TextField fx:id="endTime" prefHeight="20.0" prefWidth="170.0" promptText="HH:mm:ss" />
+         </children>
+      </HBox>
       <ComboBox fx:id="priorityComboBox" prefWidth="100.0" promptText="Task Priority">
          <VBox.margin>
             <Insets bottom="5.0" top="5.0" />

@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.todo_list.models.Person;
+import org.example.todo_list.models.Task;
 import org.example.todo_list.models.TaskList;
 import org.example.todo_list.view_models.RegisterController;
 
@@ -173,18 +174,22 @@ public class ConnDB {
         return listsData;
     }
 
+    /**
+     * Delete the list from the database, using the list's id number
+     * @param taskList
+     */
     public void deleteList(TaskList taskList) {
         int id_num = taskList.getIdNum();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            //First step, delete the related row in works_on table!
+            //First step, delete the related row in the works_on table!
             String sql = "DELETE FROM works_on WHERE list_id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, id_num);
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
-            //Second step, delete the related row in list table!
+            //Second step, delete the related row in the list table!
             sql = "DELETE FROM list WHERE id_num = ?";
             preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, id_num);
@@ -196,6 +201,48 @@ public class ConnDB {
         }
     }
 
+    //----------------------------------TASKS' SECTION--------------------------------------------------------------------------
+
+    public void saveTaskChanges(Task task) {
+        if (task.getTitle() == null || task.getTitle().isEmpty()) {
+            return;
+        }
+        if (task.getIdNum() != -1) {
+            try {
+                Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                String sql = "UPDATE task SET name = ? WHERE id_num = ?";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, task.getTitle());
+                preparedStatement.setInt(2, task.getIdNum());
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+
+            try {
+                Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                String sql = "INSERT INTO task (name, start_date, list_id) VALUES(?, ?, ?)";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, task.getTitle());
+                preparedStatement.setString(2, String.valueOf(task.getStartDateTime()));
+                preparedStatement.setInt(3, task.getListID());
+                preparedStatement.executeUpdate();
+
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int taskId = generatedKeys.getInt(1);
+                    task.setIdNum(taskId);
+                }
+
+                preparedStatement.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void createTableTask() {
         try {

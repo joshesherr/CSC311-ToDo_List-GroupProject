@@ -59,6 +59,17 @@ public class TaskController implements Initializable {
         //When a task is selected set it as the focused task in AppController.
         taskNameField.focusedProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue) parentController.parentController.setFocusedTask(this);
+            if (!newValue) {
+                try {
+                    task.setTitle(taskNameField.getText());
+                    task.setListID(parentController.taskList.getIdNum());
+                    System.out.println("Task name: " + task.getTitle());
+                    System.out.println("List's ID: " + task.getListID());
+                    task.saveToDatabase();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         });
 
         taskNameField.textProperty().addListener((ov, oldValue, newValue) -> {

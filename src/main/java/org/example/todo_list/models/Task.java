@@ -1,16 +1,19 @@
 package org.example.todo_list.models;
 
 import javafx.scene.paint.Color;
+import org.example.todo_list.db.ConnDB;
 
+import java.sql.SQLException;
 import java.time.*;
 import java.util.ArrayList;
 
 public class Task implements Comparable {
-
+    private int idNum;
     private String title;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String description;
+    private int listID;
     private boolean completed;
     private int priority;
     private Color color;
@@ -19,7 +22,10 @@ public class Task implements Comparable {
         //Or start empty? Only reason I wonder this is because of color setting in tags,
         //and how we want to use Color
 
+    private ConnDB connDB = new ConnDB();
+
     public Task() {
+        this.idNum = -1;
         this.title = "";
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = null;
@@ -28,12 +34,34 @@ public class Task implements Comparable {
         this.completed = false;
     }
 
+    public int getIdNum() {
+        return idNum;
+    }
+
+    public void setIdNum(int idNum) {
+        this.idNum = idNum;
+    }
+
+    public int getListID() {
+        return listID;
+    }
+
+    public void setListID(int listID) {
+        this.listID = listID;
+    }
+
     public Task(String title, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, int priority) {
         this.title = title;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.description = description;
         this.priority = priority;
+        this.completed = false;
+    }
+
+    public Task(String title) {
+        this.title = title;
+        this.startDateTime = LocalDateTime.now();
         this.completed = false;
     }
 /*
@@ -114,5 +142,9 @@ public class Task implements Comparable {
     @Override
     public int compareTo(Object o) {
         return 0;
+    }
+
+    public void saveToDatabase() throws SQLException {
+        connDB.saveTaskChanges(this);
     }
 }
