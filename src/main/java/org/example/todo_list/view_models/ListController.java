@@ -11,6 +11,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.db.ConnDB;
 import org.example.todo_list.db.UserSession;
 import org.example.todo_list.models.TaskList;
 
@@ -28,6 +29,7 @@ public class ListController implements Initializable {
     public AppController parentController;
     public ProgressBar progressBar;
     private String username;
+    private ConnDB connDB = new ConnDB();
 
 
     @FXML
@@ -77,10 +79,12 @@ public class ListController implements Initializable {
         //
     }
 
+
     /**
      * Will remove this list from the home screen.
      */
     public void removeSelf() {
+        connDB.deleteList(this.taskList);
         parentController.removeList(this);
     }
 

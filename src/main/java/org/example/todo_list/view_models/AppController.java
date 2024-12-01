@@ -80,6 +80,7 @@ public class AppController implements Initializable {
                 Parent listRoot = loader.load();
                 ListController listCon = loader.getController();
                 listCon.setTaskList(taskList);
+                listCon.parentController = this;
                 listBox.getChildren().add(listRoot);
             } catch (IOException e) {
                 e.printStackTrace();

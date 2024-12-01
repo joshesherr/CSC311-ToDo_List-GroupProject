@@ -42,7 +42,7 @@ public class ConnDB {
         }
     }
 
-
+    //----------------------------------USERS'S SECTION--------------------------------------------------------------------------
     /**
      * Create the table if not created, accept the sql query for creating the table
      */
@@ -66,6 +66,10 @@ public class ConnDB {
         }
     }
 
+    /**
+     * Insert a new user into the database
+     * @param p
+     */
     public void insertUser(Person p) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -88,7 +92,11 @@ public class ConnDB {
         }
     }
 
-
+    //----------------------------------TASK LISTS' SECTION--------------------------------------------------------------------------
+    /**
+     * Check if the list exist in the DB, update the list's name if it does, insert a new list if it doesn't
+     * @param taskList
+     */
     public void saveTaskListChanges(TaskList taskList) {
         if (taskList.getName() == null || taskList.getName().isEmpty()) {
             return;
@@ -139,6 +147,11 @@ public class ConnDB {
 
     }
 
+    /**
+     * Loading the user's lists information from the database into the ObservableList
+     * @param username
+     * @return ObservableList<TaskList>
+     */
     public ObservableList<TaskList> loadingUsersLists(String username) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -158,6 +171,29 @@ public class ConnDB {
             e.printStackTrace();
         }
         return listsData;
+    }
+
+    public void deleteList(TaskList taskList) {
+        int id_num = taskList.getIdNum();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            //First step, delete the related row in works_on table!
+            String sql = "DELETE FROM works_on WHERE list_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id_num);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+            //Second step, delete the related row in list table!
+            sql = "DELETE FROM list WHERE id_num = ?";
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id_num);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
