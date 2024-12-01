@@ -139,6 +139,27 @@ public class ConnDB {
 
     }
 
+    public ObservableList<TaskList> loadingUsersLists(String username) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT list.list_name FROM works_on INNER JOIN list ON works_on.list_id = list.id_num WHERE works_on.person_username = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String list_name = resultSet.getString("list_name");
+                listsData.add(new TaskList(list_name, username));
+            }
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listsData;
+    }
+
+
     public void createTableTask() {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -159,51 +180,6 @@ public class ConnDB {
         }
     }
 
-    public ObservableList<TaskList> queryAllLists(String username) {
-        connectToServer();
-        try {
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "SELECT * FROM everything_about_list WHERE person_username = ?";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                String list_name = resultSet.getString("list_name");
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listsData;
-    }
-
-//    public ObservableList<Person> getData() {
-//        connectToDatabase();
-//        try {
-//            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-//            String sql = "SELECT * FROM users ";
-//            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            if (!resultSet.isBeforeFirst()) {
-//                lg.makeLog("No data");
-//            }
-//            while (resultSet.next()) {
-//                int id = resultSet.getInt("id");
-//                String first_name = resultSet.getString("first_name");
-//                String last_name = resultSet.getString("last_name");
-//                String department = resultSet.getString("department");
-//                String major = resultSet.getString("major");
-//                String email = resultSet.getString("email");
-//                String imageURL = resultSet.getString("imageURL");
-//                data.add(new Person(id, first_name, last_name, department, major, email, imageURL));
-//            }
-//            preparedStatement.close();
-//            conn.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return data;
-//    }
 
 }

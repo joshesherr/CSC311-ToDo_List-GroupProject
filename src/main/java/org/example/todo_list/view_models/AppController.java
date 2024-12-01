@@ -1,5 +1,7 @@
 package org.example.todo_list.view_models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.db.ConnDB;
 import org.example.todo_list.db.UserSession;
 import org.example.todo_list.models.TaskList;
 
@@ -30,6 +33,8 @@ public class AppController implements Initializable {
     private String username;
     private TaskList taskList = new TaskList();
     private ListController listCon;
+    private ConnDB connDB = new ConnDB();
+    private ObservableList<TaskList> listsData = FXCollections.observableArrayList();
 
 
     @FXML
@@ -65,6 +70,23 @@ public class AppController implements Initializable {
     @FXML
     private ScrollPane scrollPane;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        username = UserSession.getInstance().getUsername();
+        listsData = connDB.loadingUsersLists(username);
+        for (TaskList taskList: listsData) {
+            try {
+                FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
+                Parent listRoot = loader.load();
+                ListController listCon = loader.getController();
+                listCon.setTaskList(taskList);
+                listBox.getChildren().add(listRoot);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void logOut(ActionEvent actionEvent) {
         sceneManager.showScene("LoginScene");
     }
@@ -72,11 +94,6 @@ public class AppController implements Initializable {
     @FXML
     void exitProgram(ActionEvent event) {
         System.exit(0);
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        username = UserSession.getInstance().getUsername();
     }
 
     //Todo name lists on creation

@@ -112,4 +112,10 @@ public class ListController implements Initializable {
             optionsMenu.show(optionsBtn, SceneManager.getInstance().getPrimaryStage().getX() + e.getSceneX(), SceneManager.getInstance().getPrimaryStage().getY()+ e.getSceneY());
         });
     }
+
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
+        listName.setText(taskList.getName());
+        updateProgress();
+    }
 }
