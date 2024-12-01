@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.example.todo_list.SceneManager;
 import org.example.todo_list.db.ConnDB;
+import org.example.todo_list.db.UserSession;
 import org.example.todo_list.models.Person;
 
 import java.sql.*;
@@ -38,7 +39,7 @@ public class RegisterController {
     @FXML
     private Label signInLabel, errorMsg;
 
-
+    public String username;
 
     /**
      * Set up the initial state of the GUI, add listeners to input fields, and disable the register button until all fields are valid.
@@ -152,6 +153,8 @@ public class RegisterController {
             checkStmt.close();
             rs.close();
             conn.close();
+            username = usernameRF.getText();
+            UserSession.getInstance().setUsername(username);
             sceneManager.showScene("HomeScene");
         } catch (Exception e) {
             e.printStackTrace();

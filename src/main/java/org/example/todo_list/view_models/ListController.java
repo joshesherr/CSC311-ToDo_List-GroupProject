@@ -1,16 +1,16 @@
 package org.example.todo_list.view_models;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.TextField;
 import org.example.todo_list.SceneManager;
-import org.example.todo_list.models.Task;
 import org.example.todo_list.models.TaskList;
 
 import java.io.IOException;
@@ -25,10 +25,23 @@ public class ListController implements Initializable {
     public VBox root;
     public AppController parentController;
     public ProgressBar progressBar;
+
+    @FXML
+    private TextField listName;
+
     /**
      * The TaskList instance this view is representing
      */
     private TaskList taskList;
+
+
+    //!!!!!!!!!!!!!!!!!!!!!
+    @FXML
+    public void initialize() {
+        listName.textProperty().addListener((observable, oldValue, newValue) -> {
+
+        });
+    }
 
     public void addTaskBtnPressed(ActionEvent actionEvent) {
         addTask();

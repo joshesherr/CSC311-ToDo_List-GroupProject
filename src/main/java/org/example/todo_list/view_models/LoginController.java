@@ -3,19 +3,15 @@ package org.example.todo_list.view_models;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.db.UserSession;
 
 import java.net.URL;
 import java.sql.*;
@@ -59,8 +55,8 @@ public class LoginController implements Initializable {
         sceneManager.showScene("RegisterScene");
     }
 
-    String usernameMatch;
-    String passwordMatch;
+    public String usernameMatch;
+    public String passwordMatch;
 
     public void signIn(ActionEvent actionEvent) {
         String username = emailTF.getText();
@@ -86,7 +82,7 @@ public class LoginController implements Initializable {
 
         if ((username.equals("admin") && password.equals("admin"))||(usernameMatch != null && passwordMatch != null && usernameMatch.equals(username) && passwordMatch.equals(password))) {
             Platform.runLater(() -> errorMsg.setText(""));
-
+            UserSession.getInstance().setUsername(username);
             try {
                 sceneManager.showScene("HomeScene");
             } catch (Exception e) {

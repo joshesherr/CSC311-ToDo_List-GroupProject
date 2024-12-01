@@ -1,11 +1,15 @@
 package org.example.todo_list.models;
 
+import org.example.todo_list.db.ConnDB;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
 public class TaskList {
-
-    private String title;
+    private String username;
+    private int idNum;
+    private String name;
     private ArrayList<String> shareUsers;
     private PriorityQueue<Task> tasks;
     private double progress=0.0;
@@ -13,21 +17,46 @@ public class TaskList {
     //and how we want to use Color
 
     public TaskList() {
-        this.title = "";
+        this.name = "";
         this.tasks = new PriorityQueue<>();
     }
 
-    public TaskList(String title) {
-        this.title = title;
+    public TaskList(String name) {
+        this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String title) {
+        this.name = title;
     }
+
+    public int getIdNum() {
+        return idNum;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setIdNum(int idNum) {
+        this.idNum = idNum;
+    }
+
+    public PriorityQueue<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(PriorityQueue<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 
     /**
      *
@@ -57,5 +86,9 @@ public class TaskList {
 
     public void setListTags(ArrayList<Tag> listTags) {
         this.listTags = listTags;
+    }
+
+    public void saveToDatabase() throws SQLException {
+        ConnDB.insertTaskList(this);
     }
 }

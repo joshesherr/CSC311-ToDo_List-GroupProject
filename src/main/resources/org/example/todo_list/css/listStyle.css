@@ -8,6 +8,13 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
 }
 
+#listName {
+    -fx-font-family: Arial;
+    -fx-prompt-text-fill: black;
+    -fx-background-radius: 5;
+    -fx-background-color: #fdfdfd;
+}
+
 .scroll-pane {
     -fx-background-color: #ffffff;
     -fx-background-radius: 10;

@@ -1,11 +1,14 @@
 package org.example.todo_list.db;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.todo_list.models.Person;
+import org.example.todo_list.models.TaskList;
 import org.example.todo_list.view_models.RegisterController;
 
 import java.sql.*;
@@ -18,6 +21,9 @@ public class ConnDB {
     final String PASSWORD = "MvT$!qp9c26ZY!V";
 
     Person p = null;
+    private final ObservableList<TaskList> listsData = FXCollections.observableArrayList();
+
+
 
     /**
      * Connect to the database and create the database and table if not created, accept the sql query for creating the table
@@ -83,6 +89,9 @@ public class ConnDB {
     }
 
 
+    public static void insertTaskList(TaskList taskList) {
+    }
+
     public void createTableTask() {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -102,4 +111,69 @@ public class ConnDB {
             e.printStackTrace();
         }
     }
+
+
+
+
+//    Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+//    String sql = "SELECT * FROM users WHERE username = ?";
+//    PreparedStatement preparedStatement = conn.prepareStatement(sql);
+//            preparedStatement.setString(1, username);
+//
+//    ResultSet resultSet = preparedStatement.executeQuery();
+//
+//            while (resultSet.next()) {
+//        usernameMatch = resultSet.getString("username");
+//        passwordMatch = resultSet.getString("password");
+//    }
+//            preparedStatement.close();
+//            conn.close();
+
+    public ObservableList<TaskList> queryAllLists(String username) {
+        connectToServer();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM everything_about_list WHERE person_username = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String list_name = resultSet.getString("list_name");
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listsData;
+    }
+
+//    public ObservableList<Person> getData() {
+//        connectToDatabase();
+//        try {
+//            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+//            String sql = "SELECT * FROM users ";
+//            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            if (!resultSet.isBeforeFirst()) {
+//                lg.makeLog("No data");
+//            }
+//            while (resultSet.next()) {
+//                int id = resultSet.getInt("id");
+//                String first_name = resultSet.getString("first_name");
+//                String last_name = resultSet.getString("last_name");
+//                String department = resultSet.getString("department");
+//                String major = resultSet.getString("major");
+//                String email = resultSet.getString("email");
+//                String imageURL = resultSet.getString("imageURL");
+//                data.add(new Person(id, first_name, last_name, department, major, email, imageURL));
+//            }
+//            preparedStatement.close();
+//            conn.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return data;
+//    }
+
 }

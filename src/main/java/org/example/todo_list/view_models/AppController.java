@@ -11,6 +11,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.db.UserSession;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +24,8 @@ public class AppController implements Initializable {
     SceneManager sceneManager = SceneManager.getInstance();
     private static TaskController focusedTaskCon=null;
     private static TaskDetailsController taskDetailsCon;
+    private String username;
+
 
     @FXML
     private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
@@ -68,7 +71,8 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        username = UserSession.getInstance().getUsername();
+        System.out.println("Logged in user: " + username);
     }
 
     //Todo name lists on creation
