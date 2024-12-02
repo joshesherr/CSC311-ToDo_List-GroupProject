@@ -1,5 +1,7 @@
 package org.example.todo_list.models;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.example.todo_list.db.ConnDB;
 
 import java.sql.SQLException;
@@ -11,7 +13,7 @@ public class TaskList {
     private int idNum = -1;
     private String name;
     private ArrayList<String> shareUsers;
-    private PriorityQueue<Task> tasks;
+    private ObservableList<Task> tasks;
     private double progress=0.0;
     private ArrayList<Tag> listTags = new ArrayList<>(); //This may actually be not needed here but in Task instead
     //and how we want to use Color
@@ -20,14 +22,14 @@ public class TaskList {
 
     public TaskList() {
         this.name ="";
-        this.tasks = new PriorityQueue<>();
+        this.tasks = FXCollections.observableArrayList();
     }
 
     public TaskList(int idNum, String taskName, String username) {
         this.idNum = idNum;
         this.name = taskName;
         this.username = username;
-        this.tasks = new PriorityQueue<>();
+        this.tasks = FXCollections.observableArrayList();
     }
 
     public TaskList(String name) {
@@ -58,11 +60,11 @@ public class TaskList {
         this.idNum = idNum;
     }
 
-    public PriorityQueue<Task> getTasks() {
+    public ObservableList<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(PriorityQueue<Task> tasks) {
+    public void setTasks(ObservableList<Task> tasks) {
         this.tasks = tasks;
     }
 

@@ -13,6 +13,8 @@ import org.example.todo_list.models.TaskList;
 import org.example.todo_list.view_models.RegisterController;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ConnDB {
 
@@ -23,6 +25,7 @@ public class ConnDB {
 
     Person p = null;
     private final ObservableList<TaskList> listsData = FXCollections.observableArrayList();
+    private final ObservableList<Task> taskData = FXCollections.observableArrayList();
 
 
 
@@ -242,6 +245,42 @@ public class ConnDB {
                 e.printStackTrace();
             }
         }
+    }
+
+
+    public ObservableList<Task> loadingTasksData(int list_id) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM task WHERE list_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, list_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            if (resultSet == null) {
+                return null;
+            }
+
+            while (resultSet.next()) {
+                int id_num = resultSet.getInt("id_num");
+                String name = resultSet.getString("name");
+                String start_date = resultSet.getString("start_date");
+                LocalDateTime startDate = start_date != null ? LocalDateTime.parse(start_date, formatter) : null;
+                String end_date = resultSet.getString("end_date");
+                LocalDateTime endDate = end_date != null ? LocalDateTime.parse(end_date, formatter) : null;
+                String description = resultSet.getString("description");
+                boolean completed = resultSet.getBoolean("completed");
+                if (name != null) {
+                    taskData.add(new Task(id_num, name, startDate, list_id, endDate, description, completed));
+                }
+            }
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return taskData;
     }
 
     public void createTableTask() {

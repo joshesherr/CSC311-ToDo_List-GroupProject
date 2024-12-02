@@ -34,22 +34,6 @@ public class Task implements Comparable {
         this.completed = false;
     }
 
-    public int getIdNum() {
-        return idNum;
-    }
-
-    public void setIdNum(int idNum) {
-        this.idNum = idNum;
-    }
-
-    public int getListID() {
-        return listID;
-    }
-
-    public void setListID(int listID) {
-        this.listID = listID;
-    }
-
     public Task(String title, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, int priority) {
         this.title = title;
         this.startDateTime = startDateTime;
@@ -57,6 +41,16 @@ public class Task implements Comparable {
         this.description = description;
         this.priority = priority;
         this.completed = false;
+    }
+
+    public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed) {
+        this.idNum = idNum;
+        this.title = title;
+        this.startDateTime = startDateTime;
+        this.listID = listId;
+        this.endDateTime = endDateTime;
+        this.description = description;
+        this.completed = completed;
     }
 
     public Task(String title) {
@@ -75,6 +69,23 @@ public class Task implements Comparable {
         this.completed = false;
     }
 */
+
+    public int getIdNum() {
+        return idNum;
+    }
+
+    public void setIdNum(int idNum) {
+        this.idNum = idNum;
+    }
+
+    public int getListID() {
+        return listID;
+    }
+
+    public void setListID(int listID) {
+        this.listID = listID;
+    }
+
     public String getTitle() {
         return title;
     }

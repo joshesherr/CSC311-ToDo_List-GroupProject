@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import org.example.todo_list.SceneManager;
 import org.example.todo_list.db.ConnDB;
 import org.example.todo_list.db.UserSession;
+import org.example.todo_list.models.Task;
 import org.example.todo_list.models.TaskList;
 
 import java.io.IOException;
@@ -33,9 +34,10 @@ public class AppController implements Initializable {
     private String username;
     private TaskList taskList = new TaskList();
     private ListController listCon;
+    private TaskController taskCon;
     private ConnDB connDB = new ConnDB();
     private ObservableList<TaskList> listsData = FXCollections.observableArrayList();
-
+    private ObservableList<Task> taskData = FXCollections.observableArrayList();
 
     @FXML
     private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
@@ -74,16 +76,39 @@ public class AppController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         username = UserSession.getInstance().getUsername();
         listsData = connDB.loadingUsersLists(username);
-        for (TaskList taskList: listsData) {
+        System.out.println("Loaded lists: " + listsData.size());
+
+        ObservableList<TaskList> listsDataCopy = FXCollections.observableArrayList(listsData); // Create a copy of the list
+
+        for (TaskList taskList : listsDataCopy) {
+            taskData = connDB.loadingTasksData(taskList.getIdNum());
+            System.out.println("Loaded tasks for list " + taskList.getIdNum() + ": " + taskData.size());
+            taskList.setTasks(taskData);
             try {
                 FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
                 Parent listRoot = loader.load();
-                ListController listCon = loader.getController();
+                listCon = loader.getController();
                 listCon.setTaskList(taskList);
                 listCon.parentController = this;
                 listBox.getChildren().add(listRoot);
+                System.out.println("Added list to UI: " + taskList.getIdNum());
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            for (Task task : taskList.getTasks()) {
+                if (task.getListID() == taskList.getIdNum()) {
+                    System.out.println(task.getTitle());
+                try {
+                    FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
+                    Parent taskRoot = loader.load();
+                    TaskController taskCon = loader.getController();
+                    taskCon.setTask(task);
+                    listCon.taskBox.getChildren().add(taskRoot);
+                    System.out.println("Added task to UI: " + task.getIdNum());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                }
             }
         }
     }

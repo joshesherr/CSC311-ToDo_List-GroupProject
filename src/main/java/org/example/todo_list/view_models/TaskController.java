@@ -74,7 +74,9 @@ public class TaskController implements Initializable {
 
         taskNameField.textProperty().addListener((ov, oldValue, newValue) -> {
             task.setTitle(newValue);
-            AppController.getTaskDetailsCon().updateTaskDetails();
+            if (AppController.getTaskDetailsCon() != null) {
+                AppController.getTaskDetailsCon().updateTaskDetails();
+            }
 
 
         });
@@ -91,6 +93,7 @@ public class TaskController implements Initializable {
     }
     public void setTask(Task task) {
         this.task = task;
+        taskNameField.setText(task.getTitle());
     }
 
     public void updatePriorityColor(Color color) {
