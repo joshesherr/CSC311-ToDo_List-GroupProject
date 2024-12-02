@@ -20,7 +20,7 @@
    <children>
       <AnchorPane prefHeight="69.0" prefWidth="266.0">
          <children>
-            <TextField id="listName" fx:id="listName" promptText="My List Name">
+            <TextField id="listName" fx:id="listName" promptText="List Name">
                <font>
                   <Font size="17.0" />
                </font>
