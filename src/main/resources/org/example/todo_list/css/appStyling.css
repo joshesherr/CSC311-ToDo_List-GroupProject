@@ -63,8 +63,7 @@
 /* ----------------------Menu bar styling ends-------------------------*/
 
 /* ----------------------Filtering and operational bar's styling starts----------------- */
-#personalTasksBtn, #importantTasksBtn, #homeStuffTasksBtn, #addListBtn, #allTasksBtn,
-#criticalTasksBtn, #daysTasksBtn, #groupTasksBtn, #homeBtn, #monthTasksBtn, #weekTasksBtn {
+.side-btn {
     -fx-background-color: #aaccf6; /* Primary button color */
     -fx-text-fill: #2c3e50;
     -fx-font-size: 14px;
@@ -78,16 +77,12 @@
 }
 
  /*Button hover effect */
-#personalTasksBtn:hover, #importantTasksBtn:hover, #homeStuffTasksBtn:hover, #addListBtn:hover,
-#allTasksBtn:hover, #criticalTasksBtn:hover, #daysTasksBtn:hover, #groupTasksBtn:hover,
-#homeBtn:hover, #monthTasksBtn:hover, #weekTasksBtn:hover {
+.side-btn:hover {
     -fx-background-color: #357ae8; /* Darker shade on hover */
 }
 
 /*!* Button pressed effect *!*/
-#personalTasksBtn:pressed, #importantTasksBtn:pressed, #homeStuffTasksBtn:pressed, #addListBtn:pressed,
-#allTasksBtn:pressed, #criticalTasksBtn:pressed, #daysTasksBtn:pressed, #groupTasksBtn:pressed,
-#homeBtn:pressed, #monthTasksBtn:pressed, #weekTasksBtn:pressed {
+.side-btn:pressed {
     -fx-background-color: #2e6ac7; /* Darker blue when pressed */
 }
 
