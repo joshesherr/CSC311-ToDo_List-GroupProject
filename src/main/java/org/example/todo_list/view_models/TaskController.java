@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 public class TaskController implements Initializable {
     public TextField taskNameField;
     public VBox root;
+    private AppController grandParentController;
     public ListController parentController;
     public ContextMenu optionsMenu;
     public Button optionsBtn;
@@ -39,6 +40,10 @@ public class TaskController implements Initializable {
      * The Task instance this view is representing
      */
     private Task task;
+
+    public void setParentController(ListController parentController) {
+        this.parentController = parentController;
+    }
 
     //Todo Show options right above button. currently it is completely off screen
     public void showOptions(ActionEvent actionEvent) {

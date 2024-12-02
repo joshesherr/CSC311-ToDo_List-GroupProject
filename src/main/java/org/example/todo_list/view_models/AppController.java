@@ -103,6 +103,7 @@ public class AppController implements Initializable {
                     Parent taskRoot = loader.load();
                     TaskController taskCon = loader.getController();
                     taskCon.setTask(task);
+                    taskCon.setParentController(listCon); // Set the grandParent controller
                     listCon.taskBox.getChildren().add(taskRoot);
                     System.out.println("Added task to UI: " + task.getIdNum());
                 } catch (IOException e) {

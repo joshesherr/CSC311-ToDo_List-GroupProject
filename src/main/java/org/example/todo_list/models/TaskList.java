@@ -74,12 +74,19 @@ public class TaskList {
      * @return The percent of completeness of this List.
      */
     public double getProgress() {
-        int taskCount = tasks.size();
+        int taskCount = 0;
         int completedTaskCount=0;
         for (Task task : tasks) {
-            if(task.isCompleted()) completedTaskCount++;
+            if (task.getListID() == this.idNum) {
+                taskCount++;
+                if (task.isCompleted()) {
+                    completedTaskCount++;
+                }
+            }
         }
-
+        if (taskCount == 0) {
+            return 0.0;
+        }
         return (double) completedTaskCount / taskCount;
     }
 
