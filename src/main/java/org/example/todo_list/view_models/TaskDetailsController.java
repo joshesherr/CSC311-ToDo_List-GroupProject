@@ -13,6 +13,7 @@ import org.example.todo_list.models.Task;
 import org.example.todo_list.models.TaskEnums;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -209,11 +210,26 @@ public class TaskDetailsController implements Initializable {
         taskName.textProperty().addListener((ov, oldValue, newValue) -> {
             AppController.getFocusedTask().taskNameField.setText(newValue);//Task will be updated from TaskControllers Listener on taskNameField
         });
-        taskDescription.textProperty().addListener((ov, oldValue, newValue) -> {
-            task =  AppController.getFocusedTask().getTask();
-            task.setDescription(newValue);
-
-        });
+//        taskDescription.textProperty().addListener((ov, oldValue, newValue) -> {
+//            task =  AppController.getFocusedTask().getTask();
+//            task.setDescription(newValue);
+//            try {
+//                task.saveTaskDescription();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        });
+        taskDescription.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue) task =  AppController.getFocusedTask().getTask();
+            if (!newValue) {
+                task.setDescription(taskDescription.getText());
+                try {
+                    task.saveTaskDescription();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
         taskDueDate.valueProperty().addListener((ov, oldValue, newValue) -> {
             AppController.getFocusedTask().getTask().setEndDateTime(newValue.atTime(LocalTime.now()));
         });

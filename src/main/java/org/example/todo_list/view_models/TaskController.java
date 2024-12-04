@@ -112,7 +112,6 @@ public class TaskController implements Initializable {
         this.task = task;
         taskNameField.setText(task.getTitle());
         taskToggleCheck.setSelected(task.getCompleted());
-
     }
 
     public void updatePriorityColor(Color color) {
