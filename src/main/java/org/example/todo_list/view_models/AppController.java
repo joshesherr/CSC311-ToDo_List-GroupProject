@@ -38,6 +38,13 @@ public class AppController implements Initializable {
     private ConnDB connDB = new ConnDB();
     private ObservableList<TaskList> listsData = FXCollections.observableArrayList();
     private ObservableList<Task> taskData = FXCollections.observableArrayList();
+    private static Task copiedTask;
+    public static void setCopiedTask(Task task) {
+        copiedTask = task;
+    }
+    public static Task getCopiedTask() {
+        return copiedTask;
+    }
 
     @FXML
     private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
@@ -153,9 +160,9 @@ public class AppController implements Initializable {
         }
     }
 
-    public void showTaskDetails() {
+    public static void showTaskDetails() {
         taskDetailsCon.root.setVisible(true);
-        taskDetailsCon.updateTaskDetails();
+        taskDetailsCon.updateTaskDetails(AppController.getFocusedTask().getTask());
     }
 
     /**
@@ -170,7 +177,7 @@ public class AppController implements Initializable {
         return focusedTaskCon;
     }
 
-    public void setFocusedTask(TaskController taskCon) {
+    public static void setFocusedTask(TaskController taskCon) {
         focusedTaskCon = taskCon;
         showTaskDetails();
     }

@@ -29,16 +29,12 @@ public class TaskDetailsController implements Initializable {
 
     @FXML
     private Button addTagBtn, createTaskBtn, personalTaskBtn, shareTaskBtn;
-
     @FXML
     private TextArea taskDescription;
-
     @FXML
     public VBox root;
-
     @FXML
     private HBox addTagBtnBox, lowerTagBtnBox;
-
     @FXML
     private ComboBox<Priority> priorityComboBox;
 
@@ -237,9 +233,7 @@ public class TaskDetailsController implements Initializable {
         root.setLayoutY( y<0?0.0:(Math.min(y, SceneManager.getInstance().getPrimaryStage().getHeight()-40-root.getHeight())));
     }
 
-    public void updateTaskDetails() {
-        Task task = AppController.getFocusedTask().getTask();
-
+    public void updateTaskDetails(Task task) {
         taskName.setText( task.getTitle() );
         taskDueDate.setValue(task.getEndDateTime().toLocalDate());
         //taskPriority.setText( String.valueOf(task.getPriority()) );
@@ -263,6 +257,14 @@ public class TaskDetailsController implements Initializable {
     public void deleteTask() {
         AppController.getFocusedTask().removeSelf();
         hideDetails();
+    }
+
+    public void copyTask(ActionEvent actionEvent) {
+        AppController.setCopiedTask(AppController.getFocusedTask().getTask().copy());
+    }
+
+    public void pasteTask(ActionEvent actionEvent) {
+        updateTaskDetails(AppController.getCopiedTask());
     }
 }
 

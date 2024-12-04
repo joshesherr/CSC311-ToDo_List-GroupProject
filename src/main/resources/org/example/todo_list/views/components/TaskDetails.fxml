@@ -77,8 +77,8 @@
       <TextArea fx:id="taskDescription" prefHeight="119.0" prefWidth="376.0" promptText="Description" wrapText="true" />
       <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="156.0" spacing="2.0">
          <children>
-            <Button fx:id="copyTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button" />
-            <Button fx:id="pasteTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button" />
+            <Button fx:id="copyTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" onAction="#copyTask" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button" />
+            <Button fx:id="pasteTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" onAction="#pasteTask" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button" />
             <Button fx:id="deleteTaskBtn" maxHeight="57.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="19.0" prefWidth="0.0" styleClass="icon_button" />
          </children>
          <VBox.margin>
