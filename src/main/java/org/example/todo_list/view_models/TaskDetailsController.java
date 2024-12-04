@@ -259,11 +259,11 @@ public class TaskDetailsController implements Initializable {
         hideDetails();
     }
 
-    public void copyTask(ActionEvent actionEvent) {
+    public void copyTask() {
         AppController.setCopiedTask(AppController.getFocusedTask().getTask().copy());
     }
 
-    public void pasteTask(ActionEvent actionEvent) {
+    public void pasteTask() {
         updateTaskDetails(AppController.getCopiedTask());
     }
 }

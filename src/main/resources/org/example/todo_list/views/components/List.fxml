@@ -11,6 +11,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -37,8 +38,14 @@
                        <MenuItem mnemonicParsing="false" onAction="#removeSelf" text="Delete List" />
                     </items>
                   </ContextMenu>
-               </contextMenu></Button>
-            <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="143.0" progress="0.0" />
+               </contextMenu>
+               <tooltip>
+                  <Tooltip text="Open menu" />
+               </tooltip></Button>
+            <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="143.0" progress="0.0">
+               <tooltip>
+                  <Tooltip text="Task progress" />
+               </tooltip></ProgressBar>
          </children>
          <padding>
             <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -54,6 +61,9 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <tooltip>
+                  <Tooltip text="Add Task" />
+               </tooltip>
             </Button>
             <Label alignment="CENTER" contentDisplay="TOP" prefWidth="51.0" text="Add Task">
                <font>
