@@ -185,14 +185,21 @@ public class ConnDB {
         int id_num = taskList.getIdNum();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            //First step, delete the related row in the works_on table!
-            String sql = "DELETE FROM works_on WHERE list_id = ?";
+            // First step, delete the related row in the task table
+            String sql = "DELETE FROM task WHERE list_id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, id_num);
             preparedStatement.executeUpdate();
             preparedStatement.close();
 
-            //Second step, delete the related row in the list table!
+            //Second step, delete the related row in the works_on table!
+            sql = "DELETE FROM works_on WHERE list_id = ?";
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id_num);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+            //Third step, delete the related row in the list table!
             sql = "DELETE FROM list WHERE id_num = ?";
             preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, id_num);
