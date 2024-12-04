@@ -9,13 +9,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.LoginController">
+
+<VBox fx:id="root" alignment="CENTER" prefHeight="707.0" prefWidth="955.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.LoginController">
    <children>
-      <VBox fx:id="loginContainer" alignment="CENTER" layoutX="176.0" layoutY="47.0" prefHeight="606.0" prefWidth="449.0">
+      <VBox fx:id="loginContainer" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="449.0">
          <children>
             <ImageView fx:id="logo" fitHeight="110.0" fitWidth="198.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                <image>
@@ -26,7 +26,8 @@
                </VBox.margin>
                <viewport>
                   <Rectangle2D />
-               </viewport></ImageView>
+               </viewport>
+            </ImageView>
             <Label fx:id="signInLabel" text="Sign in" />
             <TextField fx:id="emailTF" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="307.0" promptText="Email">
                <VBox.margin>
@@ -60,4 +61,4 @@
       <URL value="@../css/globalStyle.css" />
       <URL value="@../css/loginStyle.css" />
    </stylesheets>
-</AnchorPane>
+</VBox>
