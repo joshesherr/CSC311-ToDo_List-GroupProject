@@ -257,6 +257,13 @@ public class TaskDetailsController implements Initializable {
         taskDueDate.setValue(task.getEndDateTime().toLocalDate());
         //taskPriority.setText( String.valueOf(task.getPriority()) );
         taskDescription.setText( task.getDescription() );
+        priorityComboBox.setValue(Priority.values()[task.getPriority()]);
+
+        try {
+            task.saveToDatabase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         applyWindowLimits(root.getLayoutX(), root.getLayoutY());
     }

@@ -237,11 +237,16 @@ public class ConnDB {
 
             try {
                 Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-                String sql = "INSERT INTO task (name, start_date, list_id) VALUES(?, ?, ?)";
+                String sql = "INSERT INTO task (name, start_date, list_id, end_date, description, completed, priority) VALUES(?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, task.getTitle());
                 preparedStatement.setString(2, String.valueOf(task.getStartDateTime()));
                 preparedStatement.setInt(3, task.getListID());
+                preparedStatement.setString(4, String.valueOf(task.getEndDateTime()));
+                preparedStatement.setString(5, task.getDescription());
+                preparedStatement.setBoolean(6, task.getCompleted());
+                preparedStatement.setInt(7, task.getPriority());
+
                 preparedStatement.executeUpdate();
 
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
