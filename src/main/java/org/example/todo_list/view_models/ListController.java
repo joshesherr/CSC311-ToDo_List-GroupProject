@@ -98,7 +98,6 @@ public class ListController implements Initializable {
     //Todo Show options right above button. currently it is completely off screen
     public void showOptions(ActionEvent e) {
         System.out.println(e);
-        //
     }
 
 

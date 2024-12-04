@@ -43,6 +43,7 @@ public class TaskDetailsController implements Initializable {
     private ComboBox<Priority> priorityComboBox;
 
     private ArrayList<Tag> listTags = new ArrayList<>();
+
     private static final int MAX_TAGS_PER_ROW = 3;
     // This is a temp List ^^^^^^^ Must be adjusted once code is refined a bit
     //Removing this will break below code until proper adjustments made
@@ -89,13 +90,11 @@ public class TaskDetailsController implements Initializable {
                         } else {
                             lowerTagBtnBox.getChildren().addFirst(newBtn);
                         }
-                        //This code will break if user wants to remove excess tags, no way to remove tags yet
-                        //If tags are removed and list is < MAX_TAGS, reenable button -> How to do that if button is disabled
-                        //Revisit the issue later
+                        //If tags are removed and list is < MAX_TAGS, add button back to appropriate box
                         if (listTags.size() >= TaskEnums.MAX_TAGS) {
                             addTagBtn.setDisable(true);
                             addTagBtn.setVisible(false);
-                            addTagBtnBox.getChildren().removeLast(); // same as managed i believe
+                            addTagBtnBox.getChildren().removeLast();
                         }
                     }
             });
@@ -213,7 +212,7 @@ public class TaskDetailsController implements Initializable {
         priorityComboBox.getItems().addAll(Priority.values());
 
         // Default value
-        priorityComboBox.setValue(Priority.NONE);
+        priorityComboBox.setValue(Priority.LOW);
 
         priorityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
