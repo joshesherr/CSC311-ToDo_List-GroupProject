@@ -213,6 +213,10 @@ public class ConnDB {
 
     //----------------------------------TASKS' SECTION--------------------------------------------------------------------------
 
+    /**
+     * Updates task's name or creates a new task with its name, id_num, start_date, and corresponding list_id
+     * @param task
+     */
     public void saveTaskChanges(Task task) {
         if (task.getTitle() == null || task.getTitle().isEmpty()) {
             return;
@@ -254,7 +258,11 @@ public class ConnDB {
         }
     }
 
-
+    /**
+     * Loadind task's information when the app starts.
+     * @param list_id
+     * @return ObservableList<Task>
+     */
     public ObservableList<Task> loadingTasksData(int list_id) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -290,22 +298,16 @@ public class ConnDB {
         return taskData;
     }
 
-    public void createTableTask() {
+    public void updatesTaskCompletion(Task task) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            Statement statement = conn.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS tasks (" + "id VARCHAR(100) NOT NULL PRIMARY KEY,"
-                    + "start_date DATE NOT NULL,"
-                    + "end_date DATE NOT NULL,"
-                    + "description VARCHAR(500))";
-
-            statement.executeUpdate(sql);
-            statement.executeUpdate(sql);
-            //check if we have users in the table users
-            statement = conn.createStatement();
-            statement.close();
-            conn.close();
-        } catch (SQLException e) {
+            String sql = "UPDATE task SET completed = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setBoolean(1, task.getCompleted());
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
