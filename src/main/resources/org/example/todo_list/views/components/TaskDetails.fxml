@@ -45,7 +45,7 @@
       <HBox alignment="CENTER" prefHeight="22.0" prefWidth="376.0" spacing="15.0">
          <children>
             <DatePicker fx:id="taskDueDate" prefHeight="20.0" prefWidth="170.0" promptText="Due Date" />
-            <TextField fx:id="endTime" prefHeight="20.0" prefWidth="170.0" promptText="HH:mm:ss" />
+            <TextField fx:id="endTime" prefHeight="20.0" prefWidth="170.0" promptText="23:59:59" />
          </children>
       </HBox>
       <ComboBox fx:id="priorityComboBox" prefWidth="100.0" promptText="Task Priority">

@@ -11,7 +11,7 @@
 #listName, #listName:focused, #listName:hover {
     -fx-font-family: Arial;
     -fx-font-size: 17px;
-    -fx-prompt-text-fill: black;
+    -fx-prompt-text-fill: #818181;
     -fx-background-radius: 5;
     -fx-background-color: #fdfdfd;
 }

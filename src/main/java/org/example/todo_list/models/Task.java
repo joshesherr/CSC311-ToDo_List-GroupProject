@@ -126,6 +126,8 @@ public class Task implements Comparable {
         this.completed = status;
     }
 
+    public boolean getCompleted() {return completed;}
+
     public int getPriority() {
         return priority;
     }
@@ -157,5 +159,9 @@ public class Task implements Comparable {
 
     public void saveToDatabase() throws SQLException {
         connDB.saveTaskChanges(this);
+    }
+
+    public void saveTaskCompletion() throws SQLException {
+        connDB.updatesTaskCompletion(this);
     }
 }

@@ -36,6 +36,8 @@
     -fx-background-radius: 10;
     -fx-background-color: #ffffff;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
+    -fx-max-width: 449;
+    -fx-max-height: 606;
 }
 
 /* Label styling */
@@ -62,7 +64,6 @@
     -fx-fit-width: 100;
     -fx-fit-height: 100;
 }
-
 
 /* Label for incorrect password messages */
 #errorMsg {

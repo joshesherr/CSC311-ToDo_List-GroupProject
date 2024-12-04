@@ -22,6 +22,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class TaskController implements Initializable {
@@ -89,6 +90,11 @@ public class TaskController implements Initializable {
         taskToggleCheck.selectedProperty().addListener((ov, oldValue, newValue) -> {
             task.setCompleted(newValue);
             parentController.updateProgress();
+            try {
+                task.saveTaskCompletion();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         });
 
     }

@@ -34,7 +34,7 @@ public class RegisterController {
     private VBox loginContainer;
 
     @FXML
-    private AnchorPane root;
+    private VBox root;
 
     @FXML
     private Label signInLabel, errorMsg;
