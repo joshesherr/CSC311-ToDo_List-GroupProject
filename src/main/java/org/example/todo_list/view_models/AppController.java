@@ -38,6 +38,13 @@ public class AppController implements Initializable {
     private ConnDB connDB = new ConnDB();
     private ObservableList<TaskList> listsData = FXCollections.observableArrayList();
     private ObservableList<Task> taskData = FXCollections.observableArrayList();
+    private static Task copiedTask;
+    public static void setCopiedTask(Task task) {
+        copiedTask = task;
+    }
+    public static Task getCopiedTask() {
+        return copiedTask;
+    }
 
     @FXML
     private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
@@ -78,8 +85,19 @@ public class AppController implements Initializable {
         listsData = connDB.loadingUsersLists(username);
         System.out.println("Loaded lists: " + listsData.size());
 
-        ObservableList<TaskList> listsDataCopy = FXCollections.observableArrayList(listsData); // Create a copy of the list
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/TaskDetails.fxml"));
+            Parent taskDetailsRoot = (Parent) loader.load();
+            root.getChildren().add(taskDetailsRoot);
+            taskDetailsCon = loader.getController();
+            taskDetailsCon.root.setLayoutX(235);
+            taskDetailsCon.root.setLayoutY(420);
+            taskDetailsCon.root.setVisible(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        ObservableList<TaskList> listsDataCopy = FXCollections.observableArrayList(listsData); // Create a copy of the list
         for (TaskList taskList : listsDataCopy) {
             taskData = connDB.loadingTasksData(taskList.getIdNum());
             System.out.println("Loaded tasks for list " + taskList.getIdNum() + ": " + taskData.size());
@@ -142,24 +160,9 @@ public class AppController implements Initializable {
         }
     }
 
-    public void showTaskDetails() {
-
-        if (taskDetailsCon == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/TaskDetails.fxml"));
-                Parent taskDetailsRoot = (Parent) loader.load();
-                root.getChildren().add(taskDetailsRoot);
-                taskDetailsCon = loader.getController();
-                taskDetailsRoot.setLayoutX(235);
-                taskDetailsRoot.setLayoutY(420);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+    public static void showTaskDetails() {
         taskDetailsCon.root.setVisible(true);
-        taskDetailsCon.updateTaskDetails();
-
+        taskDetailsCon.updateTaskDetails(AppController.getFocusedTask().getTask());
     }
 
     /**
@@ -174,7 +177,7 @@ public class AppController implements Initializable {
         return focusedTaskCon;
     }
 
-    public void setFocusedTask(TaskController taskCon) {
+    public static void setFocusedTask(TaskController taskCon) {
         focusedTaskCon = taskCon;
         showTaskDetails();
     }

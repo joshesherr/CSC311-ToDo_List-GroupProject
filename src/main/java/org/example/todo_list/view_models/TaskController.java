@@ -67,7 +67,7 @@ public class TaskController implements Initializable {
 
         //When a task is selected set it as the focused task in AppController.
         taskNameField.focusedProperty().addListener((ov, oldValue, newValue) -> {
-            if (newValue) parentController.parentController.setFocusedTask(this);
+            if (newValue) AppController.setFocusedTask(this);
             if (!newValue) {
                 try {
                     task.setTitle(taskNameField.getText());
@@ -84,10 +84,8 @@ public class TaskController implements Initializable {
         taskNameField.textProperty().addListener((ov, oldValue, newValue) -> {
             task.setTitle(newValue);
             if (AppController.getTaskDetailsCon() != null) {
-                AppController.getTaskDetailsCon().updateTaskDetails();
+                AppController.getTaskDetailsCon().updateTaskDetails(AppController.getFocusedTask().getTask());
             }
-
-
         });
 
         taskToggleCheck.selectedProperty().addListener((ov, oldValue, newValue) -> {

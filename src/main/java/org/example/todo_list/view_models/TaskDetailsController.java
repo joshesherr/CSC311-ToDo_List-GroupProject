@@ -36,16 +36,12 @@ public class TaskDetailsController implements Initializable {
 
     @FXML
     private Button addTagBtn, createTaskBtn, personalTaskBtn, shareTaskBtn;
-
     @FXML
     private TextArea taskDescription;
-
     @FXML
     public VBox root;
-
     @FXML
     private HBox addTagBtnBox, lowerTagBtnBox;
-
     @FXML
     private ComboBox<Priority> priorityComboBox;
 
@@ -200,10 +196,7 @@ public class TaskDetailsController implements Initializable {
             mouseAnchorY = e.getY();
         });
         root.setOnMouseDragged(e->{//Make Detail window draggable
-            double newX = e.getSceneX()-mouseAnchorX;
-            double newY = e.getSceneY()-mouseAnchorY;
-            root.setLayoutX( newX<0?0.0:(Math.min(newX, SceneManager.getInstance().getPrimaryStage().getWidth()-16-root.getWidth())));//set limits of window dragging
-            root.setLayoutY( newY<0?0.0:(Math.min(newY, SceneManager.getInstance().getPrimaryStage().getHeight()-40-root.getHeight())));
+            applyWindowLimits(e.getSceneX()-mouseAnchorX , e.getSceneY()-mouseAnchorY);
         });
 
 
@@ -226,6 +219,10 @@ public class TaskDetailsController implements Initializable {
         taskDueDate.valueProperty().addListener((ov, oldValue, newValue) -> {
             AppController.getFocusedTask().getTask().setEndDateTime(newValue.atTime(LocalTime.now()));
         });
+
+        //Keep details winodw within the bounds of the primary stage.
+        sceneManager.getPrimaryStage().widthProperty().addListener(e->applyWindowLimits(root.getLayoutX(), root.getLayoutY()));
+        sceneManager.getPrimaryStage().heightProperty().addListener(e->applyWindowLimits(root.getLayoutX(), root.getLayoutY()));
 
         // Populate ComboBox with Priority enum values
         priorityComboBox.getItems().addAll(Priority.values());
@@ -253,15 +250,21 @@ public class TaskDetailsController implements Initializable {
         //Todo populate the tag field with the proper tags.
     }
 
-
+    private void applyWindowLimits(double x, double y) {
+        root.setLayoutX( x<0?0.0:(Math.min(x, SceneManager.getInstance().getPrimaryStage().getWidth()-16-root.getWidth())));//set limits of window dragging
+        root.setLayoutY( y<0?0.0:(Math.min(y, SceneManager.getInstance().getPrimaryStage().getHeight()-40-root.getHeight())));
+    }
 
     public void updateTaskDetails() {
         task = AppController.getFocusedTask().getTask();
 
+    public void updateTaskDetails(Task task) {
         taskName.setText( task.getTitle() );
         taskDueDate.setValue(task.getEndDateTime().toLocalDate());
         //taskPriority.setText( String.valueOf(task.getPriority()) );
         taskDescription.setText( task.getDescription() );
+
+        applyWindowLimits(root.getLayoutX(), root.getLayoutY());
     }
 
     public void clearTaskDetails() {
@@ -279,6 +282,14 @@ public class TaskDetailsController implements Initializable {
     public void deleteTask() {
         AppController.getFocusedTask().removeSelf();
         hideDetails();
+    }
+
+    public void copyTask() {
+        AppController.setCopiedTask(AppController.getFocusedTask().getTask().copy());
+    }
+
+    public void pasteTask() {
+        updateTaskDetails(AppController.getCopiedTask());
     }
 }
 
