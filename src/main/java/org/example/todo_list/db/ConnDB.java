@@ -286,8 +286,9 @@ public class ConnDB {
                 LocalDateTime endDate = end_date != null ? LocalDateTime.parse(end_date, formatter) : null;
                 String description = resultSet.getString("description");
                 boolean completed = resultSet.getBoolean("completed");
+                int priority = resultSet.getInt("priority");
                 if (name != null) {
-                    taskData.add(new Task(id_num, name, startDate, list_id, endDate, description, completed));
+                    taskData.add(new Task(id_num, name, startDate, list_id, endDate, description, completed, priority));
                 }
             }
             preparedStatement.close();

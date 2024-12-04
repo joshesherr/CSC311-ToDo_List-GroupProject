@@ -43,7 +43,7 @@ public class Task implements Comparable {
         this.completed = false;
     }
 
-    public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed) {
+    public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed,  int priority) {
         this.idNum = idNum;
         this.title = title;
         this.startDateTime = startDateTime;
@@ -51,6 +51,7 @@ public class Task implements Comparable {
         this.endDateTime = endDateTime;
         this.description = description;
         this.completed = completed;
+        this.priority = priority;
     }
 
     public Task(String title) {

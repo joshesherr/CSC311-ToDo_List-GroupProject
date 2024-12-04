@@ -186,9 +186,6 @@ public class TaskDetailsController implements Initializable {
     private double mouseAnchorY;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Default value
-        priorityComboBox.setValue(Priority.NONE);
-
 
         sceneManager = SceneManager.getInstance();
         root.setOnMousePressed(e->{
@@ -227,7 +224,6 @@ public class TaskDetailsController implements Initializable {
         // Populate ComboBox with Priority enum values
         priorityComboBox.getItems().addAll(Priority.values());
 
-
         priorityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 task = AppController.getFocusedTask().getTask();
@@ -242,7 +238,7 @@ public class TaskDetailsController implements Initializable {
                 // Update the rectangle in TaskController
                 taskCon = AppController.getFocusedTask();
                 if (taskCon != null) {
-                    taskCon.updatePriorityColor(newValue.getColor());
+                    taskCon.updatePriorityColor(task.getColor());
                 }
             }
         });
@@ -255,10 +251,8 @@ public class TaskDetailsController implements Initializable {
         root.setLayoutY( y<0?0.0:(Math.min(y, SceneManager.getInstance().getPrimaryStage().getHeight()-40-root.getHeight())));
     }
 
-    public void updateTaskDetails() {
-        task = AppController.getFocusedTask().getTask();
-
     public void updateTaskDetails(Task task) {
+        //task = AppController.getFocusedTask().getTask();
         taskName.setText( task.getTitle() );
         taskDueDate.setValue(task.getEndDateTime().toLocalDate());
         //taskPriority.setText( String.valueOf(task.getPriority()) );
