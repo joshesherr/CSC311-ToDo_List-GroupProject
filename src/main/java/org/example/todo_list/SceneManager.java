@@ -1,6 +1,7 @@
 package org.example.todo_list;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,7 +10,9 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class SceneManager {
     private static final SceneManager INSTANCE  = new SceneManager();
@@ -126,5 +129,4 @@ public class SceneManager {
         popUp.setScene(scene);
         popUp.show();
     }
-
 }
