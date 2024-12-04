@@ -21,11 +21,16 @@ import java.util.ResourceBundle;
 
 public class TaskDetailsController implements Initializable {
 
+    @FXML
     public Button hideBtn;
-    public TextField taskName;
+    @FXML
+    public TextField taskName, taskDueTime;
+    @FXML
     public DatePicker taskDueDate;
+
     SceneManager sceneManager;
     public AppController parentController;
+    private Task task;
 
     @FXML
     private Button addTagBtn, createTaskBtn, personalTaskBtn, shareTaskBtn;
@@ -183,6 +188,9 @@ public class TaskDetailsController implements Initializable {
     private double mouseAnchorY;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Default value
+        priorityComboBox.setValue(Priority.NONE);
+
 
 
         sceneManager = SceneManager.getInstance();
@@ -203,7 +211,9 @@ public class TaskDetailsController implements Initializable {
             AppController.getFocusedTask().taskNameField.setText(newValue);//Task will be updated from TaskControllers Listener on taskNameField
         });
         taskDescription.textProperty().addListener((ov, oldValue, newValue) -> {
-            AppController.getFocusedTask().getTask().setDescription(newValue);
+            task =  AppController.getFocusedTask().getTask();
+            task.setDescription(newValue);
+
         });
         taskDueDate.valueProperty().addListener((ov, oldValue, newValue) -> {
             AppController.getFocusedTask().getTask().setEndDateTime(newValue.atTime(LocalTime.now()));
@@ -212,8 +222,6 @@ public class TaskDetailsController implements Initializable {
         // Populate ComboBox with Priority enum values
         priorityComboBox.getItems().addAll(Priority.values());
 
-        // Default value
-        priorityComboBox.setValue(Priority.NONE);
 
         priorityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {

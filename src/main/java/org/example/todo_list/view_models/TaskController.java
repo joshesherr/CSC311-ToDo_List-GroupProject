@@ -62,6 +62,9 @@ public class TaskController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         task = new Task();
+//        taskToggleCheck.setSelected(task.getCompleted());
+
+
         //When a task is selected set it as the focused task in AppController.
         taskNameField.focusedProperty().addListener((ov, oldValue, newValue) -> {
             if (newValue) parentController.parentController.setFocusedTask(this);
@@ -88,8 +91,11 @@ public class TaskController implements Initializable {
         });
 
         taskToggleCheck.selectedProperty().addListener((ov, oldValue, newValue) -> {
+            System.out.println(newValue);
             task.setCompleted(newValue);
-            parentController.updateProgress();
+            if (parentController != null) {
+                parentController.updateProgress();
+            }
             try {
                 task.saveTaskCompletion();
             } catch (SQLException e) {
@@ -105,6 +111,8 @@ public class TaskController implements Initializable {
     public void setTask(Task task) {
         this.task = task;
         taskNameField.setText(task.getTitle());
+        taskToggleCheck.setSelected(task.getCompleted());
+
     }
 
     public void updatePriorityColor(Color color) {

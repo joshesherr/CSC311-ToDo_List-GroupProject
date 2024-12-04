@@ -312,6 +312,10 @@ public class ConnDB {
         }
     }
 
+    public void updateTaskDescription(Task task) {
+
+    }
+
 
 
 }
