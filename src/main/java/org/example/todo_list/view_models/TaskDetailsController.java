@@ -32,6 +32,7 @@ public class TaskDetailsController implements Initializable {
     SceneManager sceneManager;
     public AppController parentController;
     private Task task;
+    private TaskController taskCon;
 
     @FXML
     private Button addTagBtn, createTaskBtn, personalTaskBtn, shareTaskBtn;
@@ -210,15 +211,7 @@ public class TaskDetailsController implements Initializable {
         taskName.textProperty().addListener((ov, oldValue, newValue) -> {
             AppController.getFocusedTask().taskNameField.setText(newValue);//Task will be updated from TaskControllers Listener on taskNameField
         });
-//        taskDescription.textProperty().addListener((ov, oldValue, newValue) -> {
-//            task =  AppController.getFocusedTask().getTask();
-//            task.setDescription(newValue);
-//            try {
-//                task.saveTaskDescription();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        });
+
         taskDescription.focusedProperty().addListener(((observable, oldValue, newValue) -> {
             if (newValue) task =  AppController.getFocusedTask().getTask();
             if (!newValue) {
@@ -240,14 +233,19 @@ public class TaskDetailsController implements Initializable {
 
         priorityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                Task focusedTask = AppController.getFocusedTask().getTask();
-                focusedTask.setPriority(newValue.getLevel());
-                focusedTask.setColor(newValue.getColor());
+                task = AppController.getFocusedTask().getTask();
+                task.setPriority(newValue.getLevel());
+                try {
+                    task.saveTaskPriority();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                task.setColor(newValue.getColor());
 
                 // Update the rectangle in TaskController
-                TaskController focusedTaskController = AppController.getFocusedTask();
-                if (focusedTaskController != null) {
-                    focusedTaskController.updatePriorityColor(newValue.getColor());
+                taskCon = AppController.getFocusedTask();
+                if (taskCon != null) {
+                    taskCon.updatePriorityColor(newValue.getColor());
                 }
             }
         });
@@ -258,7 +256,7 @@ public class TaskDetailsController implements Initializable {
 
 
     public void updateTaskDetails() {
-        Task task = AppController.getFocusedTask().getTask();
+        task = AppController.getFocusedTask().getTask();
 
         taskName.setText( task.getTitle() );
         taskDueDate.setValue(task.getEndDateTime().toLocalDate());

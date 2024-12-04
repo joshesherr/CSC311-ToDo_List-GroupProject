@@ -168,4 +168,8 @@ public class Task implements Comparable {
     public void saveTaskDescription() throws SQLException {
         connDB.updateTaskDescription(this);
     }
+
+    public void saveTaskPriority() throws SQLException {
+        connDB.updateTaskPriority(this);
+    }
 }
