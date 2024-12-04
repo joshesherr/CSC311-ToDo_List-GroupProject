@@ -5,18 +5,19 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.RegisterController">
+
+<VBox fx:id="root" alignment="CENTER" prefHeight="677.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.RegisterController">
    <children>
-      <VBox fx:id="loginContainer" alignment="CENTER" layoutX="176.0" layoutY="47.0" prefHeight="606.0" prefWidth="449.0">
+      <VBox fx:id="loginContainer" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="449.0">
          <children>
             <Label fx:id="signInLabel" text="Register">
                <VBox.margin>
                   <Insets bottom="20.0" />
-               </VBox.margin></Label>
+               </VBox.margin>
+            </Label>
             <TextField fx:id="usernameRF" prefHeight="36.0" prefWidth="373.0" promptText="Username">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
@@ -75,8 +76,4 @@
       <URL value="@../css/globalStyle.css" />
       <URL value="@../css/loginStyle.css" />
    </stylesheets>
-<!--   <stylesheets>-->
-<!--      <URL value="@styling/loginStyling.css" />-->
-
-<!--   </stylesheets>-->
-</AnchorPane>
+</VBox>

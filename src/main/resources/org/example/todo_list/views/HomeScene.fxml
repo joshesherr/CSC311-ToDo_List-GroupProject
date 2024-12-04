@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -12,11 +13,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="900.0" stylesheets="@../css/globalStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
+
+<AnchorPane fx:id="root" prefHeight="627.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <children>
-      <VBox prefHeight="850.0" prefWidth="1000.0" stylesheets="@../css/appStyling.css">
+      <VBox prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar id="menuBar" fx:id="menuBar" prefHeight="36.0" prefWidth="1037.0">
+            <MenuBar id="menuBar" fx:id="menuBar" prefHeight="0.0" prefWidth="776.0" VBox.vgrow="NEVER">
                <menus>
                   <Menu id="menu" fx:id="menuBarFile" mnemonicParsing="false" text="File">
                      <items>
@@ -59,16 +61,12 @@
                   <ColorAdjust brightness="-0.17" />
                </effect>
             </MenuBar>
-            <HBox fillHeight="false" prefHeight="800.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+            <HBox fillHeight="false" prefHeight="800.0" prefWidth="1000.0">
                <children>
-                  <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" prefHeight="823.0" prefWidth="226.0" spacing="10.0" HBox.hgrow="NEVER">
+                  <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="238.0" spacing="10.0" HBox.hgrow="NEVER">
                      <children>
                         <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Home" />
                         <Button fx:id="addListBtn" mnemonicParsing="false" onAction="#addListBtnPressed" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Add List" />
-                        <Label fx:id="myTasksLabel" prefHeight="2.0" prefWidth="135.0" text="My Lists:" />
-                        <Button fx:id="allTasksBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="208.0" styleClass="side-btn" text="All Lists" />
-                        <Button fx:id="personalTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="214.0" styleClass="side-btn" text="Pesonal" />
-                        <Button fx:id="groupTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="206.0" styleClass="side-btn" text="Group" />
                         <Label fx:id="calendarLabel" prefHeight="0.0" prefWidth="135.0" text="Calendar:" />
                         <Button fx:id="daysTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="205.0" styleClass="side-btn" text="3 Days" />
                         <Button fx:id="weekTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="220.0" styleClass="side-btn" text="This Week" />
@@ -99,6 +97,10 @@
                </children>
             </HBox>
          </children>
+         <stylesheets>
+            <URL value="@../css/globalStyle.css" />
+            <URL value="@../css/appStyling.css" />
+         </stylesheets>
       </VBox>
    </children>
 </AnchorPane>

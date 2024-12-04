@@ -34,7 +34,7 @@ public class LoginController implements Initializable {
     private ImageView logo;
 
     @FXML
-    private AnchorPane root;
+    private VBox root;
 
     @FXML
     private Button signInBtn, signUpBtn;

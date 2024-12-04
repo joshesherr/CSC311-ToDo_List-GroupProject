@@ -192,7 +192,6 @@ public class TaskDetailsController implements Initializable {
         priorityComboBox.setValue(Priority.NONE);
 
 
-
         sceneManager = SceneManager.getInstance();
         root.setOnMousePressed(e->{
             mouseAnchorX = e.getX();

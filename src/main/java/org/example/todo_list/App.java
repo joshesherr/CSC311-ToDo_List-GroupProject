@@ -17,14 +17,14 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo/icon_32px.png")));
         stage.setTitle("Just Do");
-        stage.setResizable(false);//Todo to keep things simple windows wont be resizable for now.
+        stage.setResizable(true);
 
         SceneManager sceneManager = SceneManager.getInstance();
         sceneManager.setPrimaryStage(stage);
 
         sceneManager.loadScene("RegisterScene"); //Load register view early for more seamless transitions
 
-        sceneManager.showScene("LoginScene"); //Show log in window
+        sceneManager.showScene("LoginScene", 800, 680); //Show log in window
     }
 
 
