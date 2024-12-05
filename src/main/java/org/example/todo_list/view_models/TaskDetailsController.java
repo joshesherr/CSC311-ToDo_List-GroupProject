@@ -16,7 +16,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -27,7 +26,7 @@ public class TaskDetailsController implements Initializable {
     @FXML
     public Button hideBtn;
     @FXML
-    public TextField taskName, taskDueTime;
+    public TextField taskNameDetailsTF, taskDueTime;
     @FXML
     public DatePicker taskDueDate;
 
@@ -103,7 +102,7 @@ public class TaskDetailsController implements Initializable {
 
         //removable test prnt loop
         for (Tag tag : task.getTaskTags()) {
-            System.out.println("Tasks actual tag" + taskTags.toString());
+            System.out.println("Tasks actual tag: " + taskTags.toString());
         }
     }
 
@@ -267,8 +266,8 @@ public class TaskDetailsController implements Initializable {
 //        });
 
         //Any time one of these Nodes are changed, the task instance will update.
-        taskName.focusedProperty().addListener(((observable, oldValue, newValue) -> {
-            AppController.getFocusedTask().taskNameField.setText(taskName.getText());
+        taskNameDetailsTF.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            AppController.getFocusedTask().taskNameField.setText(taskNameDetailsTF.getText());
         }));
 
         taskDescription.focusedProperty().addListener(((observable, oldValue, newValue) -> {
@@ -371,16 +370,14 @@ public class TaskDetailsController implements Initializable {
     }
 
     public void updateTaskDetails(Task task) {
-        //task = AppController.getFocusedTask().getTask();
-        taskName.setText( task.getTitle() );
+        taskNameDetailsTF.setText( task.getTitle() );
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = task.getEndDateTime().toLocalDate().format(formatter);
         taskDueDate.setValue(LocalDate.parse(formattedDate, formatter));
         taskDescription.setText( task.getDescription() );
         taskDueTime.setText(String.valueOf(task.getEndDateTime()).substring(11));
-        Priority priority = task.getPriorityEnum();
-        priorityComboBox.setValue(priority);
-        //update existing tasks buttons with task tags
+        priorityComboBox.setValue(task.getPriorityEnum());
+        //update existing tasks buttons with task tags OR handle new task case
         repopulateTagButtons();
 
         try {
@@ -393,7 +390,7 @@ public class TaskDetailsController implements Initializable {
     }
 
     public void clearTaskDetails() {
-        taskName.setText("");
+        taskNameDetailsTF.setText("");
         taskDueDate.setValue(LocalDate.now());
         //taskPriority.setText("");
 
