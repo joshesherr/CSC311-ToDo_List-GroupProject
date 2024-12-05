@@ -83,8 +83,6 @@ public class TaskController implements Initializable {
             if (AppController.getTaskDetailsCon() != null) {
                 AppController.getTaskDetailsCon().updateTaskDetails();
             }
-
-
         });
 
         taskToggleCheck.selectedProperty().addListener((ov, oldValue, newValue) -> {

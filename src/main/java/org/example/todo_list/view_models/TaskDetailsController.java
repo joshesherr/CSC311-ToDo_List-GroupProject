@@ -34,7 +34,7 @@ public class TaskDetailsController implements Initializable {
     private TextArea taskDescription;
 
     @FXML
-    public VBox root;
+    public VBox root, tagVBox;
 
     @FXML
     private HBox addTagBtnBox, lowerTagBtnBox;
@@ -42,21 +42,16 @@ public class TaskDetailsController implements Initializable {
     @FXML
     private ComboBox<Priority> priorityComboBox;
 
-    private ArrayList<Tag> listTags = new ArrayList<>();
+    private ArrayList<Tag> taskTags = new ArrayList<>();
 
     private static final int MAX_TAGS_PER_ROW = 3;
-    // This is a temp List ^^^^^^^ Must be adjusted once code is refined a bit
-    //Removing this will break below code until proper adjustments made
 
     @FXML
     void addTagClicked(ActionEvent event) {
-
-        //IMPORTANT!!!!!!!!!!!!!!!!!!!!! Not full implementation for following reasons:
-        //However a task is currently stored needs a list of tags -> this code must be updated
-        // The TaskList in List class will do the following features:
-        //Replace local tag arraylist with the one in the created List
-        //Max size can be decided on later or set by user, but we should make a max just for creation
-        if (listTags.size() < TaskEnums.MAX_TAGS) {
+        Task task = AppController.getFocusedTask().getTask();
+        taskTags = task.getTaskTags();
+        // Get size of task tags
+        if (taskTags.size() < TaskEnums.MAX_TAGS) {
             // When the button is clicked, show a pop-up dialog to input the tag
                 TextInputDialog dialog = new TextInputDialog();
                 dialog.setTitle("Add New Tag");
@@ -69,29 +64,28 @@ public class TaskDetailsController implements Initializable {
                     //Set the name of the tag from the dialog field
                     Tag newTag = new Tag(tagInput.trim());
 
-                    if (!newTag.getName().isEmpty() && !listTags.contains(newTag)) {
-                        listTags.add(newTag);  // Add the tag to the list/task
-
+                    //if new tag is not empty string or already existing tag
+                    if (!newTag.getName().isEmpty() && !taskTags.contains(newTag)) {
+                        taskTags.add(newTag);  // Add the tag to the list/task
+                        task.setTaskTags(taskTags); //set focused task to new list
                         //If button is last in MAX_SIZE, change add tag to final label's name
-
-                        // Display the tags name
-                        Button newBtn = new Button(newTag.getName());
+                        Button newBtn = new Button(newTag.getName()); // Display the tags name
                         newBtn.getStyleClass().add("button-style");
+                        //apply an id to each created button for style purposes, should be style class probably
                         newBtn.setId(addTagBtn.getId());
+                        System.out.println(addTagBtn.getId()); //removable print
 
                         // Add action listener for editing tag (moved to a separate method)
                         editTag(newBtn, newTag);
 
-                        //Could do a for each loop here and create new buttons based on Tag Name values stored in list
-                        //that always adds button last, or maybe an observable list too
-                        //Or it could just be by index or size using add(), revisit
+                        //
                         if (addTagBtnBox.getChildren().size() < MAX_TAGS_PER_ROW) {
                             addTagBtnBox.getChildren().addFirst(newBtn);  // Replace button with tag btn if last tag
                         } else {
                             lowerTagBtnBox.getChildren().addFirst(newBtn);
                         }
                         //If tags are removed and list is < MAX_TAGS, add button back to appropriate box
-                        if (listTags.size() >= TaskEnums.MAX_TAGS) {
+                        if (taskTags.size() >= TaskEnums.MAX_TAGS) {
                             addTagBtn.setDisable(true);
                             addTagBtn.setVisible(false);
                             addTagBtnBox.getChildren().removeLast();
@@ -99,7 +93,63 @@ public class TaskDetailsController implements Initializable {
                     }
             });
         }
+        task.setTaskTags(taskTags);
+
+        //removable test prnt loop
+        for (Tag tag : task.getTaskTags()) {
+            System.out.println("Tasks actual tag" + taskTags.toString());
+        }
     }
+
+    void repopulateTagButtons() {
+        // Retrieve the focused task tags
+        Task task = AppController.getFocusedTask().getTask();
+        taskTags = task.getTaskTags();
+
+        //Reset tag button state
+        resetTagButtons();
+
+        System.out.println(taskTags.size());
+        if (taskTags == null || taskTags.isEmpty()) {
+            System.out.println("No tags to display for task: " + task.getTitle());
+            return;
+        }
+
+        //if new tag is not empty string or already existing tag
+        // Repopulate buttons if there are tags
+        for (Tag tag : taskTags) {
+            System.out.println("Adding tag: " + tag.getName()); // Debugging
+            HBox targetBox = (addTagBtnBox.getChildren().size() < MAX_TAGS_PER_ROW)
+                    ? addTagBtnBox
+                    : lowerTagBtnBox;
+            generateTagButton(targetBox, tag);
+        }
+
+        // Handle "Add Tag" button
+        if (taskTags.size() >= TaskEnums.MAX_TAGS) {
+            addTagBtn.setDisable(true);
+            addTagBtn.setVisible(false);
+        } else {
+            HBox targetBox = (addTagBtnBox.getChildren().size() < MAX_TAGS_PER_ROW)
+                    ? addTagBtnBox
+                    : lowerTagBtnBox;
+            targetBox.getChildren().add(addTagBtn); // Ensure the "Add Tag" button is visible
+        }
+
+    }
+
+    private void generateTagButton(HBox hBox, Tag tag) {
+        Button tagButton = new Button(tag.getName());
+        tagButton.getStyleClass().add("button-style");
+
+        // Add edit functionality for the button
+        editTag(tagButton, tag);
+
+        // Add the button to the HBox
+        hBox.getChildren().add(tagButton);
+    }
+
+
     /**
      * Adds functionality to the button that allows the user to edit the tag name.
      * @param button The button associated with the tag.
@@ -130,14 +180,13 @@ public class TaskDetailsController implements Initializable {
         // Delete tag action event
         deleteTag.setOnAction(event -> {
             // Remove the tag from the tag list
-            listTags.remove(tag);
-    //        System.out.println("listTags size: " + listTags.size()); Debugging statement
+            taskTags.remove(tag);
             // Remove the button from its parent container
             HBox parentBox = (HBox) button.getParent();
             parentBox.getChildren().remove(button);
 
             //if deleting tags brings you below 5, add tag button back to appropriate box
-            if (listTags.size() < TaskEnums.MAX_TAGS) {
+            if (taskTags.size() < TaskEnums.MAX_TAGS) {
                 addTagBtn.setDisable(false);
                 addTagBtn.setVisible(true);
 
@@ -167,7 +216,7 @@ public class TaskDetailsController implements Initializable {
         Optional<String> editResult = editDialog.showAndWait();
         editResult.ifPresent(editedTagInput -> {
             String trimmedTagInput = editedTagInput.trim();
-            if (!trimmedTagInput.isEmpty() && !listTags.contains(new Tag(trimmedTagInput))) {
+            if (!trimmedTagInput.isEmpty() && !taskTags.contains(new Tag(trimmedTagInput))) {
                 // Update the tag name
                 tag.setName(trimmedTagInput);
 
@@ -235,18 +284,38 @@ public class TaskDetailsController implements Initializable {
     public void updateTaskDetails() {
         Task task = AppController.getFocusedTask().getTask();
 
+        // Debugging: Ensure task data is valid
+        System.out.println("Selected Task: " + task.getTitle());
+        System.out.println("Tags: " + task.getTaskTags());
+
         taskName.setText( task.getTitle() );
         taskDueDate.setValue(task.getEndDateTime().toLocalDate());
         //taskPriority.setText( String.valueOf(task.getPriority()) );
         taskDescription.setText( task.getDescription() );
+        //update existing task buttons method
+        repopulateTagButtons();
     }
 
     public void clearTaskDetails() {
         taskName.setText("");
         taskDueDate.setValue(LocalDate.now());
         //taskPriority.setText("");
-        //clearTaskButtons needed
+
+        resetTagButtons();  //reset task tag buttons
         taskDescription.setText("");
+    }
+
+    //for a new task specifically, may need to remove setter
+    void resetTagButtons() {
+        addTagBtnBox.getChildren().clear();
+        lowerTagBtnBox.getChildren().clear();
+        addTagBtnBox.getChildren().add(addTagBtn);
+        addTagBtn.setDisable(false);
+        addTagBtn.setVisible(true);
+
+        Task task = AppController.getFocusedTask().getTask();
+        //taskTags.clear();
+        task.setTaskTags(taskTags); // Reset task tags
     }
 
     public void hideDetails() {
