@@ -30,7 +30,7 @@ public class Task implements Comparable {
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = null;
         this.description = "";
-        this.priority = TaskEnums.PRIORITY_LOW;
+        this.priority = Priority.LOW.getLevel();
         this.completed = false;
     }
 
@@ -135,6 +135,17 @@ public class Task implements Comparable {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public Priority getPriorityEnum() {
+        System.out.println(Priority.values().length);
+        for (Priority p : Priority.values()) {
+            System.out.println("getPrioEnum value: " + p.toString());
+            if (p.getLevel() == this.priority) {
+                return p;
+            }
+        }
+        throw new IllegalArgumentException("Invalid priority level: " + this.priority);
     }
 
     public ArrayList<Tag> getTaskTags() {

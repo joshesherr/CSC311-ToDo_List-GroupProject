@@ -50,7 +50,7 @@ public class AppController implements Initializable {
     private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
 
     @FXML
-    private Label viewTasksLabel, myTAsksLabel, calendarLabel, tagsLabel, taskDueDate, taskName, taskPriority, taskLabel;
+    private Label viewTasksLabel, myTAsksLabel, calendarLabel, tagsLabel, taskDueDate, taskName, taskPriority, taskLabel, welcomeLbl;
 
     @FXML
     private CheckBox checkBox;
@@ -83,6 +83,7 @@ public class AppController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         username = UserSession.getInstance().getUsername();
         listsData = connDB.loadingUsersLists(username);
+        welcomeLbl.setText("Welcome " + username + "!"); //username? name? probably username removable comment
 
         try {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/TaskDetails.fxml"));

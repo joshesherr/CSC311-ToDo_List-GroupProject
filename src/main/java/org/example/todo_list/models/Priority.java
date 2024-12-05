@@ -4,10 +4,10 @@ import javafx.scene.paint.Color;
 
 //enums for task priority levels and color application in gui
 public enum Priority {
-    LOW(1, Color.GREEN),
-    MEDIUM(2, Color.YELLOW),
-    HIGH(3, Color.ORANGE),
-    CRITICAL(4, Color.RED);
+    LOW(0, Color.GREEN),
+    MEDIUM(1, Color.YELLOW),
+    HIGH(2, Color.ORANGE),
+    CRITICAL(3, Color.RED);
 
     private final int level;
     private final Color color;
