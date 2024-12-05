@@ -356,7 +356,8 @@ public class TaskDetailsController implements Initializable {
         // Debugging: Ensure task data is valid
         System.out.println("Selected Task: " + task.getTitle());
         System.out.println("Tags: " + task.getTaskTags());
-}
+    }
+
     public void updateTaskDetails(Task task) {
         //task = AppController.getFocusedTask().getTask();
         taskName.setText( task.getTitle() );
@@ -367,7 +368,8 @@ public class TaskDetailsController implements Initializable {
         taskDescription.setText( task.getDescription() );
         taskDueTime.setText(String.valueOf(task.getEndDateTime()).substring(11));
         //priorityComboBox.setValue(Priority.values()[task.getPriority()]);
-
+        //update existing task buttons method
+        repopulateTagButtons();
         try {
             task.saveToDatabase();
         } catch (SQLException e) {
@@ -375,8 +377,7 @@ public class TaskDetailsController implements Initializable {
         }
 
         applyWindowLimits(root.getLayoutX(), root.getLayoutY());
-        //update existing task buttons method
-        repopulateTagButtons();
+
     }
 
     public void clearTaskDetails() {
