@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -21,7 +22,10 @@
          <children>
             <HBox alignment="TOP_RIGHT" maxHeight="5.0" prefHeight="5.0" prefWidth="376.0">
                <children>
-                  <Button fx:id="hideBtn" maxHeight="19.0" mnemonicParsing="false" onAction="#hideDetails" prefHeight="19.0" prefWidth="0.0" styleClass="icon_button" />
+                  <Button fx:id="hideBtn" maxHeight="19.0" mnemonicParsing="false" onAction="#hideDetails" prefHeight="19.0" prefWidth="0.0" styleClass="icon_button">
+                     <tooltip>
+                        <Tooltip text="Close" />
+                     </tooltip></Button>
                </children>
                <padding>
                   <Insets bottom="15.0" />
@@ -45,7 +49,7 @@
       <HBox alignment="CENTER" prefHeight="22.0" prefWidth="376.0" spacing="15.0">
          <children>
             <DatePicker fx:id="taskDueDate" prefHeight="20.0" prefWidth="170.0" promptText="Due Date" />
-            <TextField fx:id="endTime" prefHeight="20.0" prefWidth="170.0" promptText="23:59:59" />
+            <TextField fx:id="taskDueTime" prefHeight="20.0" prefWidth="170.0" promptText="23:59:59" />
          </children>
       </HBox>
       <ComboBox fx:id="priorityComboBox" prefWidth="100.0" promptText="Task Priority">
@@ -77,9 +81,21 @@
       <TextArea fx:id="taskDescription" prefHeight="119.0" prefWidth="376.0" promptText="Description" wrapText="true" />
       <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="156.0" spacing="2.0">
          <children>
-            <Button fx:id="copyTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button" />
-            <Button fx:id="pasteTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button" />
-            <Button fx:id="deleteTaskBtn" maxHeight="57.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="19.0" prefWidth="0.0" styleClass="icon_button" />
+            <Button fx:id="copyTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" onAction="#copyTask" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button">
+               <font>
+                  <Font size="1.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Copy" />
+               </tooltip></Button>
+            <Button fx:id="pasteTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" onAction="#pasteTask" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button">
+               <tooltip>
+                  <Tooltip text="Paste" />
+               </tooltip></Button>
+            <Button fx:id="deleteTaskBtn" maxHeight="57.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="19.0" prefWidth="0.0" styleClass="icon_button">
+               <tooltip>
+                  <Tooltip text="Delete" />
+               </tooltip></Button>
          </children>
          <VBox.margin>
             <Insets bottom="-70.0" top="20.0" />

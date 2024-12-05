@@ -43,7 +43,7 @@ public class Task implements Comparable {
         this.completed = false;
     }
 
-    public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed) {
+    public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed,  int priority) {
         this.idNum = idNum;
         this.title = title;
         this.startDateTime = startDateTime;
@@ -51,6 +51,7 @@ public class Task implements Comparable {
         this.endDateTime = endDateTime;
         this.description = description;
         this.completed = completed;
+        this.priority = priority;
     }
 
     public Task(String title) {
@@ -163,5 +164,21 @@ public class Task implements Comparable {
 
     public void saveTaskCompletion() throws SQLException {
         connDB.updatesTaskCompletion(this);
+    }
+
+    public void saveTaskDescription() throws SQLException {
+        connDB.updateTaskDescription(this);
+    }
+
+    public void saveTaskPriority() throws SQLException {
+        connDB.updateTaskPriority(this);
+    }
+
+    public void saveTaskDueDate() throws SQLException {
+        connDB.updateTaskDueDate(this);
+    }
+
+    public Task copy() {
+        return new Task(title, startDateTime, endDateTime, description, priority);
     }
 }

@@ -223,6 +223,7 @@ public class ConnDB {
         }
         if (task.getIdNum() != -1) {
             try {
+                // Check if list_id exists in the list table
                 Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
                 String sql = "UPDATE task SET name = ? WHERE id_num = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -237,11 +238,16 @@ public class ConnDB {
 
             try {
                 Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-                String sql = "INSERT INTO task (name, start_date, list_id) VALUES(?, ?, ?)";
+                String sql = "INSERT INTO task (name, start_date, list_id, end_date, description, completed, priority) VALUES(?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, task.getTitle());
                 preparedStatement.setString(2, String.valueOf(task.getStartDateTime()));
                 preparedStatement.setInt(3, task.getListID());
+                preparedStatement.setString(4, String.valueOf(task.getEndDateTime()));
+                preparedStatement.setString(5, task.getDescription());
+                preparedStatement.setBoolean(6, task.getCompleted());
+                preparedStatement.setInt(7, task.getPriority());
+
                 preparedStatement.executeUpdate();
 
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
@@ -286,8 +292,9 @@ public class ConnDB {
                 LocalDateTime endDate = end_date != null ? LocalDateTime.parse(end_date, formatter) : null;
                 String description = resultSet.getString("description");
                 boolean completed = resultSet.getBoolean("completed");
+                int priority = resultSet.getInt("priority");
                 if (name != null) {
-                    taskData.add(new Task(id_num, name, startDate, list_id, endDate, description, completed));
+                    taskData.add(new Task(id_num, name, startDate, list_id, endDate, description, completed, priority));
                 }
             }
             preparedStatement.close();
@@ -312,6 +319,46 @@ public class ConnDB {
         }
     }
 
+    public void updateTaskDescription(Task task) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE task SET description = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, task.getDescription());
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void updateTaskPriority(Task task) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE task SET priority = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, task.getPriority());
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTaskDueDate(Task task) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE task SET end_date = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, String.valueOf(task.getEndDateTime()));
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

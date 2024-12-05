@@ -62,15 +62,15 @@ public class TaskController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         task = new Task();
+
+
         //When a task is selected set it as the focused task in AppController.
         taskNameField.focusedProperty().addListener((ov, oldValue, newValue) -> {
-            if (newValue) parentController.parentController.setFocusedTask(this);
+            if (newValue) AppController.setFocusedTask(this);
             if (!newValue) {
                 try {
                     task.setTitle(taskNameField.getText());
                     task.setListID(parentController.taskList.getIdNum());
-                    System.out.println("Task name: " + task.getTitle());
-                    System.out.println("List's ID: " + task.getListID());
                     task.saveToDatabase();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -81,13 +81,18 @@ public class TaskController implements Initializable {
         taskNameField.textProperty().addListener((ov, oldValue, newValue) -> {
             task.setTitle(newValue);
             if (AppController.getTaskDetailsCon() != null) {
-                AppController.getTaskDetailsCon().updateTaskDetails();
+                TaskController focusedTask = AppController.getFocusedTask();
+                if (focusedTask != null) {
+                    AppController.getTaskDetailsCon().updateTaskDetails(AppController.getFocusedTask().getTask());
+                }
             }
         });
 
         taskToggleCheck.selectedProperty().addListener((ov, oldValue, newValue) -> {
             task.setCompleted(newValue);
-            parentController.updateProgress();
+            if (parentController != null) {
+                parentController.updateProgress();
+            }
             try {
                 task.saveTaskCompletion();
             } catch (SQLException e) {
@@ -103,6 +108,8 @@ public class TaskController implements Initializable {
     public void setTask(Task task) {
         this.task = task;
         taskNameField.setText(task.getTitle());
+        taskToggleCheck.setSelected(task.getCompleted());
+        this.updatePriorityColor(Priority.values()[task.getPriority()].getColor());
     }
 
     public void updatePriorityColor(Color color) {

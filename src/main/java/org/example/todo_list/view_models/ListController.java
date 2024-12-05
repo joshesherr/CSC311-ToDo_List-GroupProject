@@ -121,7 +121,6 @@ public class ListController implements Initializable {
     public void updateProgress() {
         int listId = taskList.getIdNum();
         double progress = taskList.getProgress();
-        System.out.println("Updating progress for list ID: " + listId + " with progress: " + progress);
         progressBar.setProgress(progress);
         //progressBar.setProgress(taskList.getProgress());
     }

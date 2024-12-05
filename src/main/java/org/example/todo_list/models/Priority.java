@@ -22,6 +22,7 @@ public enum Priority {
         return level;
     }
 
+
     public Color getColor() {
         return color;
     }

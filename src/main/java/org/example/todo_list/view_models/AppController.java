@@ -38,6 +38,13 @@ public class AppController implements Initializable {
     private ConnDB connDB = new ConnDB();
     private ObservableList<TaskList> listsData = FXCollections.observableArrayList();
     private ObservableList<Task> taskData = FXCollections.observableArrayList();
+    private static Task copiedTask;
+    public static void setCopiedTask(Task task) {
+        copiedTask = task;
+    }
+    public static Task getCopiedTask() {
+        return copiedTask;
+    }
 
     @FXML
     private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
@@ -76,13 +83,22 @@ public class AppController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         username = UserSession.getInstance().getUsername();
         listsData = connDB.loadingUsersLists(username);
-        System.out.println("Loaded lists: " + listsData.size());
+
+        try {
+            FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/TaskDetails.fxml"));
+            Parent taskDetailsRoot = (Parent) loader.load();
+            root.getChildren().add(taskDetailsRoot);
+            taskDetailsCon = loader.getController();
+            taskDetailsCon.root.setLayoutX(235);
+            taskDetailsCon.root.setLayoutY(420);
+            taskDetailsCon.root.setVisible(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         ObservableList<TaskList> listsDataCopy = FXCollections.observableArrayList(listsData); // Create a copy of the list
-
         for (TaskList taskList : listsDataCopy) {
             taskData = connDB.loadingTasksData(taskList.getIdNum());
-            System.out.println("Loaded tasks for list " + taskList.getIdNum() + ": " + taskData.size());
             taskList.setTasks(taskData);
             try {
                 FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
@@ -91,13 +107,11 @@ public class AppController implements Initializable {
                 listCon.setTaskList(taskList);
                 listCon.parentController = this;
                 listBox.getChildren().add(listRoot);
-                System.out.println("Added list to UI: " + taskList.getIdNum());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             for (Task task : taskList.getTasks()) {
                 if (task.getListID() == taskList.getIdNum()) {
-                    System.out.println(task.getTitle());
                 try {
                     FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
                     Parent taskRoot = loader.load();
@@ -105,7 +119,6 @@ public class AppController implements Initializable {
                     taskCon.setTask(task);
                     taskCon.setParentController(listCon); // Set the grandParent controller
                     listCon.taskBox.getChildren().add(taskRoot);
-                    System.out.println("Added task to UI: " + task.getIdNum());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -142,24 +155,9 @@ public class AppController implements Initializable {
         }
     }
 
-    public void showTaskDetails() {
-
-        if (taskDetailsCon == null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/TaskDetails.fxml"));
-                Parent taskDetailsRoot = (Parent) loader.load();
-                root.getChildren().add(taskDetailsRoot);
-                taskDetailsCon = loader.getController();
-                taskDetailsRoot.setLayoutX(235);
-                taskDetailsRoot.setLayoutY(420);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+    public static void showTaskDetails() {
         taskDetailsCon.root.setVisible(true);
-        taskDetailsCon.updateTaskDetails();
-
+        taskDetailsCon.updateTaskDetails(AppController.getFocusedTask().getTask());
     }
 
     /**
@@ -174,7 +172,7 @@ public class AppController implements Initializable {
         return focusedTaskCon;
     }
 
-    public void setFocusedTask(TaskController taskCon) {
+    public static void setFocusedTask(TaskController taskCon) {
         focusedTaskCon = taskCon;
         showTaskDetails();
     }
