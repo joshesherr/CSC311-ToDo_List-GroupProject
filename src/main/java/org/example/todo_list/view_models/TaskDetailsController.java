@@ -376,11 +376,11 @@ public class TaskDetailsController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = task.getEndDateTime().toLocalDate().format(formatter);
         taskDueDate.setValue(LocalDate.parse(formattedDate, formatter));
-        //taskPriority.setText( String.valueOf(task.getPriority()) );
         taskDescription.setText( task.getDescription() );
         taskDueTime.setText(String.valueOf(task.getEndDateTime()).substring(11));
-        //priorityComboBox.setValue(Priority.values()[task.getPriority()]);
-        //update existing task buttons method
+        Priority priority = task.getPriorityEnum();
+        priorityComboBox.setValue(priority);
+        //update existing tasks buttons with task tags
         repopulateTagButtons();
 
         try {
@@ -390,7 +390,6 @@ public class TaskDetailsController implements Initializable {
         }
 
         applyWindowLimits(root.getLayoutX(), root.getLayoutY());
-
     }
 
     public void clearTaskDetails() {

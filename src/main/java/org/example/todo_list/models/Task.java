@@ -138,9 +138,9 @@ public class Task implements Comparable {
     }
 
     public Priority getPriorityEnum() {
-        System.out.println(Priority.values().length);
+     //   System.out.println(Priority.values().length);
         for (Priority p : Priority.values()) {
-            System.out.println("getPrioEnum value: " + p.toString());
+           // System.out.println("getPrioEnum value: " + p.toString());
             if (p.getLevel() == this.priority) {
                 return p;
             }
