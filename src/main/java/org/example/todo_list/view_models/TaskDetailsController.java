@@ -223,15 +223,22 @@ public class TaskDetailsController implements Initializable {
         }));
 
         taskDueTime.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) task =  AppController.getFocusedTask().getTask();
-            if (!newValue) {
-                String endDateTime = taskDueDate.getValue() + " " + taskDueTime.getText();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                task.setEndDateTime(LocalDateTime.parse(endDateTime, formatter));
-                try {
-                    task.saveTaskDueDate();
-                } catch(SQLException e) {
-                    e.printStackTrace();
+            if (newValue) {
+                task =  AppController.getFocusedTask().getTask();
+            } else {
+                if (!taskDueTime.getText().isEmpty()) {
+                    String endDateTime = taskDueDate.getValue() + " " + taskDueTime.getText();
+                    // Ensure the time string includes seconds
+                    if (String.valueOf(task.getEndDateTime()).substring(11).length() == 5) {
+                        endDateTime += ":00";
+                    }
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    task.setEndDateTime(LocalDateTime.parse(endDateTime, formatter));
+                    try {
+                        task.saveTaskDueDate();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -240,7 +247,11 @@ public class TaskDetailsController implements Initializable {
             task = AppController.getFocusedTask().getTask();
             String endDateTime;
             if (!taskDueTime.getText().isEmpty()) {
-                endDateTime = newValue + " " + taskDueTime.getText();
+                endDateTime = newValue + " " + String.valueOf(task.getEndDateTime()).substring(11);
+                // Ensure the time string includes seconds
+                if (String.valueOf(task.getEndDateTime()).substring(11).length() == 5) {
+                    endDateTime += ":00";
+                }
             } else {
                 endDateTime = newValue + " 23:59:59";
             }
@@ -290,9 +301,12 @@ public class TaskDetailsController implements Initializable {
     public void updateTaskDetails(Task task) {
         //task = AppController.getFocusedTask().getTask();
         taskName.setText( task.getTitle() );
-        taskDueDate.setValue(task.getEndDateTime().toLocalDate());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = task.getEndDateTime().toLocalDate().format(formatter);
+        taskDueDate.setValue(LocalDate.parse(formattedDate, formatter));
         //taskPriority.setText( String.valueOf(task.getPriority()) );
         taskDescription.setText( task.getDescription() );
+        taskDueTime.setText(String.valueOf(task.getEndDateTime()).substring(11));
         //priorityComboBox.setValue(Priority.values()[task.getPriority()]);
 
         try {
@@ -326,7 +340,12 @@ public class TaskDetailsController implements Initializable {
     }
 
     public void pasteTask() {
-        updateTaskDetails(AppController.getCopiedTask());
+        Task copiedTask = AppController.getCopiedTask();
+        if (copiedTask != null) {
+            updateTaskDetails(copiedTask);
+        } else {
+            System.out.println("No task to paste.");
+        }
     }
 }
 
