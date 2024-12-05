@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="root" fx:id="root" alignment="TOP_CENTER" prefHeight="392.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskDetailsController">
+<VBox id="root" fx:id="root" alignment="TOP_CENTER" prefHeight="392.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskDetailsController">
    <children>
       <VBox prefHeight="39.0" prefWidth="376.0">
          <VBox.margin>
@@ -57,7 +57,7 @@
             <Insets bottom="5.0" top="5.0" />
          </VBox.margin>
       </ComboBox>
-      <VBox>
+      <VBox fx:id="tagVBox">
          <children>
             <HBox fx:id="addTagBtnBox" alignment="CENTER" spacing="10.0">
                <children>
