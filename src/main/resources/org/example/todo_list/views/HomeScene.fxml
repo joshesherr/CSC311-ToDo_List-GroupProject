@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="705.0" prefWidth="1000.0" stylesheets="@../css/globalStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
+<AnchorPane fx:id="root" prefHeight="705.0" prefWidth="1000.0" stylesheets="@../css/globalStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <children>
       <VBox prefHeight="0.0" prefWidth="0.0" stylesheets="@../css/appStyling.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -63,6 +63,7 @@
                <children>
                   <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="238.0" spacing="10.0" HBox.hgrow="NEVER">
                      <children>
+                        <Label fx:id="welcomeLbl" text="Welcome" />
                         <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Home" />
                         <Button fx:id="addListBtn" mnemonicParsing="false" onAction="#addListBtnPressed" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Add List" />
                         <Label fx:id="calendarLabel" prefHeight="0.0" prefWidth="135.0" text="Calendar:" />

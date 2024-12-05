@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.example.todo_list.SceneManager;
 import org.example.todo_list.db.UserSession;
@@ -25,7 +24,7 @@ public class LoginController implements Initializable {
     SceneManager sceneManager;
 
     @FXML
-    private TextField emailTF, passwordTF;
+    private TextField usernameTF, passwordTF;
 
     @FXML
     private VBox loginContainer;
@@ -59,7 +58,7 @@ public class LoginController implements Initializable {
     public String passwordMatch;
 
     public void signIn(ActionEvent actionEvent) {
-        String username = emailTF.getText();
+        String username = usernameTF.getText();
         String password = passwordTF.getText();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
