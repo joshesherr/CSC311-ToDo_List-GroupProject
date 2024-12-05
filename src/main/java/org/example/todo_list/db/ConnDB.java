@@ -223,6 +223,7 @@ public class ConnDB {
         }
         if (task.getIdNum() != -1) {
             try {
+                // Check if list_id exists in the list table
                 Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
                 String sql = "UPDATE task SET name = ? WHERE id_num = ?";
                 PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -346,6 +347,18 @@ public class ConnDB {
         }
     }
 
-
+    public void updateTaskDueDate(Task task) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE task SET end_date = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, String.valueOf(task.getEndDateTime()));
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

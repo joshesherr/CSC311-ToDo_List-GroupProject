@@ -112,7 +112,6 @@ public class AppController implements Initializable {
             }
             for (Task task : taskList.getTasks()) {
                 if (task.getListID() == taskList.getIdNum()) {
-                    System.out.println(task.getTitle());
                 try {
                     FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
                     Parent taskRoot = loader.load();

@@ -15,7 +15,9 @@ import org.example.todo_list.models.TaskEnums;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -186,6 +188,7 @@ public class TaskDetailsController implements Initializable {
     private double mouseAnchorY;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //taskName.setText(task.getTitle());
 
         sceneManager = SceneManager.getInstance();
         root.setOnMousePressed(e->{
@@ -196,11 +199,16 @@ public class TaskDetailsController implements Initializable {
             applyWindowLimits(e.getSceneX()-mouseAnchorX , e.getSceneY()-mouseAnchorY);
         });
 
+        //Any time one of these Nodes are changed, the task instance will update.
+        //THIS WORKS SLOW!!!
+//        taskName.textProperty().addListener((ov, oldValue, newValue) -> {
+//            AppController.getFocusedTask().taskNameField.setText(newValue);//Task will be updated from TaskControllers Listener on taskNameField
+//        });
 
         //Any time one of these Nodes are changed, the task instance will update.
-        taskName.textProperty().addListener((ov, oldValue, newValue) -> {
-            AppController.getFocusedTask().taskNameField.setText(newValue);//Task will be updated from TaskControllers Listener on taskNameField
-        });
+        taskName.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            AppController.getFocusedTask().taskNameField.setText(taskName.getText());
+        }));
 
         taskDescription.focusedProperty().addListener(((observable, oldValue, newValue) -> {
             if (newValue) task =  AppController.getFocusedTask().getTask();
@@ -213,8 +221,36 @@ public class TaskDetailsController implements Initializable {
                 }
             }
         }));
+
+        taskDueTime.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) task =  AppController.getFocusedTask().getTask();
+            if (!newValue) {
+                String endDateTime = taskDueDate.getValue() + " " + taskDueTime.getText();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                task.setEndDateTime(LocalDateTime.parse(endDateTime, formatter));
+                try {
+                    task.saveTaskDueDate();
+                } catch(SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         taskDueDate.valueProperty().addListener((ov, oldValue, newValue) -> {
-            AppController.getFocusedTask().getTask().setEndDateTime(newValue.atTime(LocalTime.now()));
+            task = AppController.getFocusedTask().getTask();
+            String endDateTime;
+            if (!taskDueTime.getText().isEmpty()) {
+                endDateTime = newValue + " " + taskDueTime.getText();
+            } else {
+                endDateTime = newValue + " 23:59:59";
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            task.setEndDateTime(LocalDateTime.parse(endDateTime, formatter));
+            try {
+                task.saveTaskDueDate();
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
         });
 
         //Keep details winodw within the bounds of the primary stage.
@@ -257,7 +293,7 @@ public class TaskDetailsController implements Initializable {
         taskDueDate.setValue(task.getEndDateTime().toLocalDate());
         //taskPriority.setText( String.valueOf(task.getPriority()) );
         taskDescription.setText( task.getDescription() );
-        priorityComboBox.setValue(Priority.values()[task.getPriority()]);
+        //priorityComboBox.setValue(Priority.values()[task.getPriority()]);
 
         try {
             task.saveToDatabase();

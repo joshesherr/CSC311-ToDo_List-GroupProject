@@ -71,8 +71,6 @@ public class TaskController implements Initializable {
                 try {
                     task.setTitle(taskNameField.getText());
                     task.setListID(parentController.taskList.getIdNum());
-                    System.out.println("Task name: " + task.getTitle());
-                    System.out.println("List's ID: " + task.getListID());
                     task.saveToDatabase();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -91,7 +89,6 @@ public class TaskController implements Initializable {
         });
 
         taskToggleCheck.selectedProperty().addListener((ov, oldValue, newValue) -> {
-            System.out.println(newValue);
             task.setCompleted(newValue);
             if (parentController != null) {
                 parentController.updateProgress();
