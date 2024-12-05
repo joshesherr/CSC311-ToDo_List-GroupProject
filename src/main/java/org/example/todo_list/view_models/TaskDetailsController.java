@@ -117,6 +117,7 @@ public class TaskDetailsController implements Initializable {
 
         System.out.println(taskTags.size());
         if (taskTags == null || taskTags.isEmpty()) {
+            //handle empty tag list case, return (remove print when done)
             System.out.println("No tags to display for task: " + task.getTitle());
             return;
         }
@@ -125,23 +126,34 @@ public class TaskDetailsController implements Initializable {
         // Repopulate buttons if there are tags
         for (Tag tag : taskTags) {
             System.out.println("Adding tag: " + tag.getName()); // Debugging
+            //If target Hbox
             HBox targetBox = (addTagBtnBox.getChildren().size() < MAX_TAGS_PER_ROW)
                     ? addTagBtnBox
                     : lowerTagBtnBox;
             generateTagButton(targetBox, tag);
         }
 
-        // Handle "Add Tag" button
+        // Remove add tag button if task has max tags
         if (taskTags.size() >= TaskEnums.MAX_TAGS) {
             addTagBtn.setDisable(true);
             addTagBtn.setVisible(false);
-        } else {
-            HBox targetBox = (addTagBtnBox.getChildren().size() < MAX_TAGS_PER_ROW)
-                    ? addTagBtnBox
-                    : lowerTagBtnBox;
-            targetBox.getChildren().add(addTagBtn); // Ensure the "Add Tag" button is visible
+            addTagBtnBox.getChildren().remove(addTagBtn);
         }
+    }
 
+    //for a new task specifically, may need to remove setter
+    void resetTagButtons() {
+        //Reset Hbox + tag button state initially and add addTagBtn
+        addTagBtnBox.getChildren().clear();
+        lowerTagBtnBox.getChildren().clear();
+        if (!addTagBtnBox.getChildren().contains(addTagBtn)) {
+            addTagBtnBox.getChildren().add(addTagBtn);
+        }
+        addTagBtn.setDisable(false);
+        addTagBtn.setVisible(true);
+
+        Task task = AppController.getFocusedTask().getTask();
+        task.setTaskTags(taskTags); // Reset task tags
     }
 
     private void generateTagButton(HBox hBox, Tag tag) {
@@ -370,6 +382,7 @@ public class TaskDetailsController implements Initializable {
         //priorityComboBox.setValue(Priority.values()[task.getPriority()]);
         //update existing task buttons method
         repopulateTagButtons();
+
         try {
             task.saveToDatabase();
         } catch (SQLException e) {
@@ -389,18 +402,6 @@ public class TaskDetailsController implements Initializable {
         taskDescription.setText("");
     }
 
-    //for a new task specifically, may need to remove setter
-    void resetTagButtons() {
-        addTagBtnBox.getChildren().clear();
-        lowerTagBtnBox.getChildren().clear();
-        addTagBtnBox.getChildren().add(addTagBtn);
-        addTagBtn.setDisable(false);
-        addTagBtn.setVisible(true);
-
-        Task task = AppController.getFocusedTask().getTask();
-        //taskTags.clear();
-        task.setTaskTags(taskTags); // Reset task tags
-    }
 
     public void hideDetails() {
         root.setVisible(false);
