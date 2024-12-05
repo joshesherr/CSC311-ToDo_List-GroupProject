@@ -105,14 +105,18 @@ public class TaskController implements Initializable {
     public Task getTask() {
         return task;
     }
+
     public void setTask(Task task) {
         this.task = task;
         Priority priority = task.getPriorityEnum();
         taskNameField.setText(task.getTitle());
         taskToggleCheck.setSelected(task.getCompleted());
+        System.out.println("---New Task---");
+        System.out.println("Parent List name: " + task.getListID());
+        System.out.println("Task name: " + task.getTitle());
         System.out.println("Setting task priority color: " + priority.getColor());
         System.out.println("Setting task priority: " + priority);
-    //    this.updatePriorityColor(priority.getColor());
+        this.updatePriorityColor(priority.getColor());
     }
 
     public void updatePriorityColor(Color color) {
