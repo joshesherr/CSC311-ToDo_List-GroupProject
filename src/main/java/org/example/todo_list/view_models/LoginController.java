@@ -79,7 +79,7 @@ public class LoginController implements Initializable {
             e.printStackTrace();
         }
 
-        if ((username.equals("admin") && password.equals("admin"))||(usernameMatch != null && passwordMatch != null && usernameMatch.equals(username) && passwordMatch.equals(password))) {
+        if (usernameMatch != null && passwordMatch != null && usernameMatch.equals(username) && passwordMatch.equals(password)) {
             Platform.runLater(() -> errorMsg.setText(""));
             UserSession.getInstance().setUsername(username);
             try {
