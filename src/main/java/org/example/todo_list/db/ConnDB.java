@@ -264,8 +264,10 @@ public class ConnDB {
         }
     }
 
+
+
     /**
-     * Loadind task's information when the app starts.
+     * Loading task's information when the app starts.
      * @param list_id
      * @return ObservableList<Task>
      */
@@ -303,6 +305,30 @@ public class ConnDB {
             e.printStackTrace();
         }
         return taskData;
+    }
+
+
+    /**
+     * Delete the task from the database, using the task's id number
+     * @param task
+     */
+    public void deleteTask(Task task) {
+        /*
+        //Started writing this method but wasn't sure so I decided to stop, please help :)
+        int id_num = task.getIdNum();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            sql = "DELETE FROM list WHERE id_num = ?";
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id_num);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+         */
     }
 
     public void updatesTaskCompletion(Task task) {

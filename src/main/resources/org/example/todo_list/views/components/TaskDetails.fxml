@@ -34,7 +34,7 @@
                   <Insets bottom="10.0" top="-30.0" />
                </VBox.margin>
             </HBox>
-            <TextField fx:id="taskName" alignment="CENTER" prefHeight="22.0" prefWidth="376.0" promptText="Task Name">
+            <TextField fx:id="taskNameDetailsTF" alignment="CENTER" prefHeight="22.0" prefWidth="376.0" promptText="Task Name">
                <VBox.margin>
                   <Insets bottom="10.0" top="-20.0" />
                </VBox.margin>

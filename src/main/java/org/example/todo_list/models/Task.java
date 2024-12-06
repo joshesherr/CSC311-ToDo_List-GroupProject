@@ -59,17 +59,6 @@ public class Task implements Comparable {
         this.startDateTime = LocalDateTime.now();
         this.completed = false;
     }
-/*
-        Unimplemented as of yet, still testing priority enum idea and best way to implement
-    public Task(String title, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, Priority priority) {
-        this.title = title;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.description = description;
-        this.priority = priority.getPriorityLevel();
-        this.completed = false;
-    }
-*/
 
     public int getIdNum() {
         return idNum;
@@ -138,9 +127,8 @@ public class Task implements Comparable {
     }
 
     public Priority getPriorityEnum() {
-        System.out.println(Priority.values().length);
+     // Loop through enum priority values to match Priority.level to stored int priority and return correct enum value
         for (Priority p : Priority.values()) {
-            System.out.println("getPrioEnum value: " + p.toString());
             if (p.getLevel() == this.priority) {
                 return p;
             }
@@ -188,8 +176,8 @@ public class Task implements Comparable {
     public void saveTaskDueDate() throws SQLException {
         connDB.updateTaskDueDate(this);
     }
-
+ //   public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed,  int priority)
     public Task copy() {
-        return new Task(title, startDateTime, endDateTime, description, priority);
+        return new Task(idNum, title, startDateTime, listID, endDateTime, description, completed, priority);
     }
 }

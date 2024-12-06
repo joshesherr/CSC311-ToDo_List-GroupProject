@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="listBody" fx:id="root" prefHeight="320.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
+<VBox id="listBody" fx:id="root" prefHeight="320.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
    <children>
       <AnchorPane prefHeight="69.0" prefWidth="266.0">
          <children>
@@ -52,7 +52,7 @@
          </padding>
       </AnchorPane>
       <Separator prefWidth="200.0" />
-      <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="266.0" VBox.vgrow="NEVER">
+      <HBox fx:id="addTaskBox" alignment="CENTER_LEFT" onMouseClicked="#addTaskBoxPressed" onMouseEntered="#hoverAddTaskBox" onMouseExited="#exitAddTaskBox" prefHeight="15.0" prefWidth="266.0" VBox.vgrow="NEVER">
          <children>
             <Button id="addTaskBtn" fx:id="addTaskBtn" contentDisplay="GRAPHIC_ONLY" maxHeight="26.0" maxWidth="99.0" minWidth="0.0" mnemonicParsing="false" onAction="#addTaskBtnPressed" prefHeight="19.0" prefWidth="24.0">
                <HBox.margin>

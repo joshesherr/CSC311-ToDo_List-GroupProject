@@ -4,12 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import org.example.todo_list.SceneManager;
 import org.example.todo_list.db.ConnDB;
 import org.example.todo_list.db.UserSession;
@@ -35,6 +35,9 @@ public class ListController implements Initializable {
     @FXML
     private TextField listName;
 
+    @FXML
+    private HBox addTaskBox;
+
     /**
      * The TaskList instance this view is representing
      */
@@ -56,6 +59,8 @@ public class ListController implements Initializable {
                 }
             }
         });
+        Tooltip tooltip = new Tooltip("Click to add a new task");
+        Tooltip.install(addTaskBox, tooltip);
 
         optionsBtn.setOnMouseClicked(e -> {
             optionsMenu.show(optionsBtn, SceneManager.getInstance().getPrimaryStage().getX() + e.getSceneX(), SceneManager.getInstance().getPrimaryStage().getY()+ e.getSceneY());
@@ -65,6 +70,22 @@ public class ListController implements Initializable {
     public void addTaskBtnPressed(ActionEvent actionEvent) {
         addTask();
     }
+
+    @FXML
+    void addTaskBoxPressed(MouseEvent event) {
+        addTask();
+    }
+
+    @FXML
+    void exitAddTaskBox(MouseEvent event) {
+        addTaskBox.setCursor(Cursor.DEFAULT);        // Reset cursor to default when leaving
+    }
+
+    @FXML
+    void hoverAddTaskBox(MouseEvent event) {
+        addTaskBox.setCursor(Cursor.HAND);        // Change cursor to hand when hovering
+    }
+
 
     /**
      * Create a new task for this list.
