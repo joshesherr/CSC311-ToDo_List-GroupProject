@@ -1,4 +1,8 @@
 /* Styling for main container */
+.button:hover {
+    -fx-background-color: rgba(3, 93, 138, 0.3); /* Slightly lighter color on hover with opacity */
+}
+
 #root {
     -fx-font-size: 10px;
     -fx-alignment: center;
@@ -17,19 +21,32 @@
 }
 
 /* TextField styling */
-#dueDateTextField, #nameTextField {
+#dueDateTextField, #nameTextField, #taskDueDate {
     -fx-background-color: #ffffff;
     -fx-border-color: #d3e0f0; /* Soft border */
     -fx-border-radius: 5;
     -fx-prompt-text-fill: #9aa6b8; /* Light color for prompt text */
+    -fx-font-weight: bold;
 }
 
-#personalTaskBtn, #shareTaskBtn, #addTagBtn  {
+#taskNameDetailsTF {
+    -fx-font-weight: bold;
+}
+
+#personalTaskBtn, #shareTaskBtn, #addTagBtn {
     -fx-background-color: #ffffff;
     -fx-border-color: #4285f4;
     -fx-border-width: 2;
     -fx-text-fill: #4285f4;
     -fx-background-radius: 5;
+}
+
+#taskDescription {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4285f4;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-text-fill: #2c3e50; /* Dark color for readability */
 }
 
 #addTagBtn {
@@ -66,6 +83,10 @@
     -fx-cursor: hand;
 }
 
+.icon_button:hover {
+    -fx-background-color: rgba(3, 93, 138, 0.3); /* Slightly lighter color on hover with opacity */
+}
+
 #hideBtn {
     -fx-background-image: url("./../images/menu_icons/close-circle-outline_32px.png");
 }
@@ -89,5 +110,16 @@
 }
 #createTaskBtn:pressed {
     -fx-background-color: #2e6ac7;
+}
+
+.combo-box:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 3, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+#taskDueDate:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 3, 0, 0, 2);
+    -fx-background-color: rgba(3, 93, 138, 0.3); /* Slightly lighter color on hover with opacity */
+    -fx-cursor: hand;
 }
 

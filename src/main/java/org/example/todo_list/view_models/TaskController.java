@@ -113,7 +113,7 @@ public class TaskController implements Initializable {
         taskNameField.setText(task.getTitle());
         taskToggleCheck.setSelected(task.getCompleted());
         System.out.println("---New Task---");
-        System.out.println("Parent List name: " + task.getListID());
+        System.out.println("Parent List ID: " + task.getListID() + ", Task ID: " + task.getIdNum());
         System.out.println("Task name: " + task.getTitle());
         System.out.println("Setting task priority color: " + priority.getColor());
         System.out.println("Setting task priority: " + priority);
