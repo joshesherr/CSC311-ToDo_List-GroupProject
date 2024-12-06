@@ -78,7 +78,6 @@ public class TaskDetailsController implements Initializable {
                         newBtn.getStyleClass().add("button-style");
                         //apply an id to each created button for style purposes, should be style class probably
                         newBtn.setId(addTagBtn.getId());
-                        System.out.println(addTagBtn.getId()); //removable print
 
                         // Add action listener for editing tag (moved to a separate method)
                         editTag(newBtn, newTag);
@@ -267,7 +266,9 @@ public class TaskDetailsController implements Initializable {
 
         //Any time one of these Nodes are changed, the task instance will update.
         taskNameDetailsTF.focusedProperty().addListener(((observable, oldValue, newValue) -> {
-            AppController.getFocusedTask().taskNameField.setText(taskNameDetailsTF.getText());
+            if (!newValue) {
+                AppController.getFocusedTask().taskNameField.setText(taskNameDetailsTF.getText());
+            }
         }));
 
         taskDescription.focusedProperty().addListener(((observable, oldValue, newValue) -> {
@@ -381,6 +382,7 @@ public class TaskDetailsController implements Initializable {
         repopulateTagButtons();
 
         try {
+            System.out.println("Saving to DB");
             task.saveToDatabase();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -392,8 +394,6 @@ public class TaskDetailsController implements Initializable {
     public void clearTaskDetails() {
         taskNameDetailsTF.setText("");
         taskDueDate.setValue(LocalDate.now());
-        //taskPriority.setText("");
-
         resetTagButtons();  //reset task tag buttons
         taskDescription.setText("");
     }
@@ -403,18 +403,37 @@ public class TaskDetailsController implements Initializable {
         root.setVisible(false);
     }
 
+    @FXML
     public void deleteTask() {
         AppController.getFocusedTask().removeSelf();
         hideDetails();
     }
 
+    @FXML
     public void copyTask() {
         AppController.setCopiedTask(AppController.getFocusedTask().getTask().copy());
     }
 
-    public void pasteTask() {
+    @FXML
+    void pasteTask(ActionEvent event) {
         Task copiedTask = AppController.getCopiedTask();
+
         if (copiedTask != null) {
+//            System.out.println("Focus ID " + AppController.getFocusedTask().getTask().getIdNum());
+//            System.out.println("Copy ID " + copiedTask.getIdNum());
+//            System.out.println("Copy List ID" + copiedTask.getListID());
+//            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
+            int tempTaskIDNum = AppController.getFocusedTask().getTask().getIdNum();
+            int tempListID = AppController.getFocusedTask().getTask().getListID();
+            //Set copied tasks ID values to new ID values of the location of the pasted task
+            copiedTask.setIdNum(tempTaskIDNum);
+            copiedTask.setListID(tempListID);
+            AppController.getFocusedTask().setTask(copiedTask);
+//            System.out.println("----Post Paste ID vals----");
+//            System.out.println("Focus ID " + AppController.getFocusedTask().getTask().getIdNum());
+//            System.out.println("Copy ID " + copiedTask.getIdNum());
+//            System.out.println("Copy List ID" + copiedTask.getListID());
+//            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
             updateTaskDetails(copiedTask);
         } else {
             System.out.println("No task to paste.");

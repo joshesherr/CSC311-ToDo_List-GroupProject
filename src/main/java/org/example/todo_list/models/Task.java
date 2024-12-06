@@ -176,8 +176,8 @@ public class Task implements Comparable {
     public void saveTaskDueDate() throws SQLException {
         connDB.updateTaskDueDate(this);
     }
-
+ //   public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed,  int priority)
     public Task copy() {
-        return new Task(title, startDateTime, endDateTime, description, priority);
+        return new Task(idNum, title, startDateTime, listID, endDateTime, description, completed, priority);
     }
 }
