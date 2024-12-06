@@ -4,16 +4,20 @@
 
 #listBody {
     -fx-background-radius: 10;
-    -fx-background-color: #ffffff;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 4);
+    -fx-background-color: #f8f9fa;
+    -fx-border-radius: 5;
 }
 
-#listName, #listName:focused, #listName:hover {
+#listName, #listName:focused  {
     -fx-font-family: Arial;
     -fx-font-size: 17px;
     -fx-prompt-text-fill: #818181;
     -fx-background-radius: 5;
-    -fx-background-color: #fdfdfd;
+    -fx-background-color: #f8f9fa;
+}
+
+#listName:hover, #optionsBtn:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
 }
 
 .scroll-pane {
@@ -29,7 +33,7 @@
     -fx-background-color: #4285f4;
 }
 .progress-bar .track {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #f8f9fa;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0.5, 0, 3);
 }
 
@@ -41,7 +45,19 @@
     -fx-background-color: transparent;
 }
 
+#addTaskBox {
+    -fx-background-color: rgba(2, 48, 71, 0.4); /* Button background color */
+    -fx-border-radius: 5px; /* Rounded corners for border */
+    -fx-background-radius: 5px; /* Rounded corners for background */
+    -fx-text-fill: white; /* Text color (if applicable) */
 
+}
+#addTaskBox:hover {
+    -fx-background-color: rgba(3, 93, 138, 1); /* Slightly lighter color on hover with opacity */
+    -fx-cursor: hand; /* Change cursor to pointer on hover */
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 3, 0, 0, 2);
+}
 
 #addTaskBtn{
     -fx-background-image: url("./../images/menu_icons/add-circle-outline_32px.png");
