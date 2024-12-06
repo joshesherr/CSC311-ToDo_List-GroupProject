@@ -4,7 +4,7 @@
 
 #listBody {
     -fx-background-radius: 10;
-    -fx-background-color: #f8f9fa;
+    -fx-background-color: #d8e5f2;
     -fx-border-radius: 5;
 }
 
@@ -21,11 +21,11 @@
 }
 
 .scroll-pane {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #f8f9fa;
     -fx-background-radius: 10;
 }
 .scroll-pane .viewport {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #f8f9fa;
     -fx-background-radius: 10;
 }
 

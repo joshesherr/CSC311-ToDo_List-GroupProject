@@ -76,6 +76,9 @@
                </font>
             </Label>
          </children>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
       </HBox>
       <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="190.0" prefWidth="266.0" VBox.vgrow="ALWAYS">
          <content>
