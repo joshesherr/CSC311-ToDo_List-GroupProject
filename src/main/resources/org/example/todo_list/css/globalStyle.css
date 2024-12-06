@@ -7,13 +7,6 @@
     -fx-border-width: 0px;
     -fx-background-radius: 6px;
 }
-.menu-item:hover, .menu-item:selected, .menu-item:focused {
-    -fx-background-color: #dcdcdc;
-    -fx-background-radius: 1;
-}
-.menu-item:hover .label, .menu-item:selected .label, .menu-item:focused .label {
-    -fx-text-fill: #000000;
-}
 
 .scroll-pane:focused {
     -fx-focus-color: transparent;

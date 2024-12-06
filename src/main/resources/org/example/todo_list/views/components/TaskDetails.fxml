@@ -3,43 +3,108 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox id="root" fx:id="root" alignment="CENTER_LEFT" prefHeight="217.0" prefWidth="176.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskDetailsController">
+<VBox id="root" fx:id="root" alignment="TOP_CENTER" prefHeight="392.0" prefWidth="396.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.TaskDetailsController">
    <children>
-      <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="156.0" VBox.vgrow="ALWAYS">
-         <children>
-            <Button fx:id="hideBtn" maxHeight="113.0" mnemonicParsing="false" onAction="#hideDetails" prefHeight="19.0" prefWidth="0.0" styleClass="icon_button" />
-         </children>
-      </HBox>
-      <Separator prefHeight="5.0" prefWidth="180.0">
+      <VBox prefHeight="39.0" prefWidth="376.0">
          <VBox.margin>
-            <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+            <Insets top="-50.0" />
          </VBox.margin>
-      </Separator>
-      <TextField fx:id="taskName" prefHeight="21.0" prefWidth="171.0" promptText="Task Name" />
-      <DatePicker fx:id="taskDueDate" prefHeight="21.0" prefWidth="261.0" promptText="Due Date" />
-      <HBox fx:id="addTagBtnBox" alignment="CENTER" spacing="10.0">
          <children>
-            <Button fx:id="addTagBtn" maxHeight="23.0" maxWidth="58.0" mnemonicParsing="false" onAction="#addTagClicked" prefHeight="21.0" prefWidth="58.0" text="Add Tag" />
+            <HBox alignment="TOP_RIGHT" maxHeight="5.0" prefHeight="5.0" prefWidth="376.0">
+               <children>
+                  <Button fx:id="hideBtn" maxHeight="19.0" mnemonicParsing="false" onAction="#hideDetails" prefHeight="19.0" prefWidth="0.0" styleClass="icon_button">
+                     <tooltip>
+                        <Tooltip text="Close" />
+                     </tooltip></Button>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="-30.0" />
+               </VBox.margin>
+            </HBox>
+            <TextField fx:id="taskNameDetailsTF" alignment="CENTER" prefHeight="22.0" prefWidth="376.0" promptText="Task Name">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="-20.0" />
+               </VBox.margin>
+            </TextField>
+            <Separator prefHeight="15.0" prefWidth="378.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="-1.0" right="-1.0" top="-10.0" />
+               </VBox.margin>
+            </Separator>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" prefHeight="22.0" prefWidth="376.0" spacing="15.0">
+         <children>
+            <DatePicker fx:id="taskDueDate" prefHeight="20.0" prefWidth="170.0" promptText="Due Date" />
+            <TextField fx:id="taskDueTime" prefHeight="20.0" prefWidth="170.0" promptText="23:59:59" />
          </children>
       </HBox>
-      <TextArea fx:id="taskDescription" prefHeight="109.0" prefWidth="164.0" promptText="Description" wrapText="true" />
+      <ComboBox fx:id="priorityComboBox" prefWidth="100.0" promptText="Task Priority">
+         <VBox.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </VBox.margin>
+      </ComboBox>
+      <VBox fx:id="tagVBox">
+         <children>
+            <HBox fx:id="addTagBtnBox" alignment="CENTER" spacing="10.0">
+               <children>
+                  <Button id="addTagBtn" fx:id="addTagBtn" maxHeight="25.0" maxWidth="76.0" mnemonicParsing="false" onAction="#addTagClicked" prefHeight="22.0" prefWidth="85.0" text="Add Tag">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="lowerTagBtnBox" alignment="CENTER" prefHeight="30.0" prefWidth="376.0" spacing="10.0">
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <TextArea fx:id="taskDescription" prefHeight="119.0" prefWidth="376.0" promptText="Description" wrapText="true" />
       <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="156.0" spacing="2.0">
          <children>
-            <Button fx:id="copyTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button" />
-            <Button fx:id="pasteTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button" />
-            <Button fx:id="deleteTaskBtn" maxHeight="57.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="19.0" prefWidth="0.0" styleClass="icon_button" />
+            <Button fx:id="copyTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" onAction="#copyTask" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button">
+               <font>
+                  <Font size="1.0" />
+               </font>
+               <tooltip>
+                  <Tooltip text="Copy" />
+               </tooltip></Button>
+            <Button fx:id="pasteTaskBtn" maxHeight="57.0" minHeight="0.0" mnemonicParsing="false" onAction="#pasteTask" prefHeight="0.0" prefWidth="20.0" styleClass="icon_button">
+               <tooltip>
+                  <Tooltip text="Paste" />
+               </tooltip></Button>
+            <Button fx:id="deleteTaskBtn" maxHeight="57.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="19.0" prefWidth="0.0" styleClass="icon_button">
+               <tooltip>
+                  <Tooltip text="Delete" />
+               </tooltip></Button>
          </children>
+         <VBox.margin>
+            <Insets bottom="-70.0" top="20.0" />
+         </VBox.margin>
       </HBox>
    </children>
    <stylesheets>
       <URL value="@../../css/globalStyle.css" />
+      <URL value="@../../css/appStyling.css" />
       <URL value="@../../css/addTaskStyling.css" />
    </stylesheets>
 </VBox>

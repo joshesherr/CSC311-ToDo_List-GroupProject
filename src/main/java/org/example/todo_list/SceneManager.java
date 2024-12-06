@@ -1,6 +1,7 @@
 package org.example.todo_list;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,7 +10,9 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class SceneManager {
     private static final SceneManager INSTANCE  = new SceneManager();
@@ -18,6 +21,9 @@ public class SceneManager {
      */
     private final HashMap<String, Scene> scenes = new HashMap<>();
     private Stage primaryStage;
+
+    private int windowWidth;
+    private int windowHeight;
 
     public static SceneManager getInstance(){
         return INSTANCE;
@@ -58,15 +64,32 @@ public class SceneManager {
     /**
      * Shows a new view. If the view is not already loaded it will try to load it.
      * @param sceneName the name of the fxml file you wish to show (without '.fxml')
+     * @param width window width.
+     * @param height window height.
      */
-    public void showScene(String sceneName) {
+    public void showScene(String sceneName, int width, int height) {
         //If scene isn't loaded try to load it. Do not continue if scene can't be loaded.
         if (!scenes.containsKey(sceneName)) if (!loadScene(sceneName)) return;
 
         Scene scene = scenes.get(sceneName);
-
-        //primaryStage.setMaximized(true);
-
+        if (scene != null) {
+            primaryStage.setScene(scene);
+            if (width > 0) {
+                primaryStage.setWidth(width);
+                primaryStage.setHeight(height);
+                windowWidth = width;
+                windowHeight = height;
+            }
+            else {
+                primaryStage.setWidth(windowWidth);
+                primaryStage.setHeight(windowHeight);
+            }
+            primaryStage.show();
+        } else {
+            System.out.println("Scene not found: " + sceneName);
+        }
+//        primaryStage.setMaximized(true);
+//
 //        if (!primaryStage.isMaximized()) {
 //            // Get the screen bounds to center the stage if it is not maximized
 //            Screen screen = Screen.getPrimary();
@@ -81,8 +104,14 @@ public class SceneManager {
 //            primaryStage.setX(xPosition);
 //            primaryStage.setY(yPosition);
 //        }
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    }
+
+    /**
+     * Shows a new view. If the view is not already loaded it will try to load it.
+     * @param sceneName the name of the fxml file you wish to show (without '.fxml')
+     */
+    public void showScene(String sceneName) {
+        showScene(sceneName, -1, -1);
     }
 
     /**
@@ -100,5 +129,4 @@ public class SceneManager {
         popUp.setScene(scene);
         popUp.show();
     }
-
 }

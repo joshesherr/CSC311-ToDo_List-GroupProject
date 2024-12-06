@@ -8,6 +8,7 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/dataSources.local.xml/
 *.iws
 *.iml
 *.ipr
@@ -30,6 +31,9 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+### Data Sources ###
+.idea/dataSources
 
 ### VS Code ###
 .vscode/

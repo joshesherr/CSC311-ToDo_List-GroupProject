@@ -1,14 +1,20 @@
 package org.example.todo_list.db;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.todo_list.models.Person;
+import org.example.todo_list.models.Task;
+import org.example.todo_list.models.TaskList;
 import org.example.todo_list.view_models.RegisterController;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ConnDB {
 
@@ -18,6 +24,10 @@ public class ConnDB {
     final String PASSWORD = "MvT$!qp9c26ZY!V";
 
     Person p = null;
+    private final ObservableList<TaskList> listsData = FXCollections.observableArrayList();
+    private final ObservableList<Task> taskData = FXCollections.observableArrayList();
+
+
 
     /**
      * Connect to the database and create the database and table if not created, accept the sql query for creating the table
@@ -36,7 +46,7 @@ public class ConnDB {
         }
     }
 
-
+    //----------------------------------USERS'S SECTION--------------------------------------------------------------------------
     /**
      * Create the table if not created, accept the sql query for creating the table
      */
@@ -60,6 +70,10 @@ public class ConnDB {
         }
     }
 
+    /**
+     * Insert a new user into the database
+     * @param p
+     */
     public void insertUser(Person p) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -82,27 +96,295 @@ public class ConnDB {
         }
     }
 
+    //----------------------------------TASK LISTS' SECTION--------------------------------------------------------------------------
+    /**
+     * Check if the list exist in the DB, update the list's name if it does, insert a new list if it doesn't
+     * @param taskList
+     */
+    public void saveTaskListChanges(TaskList taskList) {
+        if (taskList.getName() == null || taskList.getName().isEmpty()) {
+            return;
+        }
+        if (taskList.getIdNum() != -1) {
+            try {
+                Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                String sql = "UPDATE list SET list_name = ? WHERE id_num = ?";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, taskList.getName());
+                preparedStatement.setInt(2, taskList.getIdNum());
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
 
-    public void createTableTask() {
+            try {
+                Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                String sql = "INSERT INTO list (list_name) VALUES(?)";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, taskList.getName());
+                preparedStatement.executeUpdate();
+
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int listId = generatedKeys.getInt(1);
+                    taskList.setIdNum(listId);
+                }
+
+                preparedStatement.close();
+
+
+                sql = "INSERT INTO works_on (person_username, list_id) VALUES (?, ?)";
+                preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, taskList.getUsername());
+                preparedStatement.setInt(2, taskList.getIdNum());
+                preparedStatement.executeUpdate();
+
+                preparedStatement.close();
+                conn.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    /**
+     * Loading the user's lists information from the database into the ObservableList
+     * @param username
+     * @return ObservableList<TaskList>
+     */
+    public ObservableList<TaskList> loadingUsersLists(String username) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            Statement statement = conn.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS tasks (" + "id VARCHAR(100) NOT NULL PRIMARY KEY,"
-                    + "start_date DATE NOT NULL,"
-                    + "end_date DATE NOT NULL,"
-                    + "description VARCHAR(500))";
+            String sql = "SELECT list.id_num, list.list_name FROM works_on INNER JOIN list ON works_on.list_id = list.id_num WHERE works_on.person_username = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            statement.executeUpdate(sql);
-            statement.executeUpdate(sql);
-            //check if we have users in the table users
-            statement = conn.createStatement();
-            statement.close();
+            while (resultSet.next()) {
+                int id_num = Integer.parseInt(resultSet.getString("id_num"));
+                String list_name = resultSet.getString("list_name");
+                listsData.add(new TaskList(id_num, list_name, username));
+            }
+            preparedStatement.close();
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return listsData;
+    }
+
+    /**
+     * Delete the list from the database, using the list's id number
+     * @param taskList
+     */
+    public void deleteList(TaskList taskList) {
+        int id_num = taskList.getIdNum();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            // First step, delete the related row in the task table
+            String sql = "DELETE FROM task WHERE list_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id_num);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+            //Second step, delete the related row in the works_on table!
+            sql = "DELETE FROM works_on WHERE list_id = ?";
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id_num);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+            //Third step, delete the related row in the list table!
+            sql = "DELETE FROM list WHERE id_num = ?";
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id_num);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //----------------------------------TASKS' SECTION--------------------------------------------------------------------------
+
+    /**
+     * Updates task's name or creates a new task with its name, id_num, start_date, and corresponding list_id
+     * @param task
+     */
+    public void saveTaskChanges(Task task) {
+        if (task.getTitle() == null || task.getTitle().isEmpty()) {
+            return;
+        }
+        if (task.getIdNum() != -1) {
+            try {
+                // Check if list_id exists in the list table
+                Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                String sql = "UPDATE task SET name = ? WHERE id_num = ?";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql);
+                preparedStatement.setString(1, task.getTitle());
+                preparedStatement.setInt(2, task.getIdNum());
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+
+            try {
+                Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+                String sql = "INSERT INTO task (name, start_date, list_id, end_date, description, completed, priority) VALUES(?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, task.getTitle());
+                preparedStatement.setString(2, String.valueOf(task.getStartDateTime()));
+                preparedStatement.setInt(3, task.getListID());
+                preparedStatement.setString(4, String.valueOf(task.getEndDateTime()));
+                preparedStatement.setString(5, task.getDescription());
+                preparedStatement.setBoolean(6, task.getCompleted());
+                preparedStatement.setInt(7, task.getPriority());
+
+                preparedStatement.executeUpdate();
+
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int taskId = generatedKeys.getInt(1);
+                    task.setIdNum(taskId);
+                }
+
+                preparedStatement.close();
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
+
+    /**
+     * Loading task's information when the app starts.
+     * @param list_id
+     * @return ObservableList<Task>
+     */
+    public ObservableList<Task> loadingTasksData(int list_id) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "SELECT * FROM task WHERE list_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, list_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            if (resultSet == null) {
+                return null;
+            }
+
+            while (resultSet.next()) {
+                int id_num = resultSet.getInt("id_num");
+                String name = resultSet.getString("name");
+                String start_date = resultSet.getString("start_date");
+                LocalDateTime startDate = start_date != null ? LocalDateTime.parse(start_date, formatter) : null;
+                String end_date = resultSet.getString("end_date");
+                LocalDateTime endDate = end_date != null ? LocalDateTime.parse(end_date, formatter) : null;
+                String description = resultSet.getString("description");
+                boolean completed = resultSet.getBoolean("completed");
+                int priority = resultSet.getInt("priority");
+                if (name != null) {
+                    taskData.add(new Task(id_num, name, startDate, list_id, endDate, description, completed, priority));
+                }
+            }
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return taskData;
+    }
+
+
+    /**
+     * Delete the task from the database, using the task's id number
+     * @param task
+     */
+    public void deleteTask(Task task) {
+        /*
+        //Started writing this method but wasn't sure so I decided to stop, please help :)
+        int id_num = task.getIdNum();
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            sql = "DELETE FROM list WHERE id_num = ?";
+            preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id_num);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+         */
+    }
+
+    public void updatesTaskCompletion(Task task) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE task SET completed = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setBoolean(1, task.getCompleted());
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTaskDescription(Task task) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE task SET description = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, task.getDescription());
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTaskPriority(Task task) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE task SET priority = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, task.getPriority());
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTaskDueDate(Task task) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE task SET end_date = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, String.valueOf(task.getEndDateTime()));
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

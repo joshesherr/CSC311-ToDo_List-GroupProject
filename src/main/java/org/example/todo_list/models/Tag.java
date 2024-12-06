@@ -7,7 +7,6 @@ import java.util.Objects;
 public class Tag {
 
     private String name;
-    private Color color;
 
     public Tag(String name) {
         this.name = name;
@@ -21,27 +20,23 @@ public class Tag {
         this.name = name;
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    //Equals currently checks for color, we should implement a way to guarantee users can easily match colors for
-    //lists and tasks in the same group
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 
         if (!(o instanceof Tag tag)) return false;
-        //Im not sure how to check equality of colors atm, this may need tweaking
-        return tag.getName().equalsIgnoreCase(this.name) && Objects.equals(color, tag.color);
+        return tag.getName().equalsIgnoreCase(this.name);
+    }
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "name= '" + name + '\'' +
+                '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, color);
+        return Objects.hash(name);
     }
 }

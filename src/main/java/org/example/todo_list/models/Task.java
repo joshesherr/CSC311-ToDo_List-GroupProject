@@ -1,27 +1,36 @@
 package org.example.todo_list.models;
 
+import javafx.scene.paint.Color;
+import org.example.todo_list.db.ConnDB;
+
+import java.sql.SQLException;
 import java.time.*;
 import java.util.ArrayList;
 
 public class Task implements Comparable {
-
+    private int idNum;
     private String title;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String description;
+    private int listID;
     private boolean completed;
     private int priority;
+    private Color color;
     private ArrayList<Tag> taskTags = new ArrayList<>();
         // Create a default tag that each list will start with and be replaced?
         //Or start empty? Only reason I wonder this is because of color setting in tags,
         //and how we want to use Color
 
+    private ConnDB connDB = new ConnDB();
+
     public Task() {
+        this.idNum = -1;
         this.title = "";
         this.startDateTime = LocalDateTime.now();
         this.endDateTime = null;
         this.description = "";
-        this.priority = Tasks.PRIORITY_LOW;
+        this.priority = Priority.LOW.getLevel();
         this.completed = false;
     }
 
@@ -32,6 +41,39 @@ public class Task implements Comparable {
         this.description = description;
         this.priority = priority;
         this.completed = false;
+    }
+
+    public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed,  int priority) {
+        this.idNum = idNum;
+        this.title = title;
+        this.startDateTime = startDateTime;
+        this.listID = listId;
+        this.endDateTime = endDateTime;
+        this.description = description;
+        this.completed = completed;
+        this.priority = priority;
+    }
+
+    public Task(String title) {
+        this.title = title;
+        this.startDateTime = LocalDateTime.now();
+        this.completed = false;
+    }
+
+    public int getIdNum() {
+        return idNum;
+    }
+
+    public void setIdNum(int idNum) {
+        this.idNum = idNum;
+    }
+
+    public int getListID() {
+        return listID;
+    }
+
+    public void setListID(int listID) {
+        this.listID = listID;
     }
 
     public String getTitle() {
@@ -74,12 +116,23 @@ public class Task implements Comparable {
         this.completed = status;
     }
 
+    public boolean getCompleted() {return completed;}
+
     public int getPriority() {
         return priority;
     }
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public Priority getPriorityEnum() {
+        if (priority != 0) {
+            return Priority.values()[priority - 1];
+        }
+        else {
+            return Priority.values()[0];
+        }
     }
 
     public ArrayList<Tag> getTaskTags() {
@@ -90,8 +143,40 @@ public class Task implements Comparable {
         this.taskTags = taskTags;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     @Override
     public int compareTo(Object o) {
         return 0;
+    }
+
+    public void saveToDatabase() throws SQLException {
+        connDB.saveTaskChanges(this);
+    }
+
+    public void saveTaskCompletion() throws SQLException {
+        connDB.updatesTaskCompletion(this);
+    }
+
+    public void saveTaskDescription() throws SQLException {
+        connDB.updateTaskDescription(this);
+    }
+
+    public void saveTaskPriority() throws SQLException {
+        connDB.updateTaskPriority(this);
+    }
+
+    public void saveTaskDueDate() throws SQLException {
+        connDB.updateTaskDueDate(this);
+    }
+ //   public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed,  int priority)
+    public Task copy() {
+        return new Task(idNum, title, startDateTime, listID, endDateTime, description, completed, priority);
     }
 }

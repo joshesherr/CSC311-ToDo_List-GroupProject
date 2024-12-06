@@ -10,7 +10,7 @@ public class Person {
 
     public Person() {}
 
-    public Person(String username_ID, String password, String firstName, String lastName, String email, String position) {
+    public Person(String username_ID, String firstName, String lastName, String email, String password, String position) {
         this.username_ID = username_ID;
         this.password = password;
         this.firstName = firstName;
@@ -19,7 +19,7 @@ public class Person {
         this.position = position;
     }
 
-    public Person(String username_ID, String password, String firstName, String lastName, String email) {
+    public Person(String username_ID, String firstName, String lastName, String email, String password) {
         this.username_ID = username_ID;
         this.password = password;
         this.firstName = firstName;

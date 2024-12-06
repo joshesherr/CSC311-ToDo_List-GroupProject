@@ -8,7 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.example.todo_list.SceneManager;
 import org.example.todo_list.db.ConnDB;
+import org.example.todo_list.db.UserSession;
 import org.example.todo_list.models.Person;
 
 import java.sql.*;
@@ -20,6 +22,7 @@ public class RegisterController {
 
     private ConnDB DBconnection = new ConnDB();
     private Person p;
+    SceneManager sceneManager;
 
     @FXML
     private TextField usernameRF, firstNameRF, lastNameRF, emailRF, passwordRF;
@@ -31,18 +34,20 @@ public class RegisterController {
     private VBox loginContainer;
 
     @FXML
-    private AnchorPane root;
+    private VBox root;
 
     @FXML
     private Label signInLabel, errorMsg;
 
-
+    public String username;
 
     /**
      * Set up the initial state of the GUI, add listeners to input fields, and disable the register button until all fields are valid.
      */
     @FXML
     public void initialize() {
+        sceneManager = SceneManager.getInstance();
+
         // Add listeners to input fields
         usernameRF.textProperty().addListener((observable, oldValue, newValue) -> validateInputs());
         firstNameRF.textProperty().addListener((observable, oldValue, newValue) -> validateInputs());
@@ -148,13 +153,18 @@ public class RegisterController {
             checkStmt.close();
             rs.close();
             conn.close();
+            username = usernameRF.getText();
+            UserSession.getInstance().setUsername(username);
+            sceneManager.showScene("HomeScene");
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
     @FXML
     void goToSignIn(ActionEvent event) {
-
+        sceneManager.showScene("LoginScene");
     }
 }

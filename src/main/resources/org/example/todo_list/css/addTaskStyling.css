@@ -24,12 +24,16 @@
     -fx-prompt-text-fill: #9aa6b8; /* Light color for prompt text */
 }
 
-#personalTaskBtn, #shareTaskBtn, #addTagBtn {
+#personalTaskBtn, #shareTaskBtn, #addTagBtn  {
     -fx-background-color: #ffffff;
     -fx-border-color: #4285f4;
     -fx-border-width: 2;
     -fx-text-fill: #4285f4;
     -fx-background-radius: 5;
+}
+
+#addTagBtn {
+    -fx-font-size: 10;
 }
 
 /* Button styling (shared style) */

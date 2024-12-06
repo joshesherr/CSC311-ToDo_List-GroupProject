@@ -1,20 +1,23 @@
 package org.example.todo_list.view_models;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import org.example.todo_list.SceneManager;
-import org.example.todo_list.models.Task;
+import org.example.todo_list.db.ConnDB;
+import org.example.todo_list.db.UserSession;
 import org.example.todo_list.models.TaskList;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ListController implements Initializable {
@@ -25,11 +28,64 @@ public class ListController implements Initializable {
     public VBox root;
     public AppController parentController;
     public ProgressBar progressBar;
-    private TaskList taskList;
+    private String username;
+    private ConnDB connDB = new ConnDB();
+
+
+    @FXML
+    private TextField listName;
+
+    @FXML
+    private HBox addTaskBox;
+
+    /**
+     * The TaskList instance this view is representing
+     */
+    public TaskList taskList;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        username = UserSession.getInstance().getUsername();
+        taskList = new TaskList();
+
+        listName.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                try {
+                    taskList.setName(listName.getText());
+                    taskList.setUsername(username);
+                    taskList.saveToDatabase();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Tooltip tooltip = new Tooltip("Click to add a new task");
+        Tooltip.install(addTaskBox, tooltip);
+
+        optionsBtn.setOnMouseClicked(e -> {
+            optionsMenu.show(optionsBtn, SceneManager.getInstance().getPrimaryStage().getX() + e.getSceneX(), SceneManager.getInstance().getPrimaryStage().getY()+ e.getSceneY());
+        });
+    }
 
     public void addTaskBtnPressed(ActionEvent actionEvent) {
         addTask();
     }
+
+    @FXML
+    void addTaskBoxPressed(MouseEvent event) {
+        addTask();
+    }
+
+    @FXML
+    void exitAddTaskBox(MouseEvent event) {
+        addTaskBox.setCursor(Cursor.DEFAULT);        // Reset cursor to default when leaving
+    }
+
+    @FXML
+    void hoverAddTaskBox(MouseEvent event) {
+        addTaskBox.setCursor(Cursor.HAND);        // Change cursor to hand when hovering
+    }
+
 
     /**
      * Create a new task for this list.
@@ -42,7 +98,7 @@ public class ListController implements Initializable {
 
             taskCon.parentController = this;
             taskCon.taskNameField.requestFocus();
-            taskList.addTask( taskCon.getTask() );
+            taskList.addTask(taskCon.getTask());
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -61,23 +117,32 @@ public class ListController implements Initializable {
     }
 
     //Todo Show options right above button. currently it is completely off screen
-    public void showOptions(ActionEvent actionEvent) {
-        optionsMenu.show(optionsBtn, optionsBtn.getLayoutX(), optionsBtn.getLayoutY());
+    public void showOptions(ActionEvent e) {
+        System.out.println(e);
     }
+
 
     /**
      * Will remove this list from the home screen.
      */
     public void removeSelf() {
+        connDB.deleteList(this.taskList);
         parentController.removeList(this);
     }
 
-    public void updateProgress() {
-        progressBar.setProgress(taskList.getProgress());
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
+        listName.setText(taskList.getName());
+        updateProgress();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        taskList = new TaskList();
+    /**
+     * Update this list views progress bar.
+     */
+    public void updateProgress() {
+        int listId = taskList.getIdNum();
+        double progress = taskList.getProgress();
+        progressBar.setProgress(progress);
+        //progressBar.setProgress(taskList.getProgress());
     }
 }
