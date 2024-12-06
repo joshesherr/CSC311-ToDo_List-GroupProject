@@ -18,6 +18,7 @@
 
 #listName:hover, #optionsBtn:hover {
     -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-cursor: hand;
 }
 
 .scroll-pane {
@@ -53,9 +54,9 @@
 
 }
 #addTaskBox:hover {
-    -fx-background-color: rgba(3, 93, 138, 1); /* Slightly lighter color on hover with opacity */
     -fx-cursor: hand; /* Change cursor to pointer on hover */
     -fx-text-fill: white;
+    -fx-background-color: rgba(3, 93, 138, 1);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 3, 0, 0, 2);
 }
 

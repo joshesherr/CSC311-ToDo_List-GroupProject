@@ -27,6 +27,9 @@
                      <font>
                         <Font size="17.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="3.0" top="5.0" />
+                     </HBox.margin>
                   </TextField>
                   <Button id="optionsBtn" fx:id="optionsBtn" contentDisplay="GRAPHIC_ONLY" maxHeight="79.0" maxWidth="96.0" mnemonicParsing="false" onAction="#showOptions" prefHeight="79.0" prefWidth="96.0" textAlignment="CENTER">
                      <cursor>
@@ -46,6 +49,9 @@
                      </tooltip>
                   </Button>
                </children>
+               <padding>
+                  <Insets left="4.0" />
+               </padding>
             </HBox>
             <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="143.0" progress="0.0">
                <tooltip>
