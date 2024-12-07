@@ -115,7 +115,7 @@ public class AppController implements Initializable {
     public void loadTasksFromDB() {
         username = UserSession.getInstance().getUsername();
         listsData = connDB.loadingUsersLists(username);
-        welcomeLbl.setText("Welcome " + username + "!"); //username? name? probably username removable comment
+        welcomeLbl.setText("Welcome " + username + "!");
         ObservableList<TaskList> listsDataCopy = FXCollections.observableArrayList(listsData); // Create a copy of the list
 
         for (TaskList taskList : listsData) {
@@ -270,12 +270,30 @@ public class AppController implements Initializable {
                 System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
             }
         }
+        // Clear the current task container
+        listBox.getChildren().clear();
+        loadingTaskByPriority(filteredTasks);
     }
 
 
+    @FXML
+    void homeClicked(ActionEvent event) {
+        // Clear the current task containers and reset to original application state
+        listBox.getChildren().clear();
+        loadingTaskByPriority(taskData);
+    }
 
     public void loadingTaskByPriority(ObservableList<Task> filteredTasks) {
         for (TaskList taskList : listsData) {
+            // Use stream to check if there are any tasks for this list
+            boolean hasTasksForList = filteredTasks.stream()
+                    .anyMatch(task -> task.getListID() == taskList.getIdNum());
+
+            // If there are no tasks for this list, skip it
+            if (!hasTasksForList) {
+                continue;
+            }
+
             try {
                 FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
                 Parent listRoot = loader.load();
@@ -300,11 +318,4 @@ public class AppController implements Initializable {
             }
         }
     }
-
-//    public void setActiveListController(ListController listController) {
-//        this.activeListController = listController;
-//    }
-//    public ListController getActiveListController() {
-//        return activeListController;
-//    }
 }
