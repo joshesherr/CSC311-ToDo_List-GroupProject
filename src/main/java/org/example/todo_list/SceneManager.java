@@ -67,9 +67,15 @@ public class SceneManager {
      * @param width window width.
      * @param height window height.
      */
-    public void showScene(String sceneName, int width, int height) {
+    public void showScene(String sceneName, int width, int height, boolean reload) {
         //If scene isn't loaded try to load it. Do not continue if scene can't be loaded.
-        if (!scenes.containsKey(sceneName)) if (!loadScene(sceneName)) return;
+        if (!scenes.containsKey(sceneName) && !reload) {
+            if (!loadScene(sceneName)) return;
+        }
+        else {
+            if (!scenes.containsKey(sceneName)) scenes.remove(sceneName);
+            loadScene(sceneName);
+        }
 
         Scene scene = scenes.get(sceneName);
         if (scene != null) {
@@ -88,22 +94,15 @@ public class SceneManager {
         } else {
             System.out.println("Scene not found: " + sceneName);
         }
-//        primaryStage.setMaximized(true);
-//
-//        if (!primaryStage.isMaximized()) {
-//            // Get the screen bounds to center the stage if it is not maximized
-//            Screen screen = Screen.getPrimary();
-//            double screenWidth = screen.getVisualBounds().getWidth();
-//            double screenHeight = screen.getVisualBounds().getHeight();
-//
-//            // Calculate the position to center the stage
-//            double xPosition = (screenWidth - primaryStage.getWidth()) / 2;
-//            double yPosition = (screenHeight - primaryStage.getHeight()) / 2;
-//
-//            // Set the stage position to the center of the screen
-//            primaryStage.setX(xPosition);
-//            primaryStage.setY(yPosition);
-//        }
+    }
+
+    /**
+     * Shows a new view. If the view is not already loaded it will try to load it.
+     * @param sceneName the name of the fxml file you wish to show (without '.fxml')
+     * @param reload
+     */
+    public void showScene(String sceneName, boolean reload) {
+        showScene(sceneName, windowWidth, windowHeight, reload);
     }
 
     /**
@@ -111,7 +110,17 @@ public class SceneManager {
      * @param sceneName the name of the fxml file you wish to show (without '.fxml')
      */
     public void showScene(String sceneName) {
-        showScene(sceneName, -1, -1);
+        showScene(sceneName, -1, -1, false);
+    }
+
+    /**
+     *
+     * @param sceneName
+     * @param width
+     * @param height
+     */
+    public void showScene(String sceneName, int width, int height) {
+        showScene(sceneName, width, height, false);
     }
 
     /**

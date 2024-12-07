@@ -127,12 +127,14 @@ public class Task implements Comparable {
     }
 
     public Priority getPriorityEnum() {
-        if (priority != 0) {
-            return Priority.values()[priority - 1];
+        // Loop through enum priority values to match Priority.level to stored int priority and return correct enum value
+        for (Priority p : Priority.values()) {
+            if (p.getLevel() == this.priority) {
+                System.out.println("Returning priority lvl: " + p.getLevel());
+                return p;
+            }
         }
-        else {
-            return Priority.values()[0];
-        }
+        throw new IllegalArgumentException("Invalid priority level: " + this.priority);
     }
 
     public ArrayList<Tag> getTaskTags() {

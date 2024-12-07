@@ -17,6 +17,7 @@ import org.example.todo_list.db.ConnDB;
 import org.example.todo_list.db.UserSession;
 import org.example.todo_list.models.Task;
 import org.example.todo_list.models.TaskList;
+import org.example.todo_list.models.Priority;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +33,6 @@ public class AppController implements Initializable {
     private static TaskController focusedTaskCon=null;
     private static TaskDetailsController taskDetailsCon;
     private String username;
-    private TaskList taskList = new TaskList();
     private ListController listCon;
     private TaskController taskCon;
     private ConnDB connDB = new ConnDB();
@@ -45,9 +45,16 @@ public class AppController implements Initializable {
     public static Task getCopiedTask() {
         return copiedTask;
     }
+    public static AppController INSTANCE;
+
+    public static AppController getInstance() {
+        return INSTANCE;
+    }
+
 
     @FXML
-    private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn, groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn;
+    private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn,
+            groupTasksBtn, homeBtn, monthTasksBtn, weekTasksBtn, prioHighBtn;
 
     @FXML
     private Label viewTasksLabel, myTAsksLabel, calendarLabel, tagsLabel, taskDueDate, taskName, taskPriority, taskLabel, welcomeLbl;
@@ -84,9 +91,7 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        username = UserSession.getInstance().getUsername();
-        listsData = connDB.loadingUsersLists(username);
-        welcomeLbl.setText("Welcome " + username + "!"); //username? name? probably username removable comment
+        INSTANCE = this;
 
         try {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/TaskDetails.fxml"));
@@ -100,8 +105,19 @@ public class AppController implements Initializable {
             e.printStackTrace();
         }
 
+        loadTasksFromDB();
+
+       // copyMenuItem.setDisable(AppController.getFocusedTask() == null);
+     //   pasteMenuItem.setDisable(getCopiedTask() == null);
+    }
+
+    public void loadTasksFromDB() {
+        username = UserSession.getInstance().getUsername();
+        listsData = connDB.loadingUsersLists(username);
+        welcomeLbl.setText("Welcome " + username + "!"); //username? name? probably username removable comment
         ObservableList<TaskList> listsDataCopy = FXCollections.observableArrayList(listsData); // Create a copy of the list
-        for (TaskList taskList : listsDataCopy) {
+
+        for (TaskList taskList : listsData) {
             taskData = connDB.loadingTasksData(taskList.getIdNum());
             taskList.setTasks(taskData);
             try {
@@ -116,22 +132,19 @@ public class AppController implements Initializable {
             }
             for (Task task : taskList.getTasks()) {
                 if (task.getListID() == taskList.getIdNum()) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
-                    Parent taskRoot = loader.load();
-                    TaskController taskCon = loader.getController();
-                    taskCon.setTask(task);
-                    taskCon.setParentController(listCon); // Set the grandParent controller
-                    listCon.taskBox.getChildren().add(taskRoot);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    try {
+                        FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
+                        Parent taskRoot = loader.load();
+                        TaskController taskCon = loader.getController();
+                        taskCon.setTask(task);
+                        taskCon.setParentController(listCon); // Set the grandParent controller
+                        listCon.taskBox.getChildren().add(taskRoot);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
-
-       // copyMenuItem.setDisable(AppController.getFocusedTask() == null);
-     //   pasteMenuItem.setDisable(getCopiedTask() == null);
     }
 
     public void logOut(ActionEvent actionEvent) {
@@ -150,50 +163,11 @@ public class AppController implements Initializable {
 
     @FXML
     void pasteTaskPressed(ActionEvent event) {
-        System.out.println("Paste MI Pressed");
-        //disable menu item while copied task not set
-//        if (getCopiedTask() == null) {
-//            //disable menu item
-//            System.out.println("No task copied");
-//            return;
-//          //  pasteMenuItem;
-//        } else {
-//            //enable (probably should be listener
-//            Task copiedTask = getCopiedTask();
-//
-//            System.out.println("Focus ID " + AppController.getFocusedTask().getTask().getIdNum());
-//            System.out.println("Copy ID " + copiedTask.getIdNum());
-//            System.out.println("Copy List ID" + copiedTask.getListID());
-//            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
-//                int tempTaskIDNum = getFocusedTask().getTask().getIdNum();
-//                int tempListID = getFocusedTask().getTask().getListID();
-//                //Set copied tasks ID values to new ID values of the location of the pasted task
-//                copiedTask.setIdNum(tempTaskIDNum);
-//                copiedTask.setListID(tempListID);
-//                getFocusedTask().setTask(copiedTask);
-//            System.out.println("----Post Paste ID vals----");
-//            System.out.println("Focus ID " + AppController.getFocusedTask().getTask().getIdNum());
-//            System.out.println("Copy ID " + copiedTask.getIdNum());
-//            System.out.println("Copy List ID" + copiedTask.getListID());
-//            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
-//                getTaskDetailsCon().updateTaskDetails(copiedTask);
-//                //updateTaskDetails(copiedTask);
-//                System.out.println("No task to paste.");
-//            }
-        //validate valid copy, paste in to focused list
-
     }
 
     @FXML
     void copyTaskPressed(ActionEvent event) {
         System.out.println("Copy MI Pressed");
-        //disable menu item while invalid by listener
-//        if (AppController.getFocusedTask().getTask() == null) {
-//            return;
-//        }
-//        //validate focused task, copy focused task
-//            AppController.setCopiedTask(getFocusedTask().getTask());
-//            System.out.println("Task copied by Menu Item " + AppController.getCopiedTask());
     }
 
     /**
@@ -239,4 +213,54 @@ public class AppController implements Initializable {
     public static void setTaskDetailsCon(TaskDetailsController taskDetailsCon) {
         AppController.taskDetailsCon = taskDetailsCon;
     }
+
+    @FXML
+    void prioLowClicked(ActionEvent event) {
+        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
+        for (Task task : taskData) {
+            if (task.getPriority() == Priority.LOW.getLevel()) {
+                filteredTasks.add(task);
+                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
+            }
+        }
+    }
+
+    @FXML
+    void prioMedClicked(ActionEvent event) {
+        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
+        for (Task task : taskData) {
+            if (task.getPriority() == Priority.MEDIUM.getLevel()) {
+                filteredTasks.add(task);
+                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
+            }
+        }
+    }
+
+    @FXML
+    void prioHighClicked(ActionEvent event) {
+        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
+        for (Task task : taskData) {
+            if (task.getPriority() == Priority.HIGH.getLevel()) {
+                filteredTasks.add(task);
+                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
+            }
+        }
+    }
+
+    @FXML
+    void prioCritClicked(ActionEvent event) {
+        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
+        for (Task task : taskData) {
+            if (task.getPriority() == Priority.CRITICAL.getLevel()) {
+                filteredTasks.add(task);
+                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
+            }
+        }
+    }
+//    public void setActiveListController(ListController listController) {
+//        this.activeListController = listController;
+//    }
+//    public ListController getActiveListController() {
+//        return activeListController;
+//    }
 }

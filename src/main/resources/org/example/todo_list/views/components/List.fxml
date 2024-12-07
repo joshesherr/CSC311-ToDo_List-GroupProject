@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="listBody" fx:id="root" prefHeight="320.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
+<VBox id="listBody" fx:id="root" onMouseClicked="#listClicked" prefHeight="320.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.ListController">
    <children>
       <AnchorPane prefHeight="69.0" prefWidth="266.0">
          <children>
@@ -38,8 +38,7 @@
                      <contextMenu>
                         <ContextMenu fx:id="optionsMenu">
                           <items>
-                             <MenuItem mnemonicParsing="false" text="Rename List" />
-                             <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                             <MenuItem mnemonicParsing="false" onAction="#renameList" text="Rename List" />
                              <MenuItem mnemonicParsing="false" onAction="#removeSelf" text="Delete List" />
                           </items>
                         </ContextMenu>
