@@ -94,22 +94,6 @@ public class SceneManager {
         } else {
             System.out.println("Scene not found: " + sceneName);
         }
-//        primaryStage.setMaximized(true);
-//
-//        if (!primaryStage.isMaximized()) {
-//            // Get the screen bounds to center the stage if it is not maximized
-//            Screen screen = Screen.getPrimary();
-//            double screenWidth = screen.getVisualBounds().getWidth();
-//            double screenHeight = screen.getVisualBounds().getHeight();
-//
-//            // Calculate the position to center the stage
-//            double xPosition = (screenWidth - primaryStage.getWidth()) / 2;
-//            double yPosition = (screenHeight - primaryStage.getHeight()) / 2;
-//
-//            // Set the stage position to the center of the screen
-//            primaryStage.setX(xPosition);
-//            primaryStage.setY(yPosition);
-//        }
     }
 
     /**

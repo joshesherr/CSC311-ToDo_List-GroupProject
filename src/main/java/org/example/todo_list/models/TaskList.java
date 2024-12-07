@@ -7,6 +7,7 @@ import org.example.todo_list.db.ConnDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private String username;
@@ -64,10 +65,27 @@ public class TaskList {
         return tasks;
     }
 
+    public ObservableList<Task> filterTasksByPriority(Priority priority) {
+        return FXCollections.observableArrayList(
+                tasks.stream()
+                        .filter(task -> task.getPriority() == priority.getLevel())
+                        .collect(Collectors.toList())
+        );
+    }
+
+    public ObservableList<Task> filterTasksAcrossLists(Priority priority, ObservableList<TaskList> listsData) {
+        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
+        listsData.forEach(list -> {
+            filteredTasks.addAll(list.getTasks().stream()
+                    .filter(task -> task.getPriority() == priority.getLevel())
+                    .collect(Collectors.toList()));
+        });
+        return filteredTasks;
+    }
+
     public void setTasks(ObservableList<Task> tasks) {
         this.tasks = tasks;
     }
-
 
     /**
      *

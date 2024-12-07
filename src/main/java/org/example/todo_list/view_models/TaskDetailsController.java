@@ -338,12 +338,12 @@ public class TaskDetailsController implements Initializable {
             if (newValue != null) {
                 task = AppController.getFocusedTask().getTask();
                 task.setPriority(newValue.getLevel());
+                task.setColor(newValue.getColor());
                 try {
                     task.saveTaskPriority();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                task.setColor(newValue.getColor());
 
                 // Update the rectangle in TaskController
                 taskCon = AppController.getFocusedTask();
@@ -377,6 +377,7 @@ public class TaskDetailsController implements Initializable {
         taskDescription.setText( task.getDescription() );
         taskDueTime.setText(String.valueOf(task.getEndDateTime()).substring(11));
         priorityComboBox.setValue(task.getPriorityEnum());
+        System.out.println("Task prio set to : " + task.getPriorityEnum().toString() + "priority int : " + task.getPriority());
         //update existing tasks buttons with task tags OR handle new task case
         repopulateTagButtons();
 
