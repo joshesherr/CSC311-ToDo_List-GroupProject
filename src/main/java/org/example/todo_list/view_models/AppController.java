@@ -218,64 +218,38 @@ public class AppController implements Initializable {
         AppController.taskDetailsCon = taskDetailsCon;
     }
 
-    @FXML
-    void prioLowClicked(ActionEvent event) {
+
+    void showOnlyPriority(int priorityLevel) {
         ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
         for (Task task : taskData) {
-            if (task.getPriority() == Priority.LOW.getLevel()) {
+            if (task.getPriority() == priorityLevel) {
                 filteredTasks.add(task);
                 System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
             }
         }
-
-        // Clear the current task container
-        listBox.getChildren().clear();
-        loadingTaskByPriority(filteredTasks);
-    }
-
-
-    @FXML
-    void prioMedClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.MEDIUM.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
-            }
-        }
-
         // Clear the current task container
         listBox.getChildren().clear();
         loadingTaskByPriority(filteredTasks);
     }
 
     @FXML
-    void prioHighClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.HIGH.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
-            }
-        }
-
-        // Clear the current task container
-        listBox.getChildren().clear();
-        loadingTaskByPriority(filteredTasks);
+    private void prioLow() {
+        showOnlyPriority(Priority.LOW.getLevel());
     }
 
     @FXML
-    void prioCritClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.CRITICAL.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
-            }
-        }
-        // Clear the current task container
-        listBox.getChildren().clear();
-        loadingTaskByPriority(filteredTasks);
+    private void prioMed() {
+        showOnlyPriority(Priority.MEDIUM.getLevel());
+    }
+
+    @FXML
+    private void prioHigh() {
+        showOnlyPriority(Priority.HIGH.getLevel());
+    }
+
+    @FXML
+    private void prioCrit() {
+        showOnlyPriority(Priority.CRITICAL.getLevel());
     }
 
 
