@@ -21,27 +21,38 @@
    <children>
       <AnchorPane prefHeight="69.0" prefWidth="266.0">
          <children>
-            <TextField id="listName" fx:id="listName" promptText="List Name">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </TextField>
-            <Button id="optionsBtn" fx:id="optionsBtn" contentDisplay="GRAPHIC_ONLY" layoutX="228.0" layoutY="15.0" maxHeight="79.0" maxWidth="96.0" mnemonicParsing="false" onAction="#showOptions" prefHeight="79.0" prefWidth="96.0" textAlignment="CENTER">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <contextMenu>
-                  <ContextMenu fx:id="optionsMenu">
-                    <items>
-                       <MenuItem mnemonicParsing="false" text="Rename List" />
-                       <MenuItem mnemonicParsing="false" text="Unspecified Action" />
-                       <MenuItem mnemonicParsing="false" onAction="#removeSelf" text="Delete List" />
-                    </items>
-                  </ContextMenu>
-               </contextMenu>
-               <tooltip>
-                  <Tooltip text="Open menu" />
-               </tooltip></Button>
+            <HBox spacing="15.0">
+               <children>
+                  <TextField id="listName" fx:id="listName" promptText="List Name">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="3.0" top="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button id="optionsBtn" fx:id="optionsBtn" contentDisplay="GRAPHIC_ONLY" maxHeight="79.0" maxWidth="96.0" mnemonicParsing="false" onAction="#showOptions" prefHeight="79.0" prefWidth="96.0" textAlignment="CENTER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <contextMenu>
+                        <ContextMenu fx:id="optionsMenu">
+                          <items>
+                             <MenuItem mnemonicParsing="false" text="Rename List" />
+                             <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                             <MenuItem mnemonicParsing="false" onAction="#removeSelf" text="Delete List" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
+                     <tooltip>
+                        <Tooltip text="Open menu" />
+                     </tooltip>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="4.0" />
+               </padding>
+            </HBox>
             <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="143.0" progress="0.0">
                <tooltip>
                   <Tooltip text="Task progress" />
@@ -71,6 +82,9 @@
                </font>
             </Label>
          </children>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
       </HBox>
       <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="190.0" prefWidth="266.0" VBox.vgrow="ALWAYS">
          <content>

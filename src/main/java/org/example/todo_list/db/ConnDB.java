@@ -313,22 +313,20 @@ public class ConnDB {
      * @param task
      */
     public void deleteTask(Task task) {
-        /*
-        //Started writing this method but wasn't sure so I decided to stop, please help :)
         int id_num = task.getIdNum();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            sql = "DELETE FROM list WHERE id_num = ?";
-            preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, id_num);
+            String sql = "DELETE FROM task WHERE id_num = ? AND name = ? AND start_date = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, task.getIdNum());
+            preparedStatement.setString(2, task.getTitle());
+            preparedStatement.setString(3, String.valueOf(task.getStartDateTime()));
             preparedStatement.executeUpdate();
             preparedStatement.close();
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-         */
     }
 
     public void updatesTaskCompletion(Task task) {

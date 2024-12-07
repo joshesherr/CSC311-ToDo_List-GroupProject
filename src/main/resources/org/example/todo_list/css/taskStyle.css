@@ -23,8 +23,25 @@
     -fx-background-color: transparent;
 }
 
+.toggle-button:hover {
+    -fx-background-color: rgba(3, 93, 138, 0.7);
+    -fx-background-radius: 999;
+}
+
 .toggle-button:selected {
     -fx-background-image: url('./../images/menu_icons/checkmark-circle-outline_32px.png');
+}
+
+#root {
+    -fx-background-color: rgba(3, 93, 138, 0.1); /* Slightly lighter color on hover with opacity */
+    -fx-cursor: hand; /* Change cursor to pointer on hover */
+    -fx-border-radius: 5;
+    -fx-background-radius: 5px;
+}
+
+#root:hover {
+    -fx-background-color: rgba(3, 93, 138, 0.7); /* Slightly lighter color on hover with opacity */
+    -fx-cursor: hand; /* Change cursor to pointer on hover */
 }
 
 .text-field {

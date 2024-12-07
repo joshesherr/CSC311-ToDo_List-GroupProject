@@ -55,6 +55,11 @@ public class TaskController implements Initializable {
      * Will remove this task from this list it's currently in.
      */
     public void removeSelf() {
+        try {
+            this.task.deleteTask();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         parentController.removeTask(this);
     }
 
@@ -62,7 +67,7 @@ public class TaskController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         task = new Task();
-
+        this.priorityColorRect.setMouseTransparent(true);
 
         //When a task is selected set it as the focused task in AppController.
         taskNameField.focusedProperty().addListener((ov, oldValue, newValue) -> {
@@ -113,7 +118,7 @@ public class TaskController implements Initializable {
         taskNameField.setText(task.getTitle());
         taskToggleCheck.setSelected(task.getCompleted());
         System.out.println("---New Task---");
-        System.out.println("Parent List name: " + task.getListID());
+        System.out.println("Parent List ID: " + task.getListID() + ", Task ID: " + task.getIdNum());
         System.out.println("Task name: " + task.getTitle());
         System.out.println("Setting task priority color: " + priority.getColor());
         System.out.println("Setting task priority: " + priority);

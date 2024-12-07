@@ -65,6 +65,9 @@ public class AppController implements Initializable {
     private Menu menuBarCreate, menuBarEdit, menuBarFile, menuBarGroup, menuBarHelp;
 
     @FXML
+    private MenuItem copyMenuItem, pasteMenuItem;
+
+    @FXML
     private BorderPane innerTaskBP, outerBP;
 
     @FXML
@@ -126,6 +129,9 @@ public class AppController implements Initializable {
                 }
             }
         }
+
+       // copyMenuItem.setDisable(AppController.getFocusedTask() == null);
+     //   pasteMenuItem.setDisable(getCopiedTask() == null);
     }
 
     public void logOut(ActionEvent actionEvent) {
@@ -140,6 +146,54 @@ public class AppController implements Initializable {
     //Todo name lists on creation
     public void addListBtnPressed(ActionEvent actionEvent) {
         addList();
+    }
+
+    @FXML
+    void pasteTaskPressed(ActionEvent event) {
+        System.out.println("Paste MI Pressed");
+        //disable menu item while copied task not set
+//        if (getCopiedTask() == null) {
+//            //disable menu item
+//            System.out.println("No task copied");
+//            return;
+//          //  pasteMenuItem;
+//        } else {
+//            //enable (probably should be listener
+//            Task copiedTask = getCopiedTask();
+//
+//            System.out.println("Focus ID " + AppController.getFocusedTask().getTask().getIdNum());
+//            System.out.println("Copy ID " + copiedTask.getIdNum());
+//            System.out.println("Copy List ID" + copiedTask.getListID());
+//            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
+//                int tempTaskIDNum = getFocusedTask().getTask().getIdNum();
+//                int tempListID = getFocusedTask().getTask().getListID();
+//                //Set copied tasks ID values to new ID values of the location of the pasted task
+//                copiedTask.setIdNum(tempTaskIDNum);
+//                copiedTask.setListID(tempListID);
+//                getFocusedTask().setTask(copiedTask);
+//            System.out.println("----Post Paste ID vals----");
+//            System.out.println("Focus ID " + AppController.getFocusedTask().getTask().getIdNum());
+//            System.out.println("Copy ID " + copiedTask.getIdNum());
+//            System.out.println("Copy List ID" + copiedTask.getListID());
+//            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
+//                getTaskDetailsCon().updateTaskDetails(copiedTask);
+//                //updateTaskDetails(copiedTask);
+//                System.out.println("No task to paste.");
+//            }
+        //validate valid copy, paste in to focused list
+
+    }
+
+    @FXML
+    void copyTaskPressed(ActionEvent event) {
+        System.out.println("Copy MI Pressed");
+        //disable menu item while invalid by listener
+//        if (AppController.getFocusedTask().getTask() == null) {
+//            return;
+//        }
+//        //validate focused task, copy focused task
+//            AppController.setCopiedTask(getFocusedTask().getTask());
+//            System.out.println("Task copied by Menu Item " + AppController.getCopiedTask());
     }
 
     /**
