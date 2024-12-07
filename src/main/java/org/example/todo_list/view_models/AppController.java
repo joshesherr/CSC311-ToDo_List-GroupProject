@@ -216,51 +216,42 @@ public class AppController implements Initializable {
 
     @FXML
     void prioLowClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.LOW.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
-            }
-        }
+        filterTasksByPriorityInList(listsData, Priority.LOW);
     }
 
     @FXML
     void prioMedClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.MEDIUM.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
-            }
-        }
+        filterTasksByPriorityInList(listsData, Priority.MEDIUM);
     }
 
     @FXML
     void prioHighClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.HIGH.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
-            }
-        }
+        filterTasksByPriorityInList(listsData, Priority.HIGH);
     }
 
     @FXML
     void prioCritClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.CRITICAL.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
+        filterTasksByPriorityInList(listsData, Priority.CRITICAL);
+    }
+    private void filterTasksByPriorityInList(ObservableList<TaskList> passedListData, Priority selectedPriority) {
+        // Loop through all task lists
+        System.out.println("Searching for prio : " + selectedPriority.toString());
+        for (TaskList taskList : passedListData) {
+            System.out.println("Iterating through " + taskList.getIdNum());
+            // Filter the tasks of the current list based on the selected priority
+            ObservableList<Task> prioFilteredTasks = FXCollections.observableArrayList();
+
+            // Filter tasks for the current list
+            for (Task task : taskList.getTasks()) {
+                if (task.getPriority() == selectedPriority.getLevel()) {
+                    prioFilteredTasks.add(task);
+                }
             }
+            // Update the tasks in the task list with the filtered ones
+            System.out.println("Filtered out: [" + prioFilteredTasks.stream().toList());
+            taskList.setTasks(prioFilteredTasks);
+            prioFilteredTasks.clear();
         }
     }
-//    public void setActiveListController(ListController listController) {
-//        this.activeListController = listController;
-//    }
-//    public ListController getActiveListController() {
-//        return activeListController;
-//    }
+
 }

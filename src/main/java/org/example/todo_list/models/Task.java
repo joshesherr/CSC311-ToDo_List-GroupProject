@@ -185,4 +185,14 @@ public class Task implements Comparable {
     public Task copy() {
         return new Task(idNum, title, startDateTime, listID, endDateTime, description, completed, priority);
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "title='" + title + '\'' +
+                ", idNum=" + idNum +
+                ", listID=" + listID +
+                ", priority=" + priority +
+                '}';
+    }
 }
