@@ -23,7 +23,6 @@ public class App extends Application {
         sceneManager.setPrimaryStage(stage);
 
         sceneManager.loadScene("RegisterScene"); //Load register view early for more seamless transitions
-
         sceneManager.showScene("LoginScene", 800, 680); //Show log in window
     }
 
