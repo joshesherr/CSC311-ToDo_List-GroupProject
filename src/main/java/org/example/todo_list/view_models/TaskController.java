@@ -79,8 +79,6 @@ public class TaskController implements Initializable {
                 try {
                     task.setTitle(taskNameField.getText());
                     task.setListID(parentController.taskList.getIdNum());
-
-                    task.saveToDatabase();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

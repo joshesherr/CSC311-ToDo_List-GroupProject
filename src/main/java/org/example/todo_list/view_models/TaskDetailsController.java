@@ -263,9 +263,16 @@ public class TaskDetailsController implements Initializable {
 
         //Any time one of these Nodes are changed, the task instance will update.
         taskNameDetailsTF.focusedProperty().addListener(((observable, oldValue, newValue) -> {
-            if (!newValue) {
+            Platform.runLater(()->{
                 AppController.getFocusedTask().taskNameField.setText(taskNameDetailsTF.getText());
-            }
+                try {
+                    AppController.getFocusedTask().getTask().setTitle(taskNameDetailsTF.getText());
+                    AppController.getFocusedTask().getTask().saveToDatabase();
+                    System.out.println("Uploaded");
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }));
 
         taskDescription.focusedProperty().addListener(((observable, oldValue, newValue) -> {
