@@ -43,6 +43,13 @@ public class AppController implements Initializable {
     private ObservableList<TaskList> listsData = FXCollections.observableArrayList();
     private ObservableList<Task> taskData = FXCollections.observableArrayList();
     private static Task copiedTask;
+
+    @FXML
+    private ToggleGroup priorityShown;
+
+    @FXML
+    private RadioButton radioLow, radioMed, radioHigh, radioCrit;
+
     public static void setCopiedTask(Task task) {
         copiedTask = task;
     }
@@ -256,6 +263,7 @@ public class AppController implements Initializable {
     @FXML
     void homeClicked(ActionEvent event) {
         // Clear the current task containers and reset to original application state
+        priorityShown.getSelectedToggle().setSelected(false);
         listBox.getChildren().clear();
         loadingTaskByPriority(taskData);
     }

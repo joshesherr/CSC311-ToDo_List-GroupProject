@@ -439,7 +439,7 @@ public class TaskDetailsController implements Initializable {
 //            System.out.println("Copy ID " + copiedTask.getIdNum());
 //            System.out.println("Copy List ID" + copiedTask.getListID());
 //            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
-            updateTaskDetails(copiedTask);
+            updateTaskDetails(AppController.getFocusedTask().getTask());
         } else {
             System.out.println("No task to paste.");
         }
