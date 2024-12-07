@@ -26,8 +26,9 @@ import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
-
+    @FXML
     public HBox listBox;
+    @FXML
     public AnchorPane root;
     SceneManager sceneManager = SceneManager.getInstance();
     private static TaskController focusedTaskCon=null;
@@ -84,7 +85,7 @@ public class AppController implements Initializable {
     private ProgressBar taskProgressBar;
 
     @FXML
-    private VBox taskContainer, listTaskContainer;
+    private VBox listTaskContainer;
 
     @FXML
     private ScrollPane scrollPane;
@@ -223,7 +224,12 @@ public class AppController implements Initializable {
                 System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
             }
         }
+
+        // Clear the current task container
+        listBox.getChildren().clear();
+        loadingTaskByPriority(filteredTasks);
     }
+
 
     @FXML
     void prioMedClicked(ActionEvent event) {
@@ -234,6 +240,10 @@ public class AppController implements Initializable {
                 System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
             }
         }
+
+        // Clear the current task container
+        listBox.getChildren().clear();
+        loadingTaskByPriority(filteredTasks);
     }
 
     @FXML
@@ -245,6 +255,10 @@ public class AppController implements Initializable {
                 System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
             }
         }
+
+        // Clear the current task container
+        listBox.getChildren().clear();
+        loadingTaskByPriority(filteredTasks);
     }
 
     @FXML
@@ -257,6 +271,35 @@ public class AppController implements Initializable {
             }
         }
     }
+
+
+    public void loadingTaskByPriority(ObservableList<Task> filteredTasks) {
+        for (TaskList taskList : listsData) {
+            try {
+                FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
+                Parent listRoot = loader.load();
+                listCon = loader.getController();
+                listCon.setTaskList(taskList);
+                listCon.parentController = this;
+                listBox.getChildren().add(listRoot);
+
+                // Add filtered tasks to the task container within the list
+                for (Task task : filteredTasks) {
+                    if (task.getListID() == taskList.getIdNum()) {
+                        FXMLLoader taskLoader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
+                        Parent taskRoot = taskLoader.load();
+                        TaskController taskCon = taskLoader.getController();
+                        taskCon.setTask(task);
+                        taskCon.setParentController(listCon); // Set the grandParent controller
+                        listCon.taskBox.getChildren().add(taskRoot); // Add task to the task container
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 //    public void setActiveListController(ListController listController) {
 //        this.activeListController = listController;
 //    }

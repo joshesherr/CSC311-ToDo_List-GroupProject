@@ -83,8 +83,7 @@ public class LoginController implements Initializable {
             Platform.runLater(() -> errorMsg.setText(""));
             UserSession.getInstance().setUsername(username);
             try {
-                sceneManager.showScene("HomeScene", 1100, 850);
-                sceneManager.showScene("HomeScene",true);
+                sceneManager.showScene("HomeScene", 1100, 850, true);
             } catch (Exception e) {
                 e.printStackTrace();
             }

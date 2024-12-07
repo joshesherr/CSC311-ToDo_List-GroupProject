@@ -248,10 +248,7 @@ public class TaskDetailsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //taskName.setText(task.getTitle());
-//        System.out.println(root.getLayoutX());
-//        System.out.println(root.getLayoutY());
-//        root.setLayoutX(100);
-//        root.setLayoutY(100);
+
         sceneManager = SceneManager.getInstance();
         root.setOnMousePressed(e->{
             mouseAnchorY = e.getY();
