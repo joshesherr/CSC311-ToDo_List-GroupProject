@@ -86,6 +86,19 @@ public class ListController implements Initializable {
         addTaskBox.setCursor(Cursor.HAND);        // Change cursor to hand when hovering
     }
 
+    @FXML
+    void listClicked(MouseEvent event) {
+//        parentController.setActiveListController(this);
+    }
+
+    @FXML
+    void renameList(ActionEvent event) {
+//        if (parentController.getActiveListController() != null) {
+//            TextField activeListName = parentController.getActiveListController().getListNameTextField();
+//            activeListName.requestFocus();
+//            activeListName.selectAll();
+//        }
+    }
 
     /**
      * Create a new task for this list.
@@ -144,5 +157,8 @@ public class ListController implements Initializable {
         double progress = taskList.getProgress();
         progressBar.setProgress(progress);
         //progressBar.setProgress(taskList.getProgress());
+    }
+    public TextField getListNameTextField() {
+        return listName;
     }
 }

@@ -62,7 +62,6 @@ public class TaskController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         task = new Task();
-        this.priorityColorRect.setMouseTransparent(true);
 
         //When a task is selected set it as the focused task in AppController.
         taskNameField.focusedProperty().addListener((ov, oldValue, newValue) -> {
