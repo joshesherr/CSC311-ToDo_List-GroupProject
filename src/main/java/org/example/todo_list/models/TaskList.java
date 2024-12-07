@@ -65,24 +65,6 @@ public class TaskList {
         return tasks;
     }
 
-    public ObservableList<Task> filterTasksByPriority(Priority priority) {
-        return FXCollections.observableArrayList(
-                tasks.stream()
-                        .filter(task -> task.getPriority() == priority.getLevel())
-                        .collect(Collectors.toList())
-        );
-    }
-
-    public ObservableList<Task> filterTasksAcrossLists(Priority priority, ObservableList<TaskList> listsData) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        listsData.forEach(list -> {
-            filteredTasks.addAll(list.getTasks().stream()
-                    .filter(task -> task.getPriority() == priority.getLevel())
-                    .collect(Collectors.toList()));
-        });
-        return filteredTasks;
-    }
-
     public void setTasks(ObservableList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -122,6 +104,16 @@ public class TaskList {
 
     public void setListTags(ArrayList<Tag> listTags) {
         this.listTags = listTags;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskList{" +
+                "tasks=" + tasks +
+                ", idNum=" + idNum +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                '}';
     }
 
     public void saveToDatabase() throws SQLException {

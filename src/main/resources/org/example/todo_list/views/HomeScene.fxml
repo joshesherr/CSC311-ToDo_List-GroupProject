@@ -68,10 +68,10 @@
             </MenuBar>
             <HBox fillHeight="false" prefHeight="677.0" prefWidth="963.0">
                <children>
-                  <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="238.0" spacing="10.0" HBox.hgrow="NEVER">
+                  <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="238.0" spacing="10.0" HBox.hgrow="NEVER">
                      <children>
                         <Label fx:id="welcomeLbl" text="Welcome" />
-                        <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Home" />
+                        <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeClicked" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Home" />
                         <Button fx:id="addListBtn" mnemonicParsing="false" onAction="#addListBtnPressed" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Add List" />
                         <Label fx:id="tagsLabel" prefHeight="15.0" prefWidth="176.0" text="Sort by:" />
                         <Button fx:id="sortByPriority" mnemonicParsing="false" onAction="#sortByPriority" prefHeight="38.0" prefWidth="135.0" styleClass="side-btn" text="Priority" />
