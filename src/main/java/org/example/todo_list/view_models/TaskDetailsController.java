@@ -108,8 +108,7 @@ public class TaskDetailsController implements Initializable {
 
     void repopulateTagButtons() {
         // Retrieve the focused task tags
-        Task task = AppController.getFocusedTask().getTask();
-        taskTags = task.getTaskTags();
+        taskTags = AppController.getFocusedTask().getTask().getTaskTags();
 
         //Reset tag button state
         resetTagButtons();
@@ -117,14 +116,12 @@ public class TaskDetailsController implements Initializable {
         System.out.println(taskTags.size());
         if (taskTags == null || taskTags.isEmpty()) {
             //handle empty tag list case, return (remove print when done)
-            System.out.println("No tags to display for task: " + task.getTitle());
             return;
         }
 
         //if new tag is not empty string or already existing tag
         // Repopulate buttons if there are tags
         for (Tag tag : taskTags) {
-            System.out.println("Adding tag: " + tag.getName()); // Debugging
             //If target Hbox
             HBox targetBox = (addTagBtnBox.getChildren().size() < MAX_TAGS_PER_ROW)
                     ? addTagBtnBox
@@ -145,14 +142,9 @@ public class TaskDetailsController implements Initializable {
         //Reset Hbox + tag button state initially and add addTagBtn
         addTagBtnBox.getChildren().clear();
         lowerTagBtnBox.getChildren().clear();
-        if (!addTagBtnBox.getChildren().contains(addTagBtn)) {
-            addTagBtnBox.getChildren().add(addTagBtn);
-        }
+        addTagBtnBox.getChildren().add(addTagBtn);
         addTagBtn.setDisable(false);
         addTagBtn.setVisible(true);
-
-        Task task = AppController.getFocusedTask().getTask();
-        task.setTaskTags(taskTags); // Reset task tags
     }
 
     private void generateTagButton(HBox hBox, Tag tag) {
@@ -253,22 +245,19 @@ public class TaskDetailsController implements Initializable {
         sceneManager = SceneManager.getInstance();
         root.setOnMousePressed(e->{
             mouseAnchorY = e.getY();
-            System.out.println(e.getX());
             mouseAnchorX = e.getX();
-            System.out.println(e.getY());
         });
         root.setOnMouseDragged(e->{//Make Detail window draggable
             applyWindowLimits(e.getSceneX()-mouseAnchorX , e.getSceneY()-mouseAnchorY);
         });
 
-        //Any time one of these Nodes are changed, the task instance will update.
+        //Any time one of these Nodes are changed, No tags to display for task: MY NEW TASK!!!the task instance will update.
         taskNameDetailsTF.focusedProperty().addListener(((observable, oldValue, newValue) -> {
             Platform.runLater(()->{
                 AppController.getFocusedTask().taskNameField.setText(taskNameDetailsTF.getText());
+                AppController.getFocusedTask().getTask().setTitle(taskNameDetailsTF.getText());
                 try {
-                    AppController.getFocusedTask().getTask().setTitle(taskNameDetailsTF.getText());
                     AppController.getFocusedTask().getTask().saveToDatabase();
-                    System.out.println("Uploaded");
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -340,16 +329,17 @@ public class TaskDetailsController implements Initializable {
         priorityComboBox.setValue(Priority.LOW);
 
         priorityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            task = AppController.getFocusedTask().getTask();
+            if (task.getPriority()==newValue) return;
+
             if (newValue != null) {
-                task = AppController.getFocusedTask().getTask();
-                task.setPriority(newValue.getLevel());
+                task.setPriority(newValue);
                 task.setColor(newValue.getColor());
                 try {
                     task.saveTaskPriority();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
                 // Update the rectangle in TaskController
                 taskCon = AppController.getFocusedTask();
                 if (taskCon != null) {
@@ -366,13 +356,6 @@ public class TaskDetailsController implements Initializable {
         root.setLayoutY( y<0?0.0:(Math.min(y, SceneManager.getInstance().getPrimaryStage().getHeight()-40-root.getHeight())));
     }
 
-    public void updateTaskDetails() {
-        Task task = AppController.getFocusedTask().getTask();
-
-        // Debugging: Ensure task data is valid
-        System.out.println("Selected Task: " + task.getTitle());
-        System.out.println("Tags: " + task.getTaskTags());
-    }
 
     public void updateTaskDetails(Task task) {
         taskNameDetailsTF.setText( task.getTitle() );
@@ -381,17 +364,9 @@ public class TaskDetailsController implements Initializable {
         taskDueDate.setValue(LocalDate.parse(formattedDate, formatter));
         taskDescription.setText( task.getDescription() );
         taskDueTime.setText(String.valueOf(task.getEndDateTime()).substring(11));
-        priorityComboBox.setValue(task.getPriorityEnum());
-        System.out.println("Task prio set to : " + task.getPriorityEnum().toString() + "priority int : " + task.getPriority());
+        priorityComboBox.setValue(task.getPriority());
         //update existing tasks buttons with task tags OR handle new task case
         repopulateTagButtons();
-
-        try {
-            System.out.println("Saving to DB");
-            task.saveToDatabase();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         applyWindowLimits(root.getLayoutX(), root.getLayoutY());
     }
@@ -440,6 +415,16 @@ public class TaskDetailsController implements Initializable {
 //            System.out.println("Copy List ID" + copiedTask.getListID());
 //            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
             updateTaskDetails(AppController.getFocusedTask().getTask());
+
+            Platform.runLater(()->{
+                try {
+                    System.out.println("Saving to DB");
+                    task.saveToDatabase();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+
         } else {
             System.out.println("No task to paste.");
         }

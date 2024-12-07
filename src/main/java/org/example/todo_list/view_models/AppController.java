@@ -47,9 +47,6 @@ public class AppController implements Initializable {
     @FXML
     private ToggleGroup priorityShown;
 
-    @FXML
-    private RadioButton radioLow, radioMed, radioHigh, radioCrit;
-
     public static void setCopiedTask(Task task) {
         copiedTask = task;
     }
@@ -117,7 +114,6 @@ public class AppController implements Initializable {
         }
 
         loadTasksFromDB();
-
        // copyMenuItem.setDisable(AppController.getFocusedTask() == null);
      //   pasteMenuItem.setDisable(getCopiedTask() == null);
     }
@@ -229,7 +225,7 @@ public class AppController implements Initializable {
     void showOnlyPriority(int priorityLevel) {
         ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
         for (Task task : taskData) {
-            if (task.getPriority() == priorityLevel) {
+            if (task.getPriority().getLevel() == priorityLevel) {
                 filteredTasks.add(task);
                 System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
             }
