@@ -26,8 +26,9 @@ import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
-
+    @FXML
     public HBox listBox;
+    @FXML
     public AnchorPane root;
     SceneManager sceneManager = SceneManager.getInstance();
     private static TaskController focusedTaskCon=null;
@@ -84,7 +85,7 @@ public class AppController implements Initializable {
     private ProgressBar taskProgressBar;
 
     @FXML
-    private VBox taskContainer, listTaskContainer;
+    private VBox listTaskContainer;
 
     @FXML
     private ScrollPane scrollPane;
@@ -98,8 +99,8 @@ public class AppController implements Initializable {
             Parent taskDetailsRoot = (Parent) loader.load();
             root.getChildren().add(taskDetailsRoot);
             taskDetailsCon = loader.getController();
-            taskDetailsCon.root.setLayoutX(235);
-            taskDetailsCon.root.setLayoutY(420);
+            taskDetailsCon.root.setLayoutX(250);
+            taskDetailsCon.root.setLayoutY(410);
             taskDetailsCon.root.setVisible(false);
         } catch (IOException e) {
             e.printStackTrace();
@@ -216,42 +217,94 @@ public class AppController implements Initializable {
 
     @FXML
     void prioLowClicked(ActionEvent event) {
-        filterTasksByPriorityInList(listsData, Priority.LOW);
+        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
+        for (Task task : taskData) {
+            if (task.getPriority() == Priority.LOW.getLevel()) {
+                filteredTasks.add(task);
+                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
+            }
+        }
+
+        // Clear the current task container
+        listBox.getChildren().clear();
+        loadingTaskByPriority(filteredTasks);
     }
+
 
     @FXML
     void prioMedClicked(ActionEvent event) {
-        filterTasksByPriorityInList(listsData, Priority.MEDIUM);
+        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
+        for (Task task : taskData) {
+            if (task.getPriority() == Priority.MEDIUM.getLevel()) {
+                filteredTasks.add(task);
+                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
+            }
+        }
+
+        // Clear the current task container
+        listBox.getChildren().clear();
+        loadingTaskByPriority(filteredTasks);
     }
 
     @FXML
     void prioHighClicked(ActionEvent event) {
-        filterTasksByPriorityInList(listsData, Priority.HIGH);
+        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
+        for (Task task : taskData) {
+            if (task.getPriority() == Priority.HIGH.getLevel()) {
+                filteredTasks.add(task);
+                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
+            }
+        }
+
+        // Clear the current task container
+        listBox.getChildren().clear();
+        loadingTaskByPriority(filteredTasks);
     }
 
     @FXML
     void prioCritClicked(ActionEvent event) {
-        filterTasksByPriorityInList(listsData, Priority.CRITICAL);
-    }
-    private void filterTasksByPriorityInList(ObservableList<TaskList> passedListData, Priority selectedPriority) {
-        // Loop through all task lists
-        System.out.println("Searching for prio : " + selectedPriority.toString());
-        for (TaskList taskList : passedListData) {
-            System.out.println("Iterating through " + taskList.getIdNum());
-            // Filter the tasks of the current list based on the selected priority
-            ObservableList<Task> prioFilteredTasks = FXCollections.observableArrayList();
-
-            // Filter tasks for the current list
-            for (Task task : taskList.getTasks()) {
-                if (task.getPriority() == selectedPriority.getLevel()) {
-                    prioFilteredTasks.add(task);
-                }
+        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
+        for (Task task : taskData) {
+            if (task.getPriority() == Priority.CRITICAL.getLevel()) {
+                filteredTasks.add(task);
+                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
             }
-            // Update the tasks in the task list with the filtered ones
-            System.out.println("Filtered out: [" + prioFilteredTasks.stream().toList());
-            taskList.setTasks(prioFilteredTasks);
-            prioFilteredTasks.clear();
         }
     }
 
+
+
+    public void loadingTaskByPriority(ObservableList<Task> filteredTasks) {
+        for (TaskList taskList : listsData) {
+            try {
+                FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
+                Parent listRoot = loader.load();
+                listCon = loader.getController();
+                listCon.setTaskList(taskList);
+                listCon.parentController = this;
+                listBox.getChildren().add(listRoot);
+
+                // Add filtered tasks to the task container within the list
+                for (Task task : filteredTasks) {
+                    if (task.getListID() == taskList.getIdNum()) {
+                        FXMLLoader taskLoader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
+                        Parent taskRoot = taskLoader.load();
+                        TaskController taskCon = taskLoader.getController();
+                        taskCon.setTask(task);
+                        taskCon.setParentController(listCon); // Set the grandParent controller
+                        listCon.taskBox.getChildren().add(taskRoot); // Add task to the task container
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+//    public void setActiveListController(ListController listController) {
+//        this.activeListController = listController;
+//    }
+//    public ListController getActiveListController() {
+//        return activeListController;
+//    }
 }

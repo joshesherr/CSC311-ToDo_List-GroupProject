@@ -63,6 +63,10 @@ public class TaskController implements Initializable {
         parentController.removeTask(this);
     }
 
+    public void removeSelfForPriority() {
+        parentController.removeTask(this);
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -16,8 +16,10 @@ public class Task implements Comparable {
     private int listID;
     private boolean completed;
     private int priority;
+
     private Color color;
     private ArrayList<Tag> taskTags = new ArrayList<>();
+    private ArrayList<String> tagsName = new ArrayList<>();
         // Create a default tag that each list will start with and be replaced?
         //Or start empty? Only reason I wonder this is because of color setting in tags,
         //and how we want to use Color
@@ -54,11 +56,6 @@ public class Task implements Comparable {
         this.priority = priority;
     }
 
-    public Task(String title) {
-        this.title = title;
-        this.startDateTime = LocalDateTime.now();
-        this.completed = false;
-    }
 
     public int getIdNum() {
         return idNum;
@@ -143,6 +140,11 @@ public class Task implements Comparable {
 
     public void setTaskTags(ArrayList<Tag> taskTags) {
         this.taskTags = taskTags;
+        try {
+            connDB.setTaskTags(this);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Color getColor() {
