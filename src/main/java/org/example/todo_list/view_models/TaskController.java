@@ -55,6 +55,11 @@ public class TaskController implements Initializable {
      * Will remove this task from this list it's currently in.
      */
     public void removeSelf() {
+        try {
+            this.task.deleteTask();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         parentController.removeTask(this);
     }
 

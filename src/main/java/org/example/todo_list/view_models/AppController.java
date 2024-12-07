@@ -33,9 +33,7 @@ public class AppController implements Initializable {
     private static TaskController focusedTaskCon=null;
     private static TaskDetailsController taskDetailsCon;
     private String username;
-    private TaskList taskList = new TaskList();
     private ListController listCon;
-//    private ListController activeListController;
     private TaskController taskCon;
     private ConnDB connDB = new ConnDB();
     private ObservableList<TaskList> listsData = FXCollections.observableArrayList();
@@ -47,6 +45,12 @@ public class AppController implements Initializable {
     public static Task getCopiedTask() {
         return copiedTask;
     }
+    public static AppController INSTANCE;
+
+    public static AppController getInstance() {
+        return INSTANCE;
+    }
+
 
     @FXML
     private Button viewTaskBtn, personalTasksBtn, importantTasksBtn, homeStuffTasksBtn, addListBtn, allTasksBtn, criticalTasksBtn, daysTasksBtn,
@@ -87,9 +91,7 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        username = UserSession.getInstance().getUsername();
-        listsData = connDB.loadingUsersLists(username);
-        welcomeLbl.setText("Welcome " + username + "!"); //username? name? probably username removable comment
+        INSTANCE = this;
 
         try {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/TaskDetails.fxml"));
@@ -103,8 +105,19 @@ public class AppController implements Initializable {
             e.printStackTrace();
         }
 
+        loadTasksFromDB();
+
+       // copyMenuItem.setDisable(AppController.getFocusedTask() == null);
+     //   pasteMenuItem.setDisable(getCopiedTask() == null);
+    }
+
+    public void loadTasksFromDB() {
+        username = UserSession.getInstance().getUsername();
+        listsData = connDB.loadingUsersLists(username);
+        welcomeLbl.setText("Welcome " + username + "!"); //username? name? probably username removable comment
         ObservableList<TaskList> listsDataCopy = FXCollections.observableArrayList(listsData); // Create a copy of the list
-        for (TaskList taskList : listsDataCopy) {
+
+        for (TaskList taskList : listsData) {
             taskData = connDB.loadingTasksData(taskList.getIdNum());
             taskList.setTasks(taskData);
             try {
@@ -119,27 +132,22 @@ public class AppController implements Initializable {
             }
             for (Task task : taskList.getTasks()) {
                 if (task.getListID() == taskList.getIdNum()) {
-                try {
-                    FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
-                    Parent taskRoot = loader.load();
-                    TaskController taskCon = loader.getController();
-                    taskCon.setTask(task);
-                    taskCon.setParentController(listCon); // Set the grandParent controller
-                    listCon.taskBox.getChildren().add(taskRoot);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    try {
+                        FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
+                        Parent taskRoot = loader.load();
+                        TaskController taskCon = loader.getController();
+                        taskCon.setTask(task);
+                        taskCon.setParentController(listCon); // Set the grandParent controller
+                        listCon.taskBox.getChildren().add(taskRoot);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
-
-
-       // copyMenuItem.setDisable(AppController.getFocusedTask() == null);
-     //   pasteMenuItem.setDisable(getCopiedTask() == null);
     }
 
     public void logOut(ActionEvent actionEvent) {
-
         sceneManager.showScene("LoginScene");
     }
 
