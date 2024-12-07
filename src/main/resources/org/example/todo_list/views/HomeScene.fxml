@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="705.0" prefWidth="1000.0" stylesheets="@../css/globalStyle.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
+<AnchorPane fx:id="root" prefHeight="705.0" prefWidth="1000.0" stylesheets="@../css/globalStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todo_list.view_models.AppController">
    <children>
       <VBox prefHeight="0.0" prefWidth="0.0" stylesheets="@../css/appStyling.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -80,14 +80,14 @@
                         <Button fx:id="sortByDate" mnemonicParsing="false" onAction="#sortByDate" prefHeight="38.0" prefWidth="216.0" styleClass="side-btn" text="Date" />
                         <Button fx:id="sortByName" layoutX="29.0" layoutY="213.0" mnemonicParsing="false" onAction="#sortByName" prefHeight="38.0" prefWidth="135.0" styleClass="side-btn" text="Name" />
                         <Label fx:id="tagsLabel1" layoutX="29.0" layoutY="163.0" prefHeight="15.0" prefWidth="176.0" styleClass="tagsLabel" text="Show Priority" />
-                        <RadioButton mnemonicParsing="false" onAction="#prioCrit" styleClass="side-btn" text="Critcal">
+                        <RadioButton fx:id="radioCrit" mnemonicParsing="false" onAction="#prioCrit" styleClass="side-btn" text="Critcal">
                            <toggleGroup>
                               <ToggleGroup fx:id="priorityShown" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="85.0" layoutY="401.0" mnemonicParsing="false" onAction="#prioHigh" styleClass="side-btn" text="High" toggleGroup="$priorityShown" />
-                        <RadioButton layoutX="85.0" layoutY="611.0" mnemonicParsing="false" onAction="#prioMed" styleClass="side-btn" text="Medium" toggleGroup="$priorityShown" />
-                        <RadioButton layoutX="85.0" layoutY="637.0" mnemonicParsing="false" onAction="#prioLow" styleClass="side-btn" text="Low" toggleGroup="$priorityShown" />
+                        <RadioButton fx:id="radioHigh" layoutX="85.0" layoutY="401.0" mnemonicParsing="false" onAction="#prioHigh" styleClass="side-btn" text="High" toggleGroup="$priorityShown" />
+                        <RadioButton fx:id="radioMed" layoutX="85.0" layoutY="611.0" mnemonicParsing="false" onAction="#prioMed" styleClass="side-btn" text="Medium" toggleGroup="$priorityShown" />
+                        <RadioButton fx:id="radioLow" layoutX="85.0" layoutY="637.0" mnemonicParsing="false" onAction="#prioLow" styleClass="side-btn" text="Low" toggleGroup="$priorityShown" />
                      </children>
                      <padding>
                         <Insets left="10.0" right="10.0" />
