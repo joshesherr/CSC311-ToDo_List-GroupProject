@@ -39,4 +39,8 @@
       <URL value="@../../css/globalStyle.css" />
       <URL value="@../../css/taskStyle.css" />
    </stylesheets>
+   <!-- store controller as userData property -->
+   <userData>
+      <fx:reference source="controller" />
+   </userData>
 </VBox>

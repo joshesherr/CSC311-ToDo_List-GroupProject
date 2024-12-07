@@ -13,6 +13,9 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.comparators.SortByDate;
+import org.example.todo_list.comparators.SortByName;
+import org.example.todo_list.comparators.SortByPriority;
 import org.example.todo_list.db.ConnDB;
 import org.example.todo_list.db.UserSession;
 import org.example.todo_list.models.Task;
@@ -22,8 +25,8 @@ import org.example.todo_list.models.Priority;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.PriorityQueue;
-import java.util.ResourceBundle;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class AppController implements Initializable {
 
@@ -257,10 +260,35 @@ public class AppController implements Initializable {
             }
         }
     }
-//    public void setActiveListController(ListController listController) {
-//        this.activeListController = listController;
-//    }
-//    public ListController getActiveListController() {
-//        return activeListController;
-//    }
+
+    /**
+     * Sorts tasks depending on the comparator.
+     * @param comparator The task sorting comparator to use.
+     */
+    public void sortBy(Comparator comparator) {
+        listBox.getChildren().forEach((list)->{
+            List<TaskController> tasks = new ArrayList<>();
+            ListController listCon = (ListController) list.getUserData();
+            listCon.taskBox.getChildren().forEach((t)->{
+                tasks.add((TaskController) t.getUserData());
+            });
+            tasks.sort(comparator);
+            listCon.taskBox.getChildren().clear();
+            for (TaskController task : tasks) {
+                listCon.taskBox.getChildren().add(task.root);
+            }
+        });
+    }
+
+    public void sortByPriority() {
+        sortBy(new SortByPriority());
+    }
+
+    public void sortByDate() {
+        sortBy(new SortByDate());
+    }
+
+    public void sortByName() {
+        sortBy(new SortByName());
+    }
 }

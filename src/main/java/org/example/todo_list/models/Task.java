@@ -28,7 +28,7 @@ public class Task implements Comparable {
         this.idNum = -1;
         this.title = "";
         this.startDateTime = LocalDateTime.now();
-        this.endDateTime = null;
+        this.endDateTime = LocalDateTime.now();
         this.description = "";
         this.priority = Priority.LOW.getLevel();
         this.completed = false;
@@ -93,7 +93,7 @@ public class Task implements Comparable {
     }
 
     public LocalDateTime getEndDateTime() {
-        return endDateTime==null?LocalDateTime.now():endDateTime;
+        return endDateTime;
     }
 
     public void setEndDateTime(LocalDateTime endDateTime) {
