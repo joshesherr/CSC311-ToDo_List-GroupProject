@@ -1,5 +1,6 @@
 package org.example.todo_list.view_models;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,6 +51,118 @@ public class TaskDetailsController implements Initializable {
     private ArrayList<Tag> taskTags = new ArrayList<>();
 
     private static final int MAX_TAGS_PER_ROW = 3;
+
+
+
+    //Mouse dragging mouse anchors
+    private double mouseAnchorX;
+    private double mouseAnchorY;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //taskName.setText(task.getTitle());
+
+        sceneManager = SceneManager.getInstance();
+        root.setOnMousePressed(e->{
+            mouseAnchorX = e.getX();
+            mouseAnchorY = e.getY();
+        });
+        root.setOnMouseDragged(e->{//Make Detail window draggable
+            applyWindowLimits(e.getSceneX()-mouseAnchorX , e.getSceneY()-mouseAnchorY);
+        });
+
+        taskNameDetailsTF.textProperty().addListener((ov, oldValue, newValue) -> {
+            Platform.runLater(() -> {
+                AppController.getFocusedTask().taskNameField.setText(newValue);//Task will be updated from TaskControllers Listener on taskNameField
+            });
+        });
+
+        taskDescription.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue) task =  AppController.getFocusedTask().getTask();
+            if (!newValue) {
+                task.setDescription(taskDescription.getText());
+                try {
+                    task.saveTaskDescription();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }));
+
+        taskDueTime.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                task =  AppController.getFocusedTask().getTask();
+            } else {
+                if (!taskDueTime.getText().isEmpty()) {
+                    String endDateTime = taskDueDate.getValue() + " " + taskDueTime.getText();
+                    // Ensure the time string includes seconds
+                    if (String.valueOf(task.getEndDateTime()).substring(11).length() == 5) {
+                        endDateTime += ":00";
+                    }
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    task.setEndDateTime(LocalDateTime.parse(endDateTime, formatter));
+                    try {
+                        task.saveTaskDueDate();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        taskDueDate.valueProperty().addListener((ov, oldValue, newValue) -> {
+            task = AppController.getFocusedTask().getTask();
+            String endDateTime;
+            if (!taskDueTime.getText().isEmpty()) {
+                endDateTime = newValue + " " + String.valueOf(task.getEndDateTime()).substring(11);
+                // Ensure the time string includes seconds
+                if (String.valueOf(task.getEndDateTime()).substring(11).length() == 5) {
+                    endDateTime += ":00";
+                }
+            } else {
+                endDateTime = newValue + " 23:59:59";
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            task.setEndDateTime(LocalDateTime.parse(endDateTime, formatter));
+            try {
+                task.saveTaskDueDate();
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        //Keep details winodw within the bounds of the primary stage.
+        sceneManager.getPrimaryStage().widthProperty().addListener(e->applyWindowLimits(root.getLayoutX(), root.getLayoutY()));
+        sceneManager.getPrimaryStage().heightProperty().addListener(e->applyWindowLimits(root.getLayoutX(), root.getLayoutY()));
+
+        // Populate ComboBox with Priority enum values
+        priorityComboBox.getItems().addAll(Priority.values());
+
+        // Default value
+        priorityComboBox.setValue(Priority.LOW);
+
+        priorityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                task = AppController.getFocusedTask().getTask();
+                task.setPriority(newValue.getLevel());
+                task.setColor(newValue.getColor());
+                try {
+                    task.saveTaskPriority();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                // Update the rectangle in TaskController
+                taskCon = AppController.getFocusedTask();
+                if (taskCon != null) {
+                    taskCon.updatePriorityColor(task.getColor());
+                }
+            }
+        });
+
+        //Todo populate the tag field with the proper tags.
+    }
+
+
 
     @FXML
     void addTagClicked(ActionEvent event) {
@@ -240,121 +353,6 @@ public class TaskDetailsController implements Initializable {
                 button.setText(trimmedTagInput);
             }
         });
-    }
-
-    //Mouse dragging mouse anchors
-    private double mouseAnchorX;
-    private double mouseAnchorY;
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //taskName.setText(task.getTitle());
-
-        sceneManager = SceneManager.getInstance();
-        root.setOnMousePressed(e->{
-            mouseAnchorX = e.getX();
-            mouseAnchorY = e.getY();
-        });
-        root.setOnMouseDragged(e->{//Make Detail window draggable
-            applyWindowLimits(e.getSceneX()-mouseAnchorX , e.getSceneY()-mouseAnchorY);
-        });
-
-        //Any time one of these Nodes are changed, the task instance will update.
-        //THIS WORKS SLOW!!!
-//        taskName.textProperty().addListener((ov, oldValue, newValue) -> {
-//            AppController.getFocusedTask().taskNameField.setText(newValue);//Task will be updated from TaskControllers Listener on taskNameField
-//        });
-
-        //Any time one of these Nodes are changed, the task instance will update.
-        taskNameDetailsTF.focusedProperty().addListener(((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                AppController.getFocusedTask().taskNameField.setText(taskNameDetailsTF.getText());
-            }
-        }));
-
-        taskDescription.focusedProperty().addListener(((observable, oldValue, newValue) -> {
-            if (newValue) task =  AppController.getFocusedTask().getTask();
-            if (!newValue) {
-                task.setDescription(taskDescription.getText());
-                try {
-                    task.saveTaskDescription();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }));
-
-        taskDueTime.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                task =  AppController.getFocusedTask().getTask();
-            } else {
-                if (!taskDueTime.getText().isEmpty()) {
-                    String endDateTime = taskDueDate.getValue() + " " + taskDueTime.getText();
-                    // Ensure the time string includes seconds
-                    if (String.valueOf(task.getEndDateTime()).substring(11).length() == 5) {
-                        endDateTime += ":00";
-                    }
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                    task.setEndDateTime(LocalDateTime.parse(endDateTime, formatter));
-                    try {
-                        task.saveTaskDueDate();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        taskDueDate.valueProperty().addListener((ov, oldValue, newValue) -> {
-            task = AppController.getFocusedTask().getTask();
-            String endDateTime;
-            if (!taskDueTime.getText().isEmpty()) {
-                endDateTime = newValue + " " + String.valueOf(task.getEndDateTime()).substring(11);
-                // Ensure the time string includes seconds
-                if (String.valueOf(task.getEndDateTime()).substring(11).length() == 5) {
-                    endDateTime += ":00";
-                }
-            } else {
-                endDateTime = newValue + " 23:59:59";
-            }
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            task.setEndDateTime(LocalDateTime.parse(endDateTime, formatter));
-            try {
-                task.saveTaskDueDate();
-            } catch(SQLException e) {
-                e.printStackTrace();
-            }
-        });
-
-        //Keep details winodw within the bounds of the primary stage.
-        sceneManager.getPrimaryStage().widthProperty().addListener(e->applyWindowLimits(root.getLayoutX(), root.getLayoutY()));
-        sceneManager.getPrimaryStage().heightProperty().addListener(e->applyWindowLimits(root.getLayoutX(), root.getLayoutY()));
-
-        // Populate ComboBox with Priority enum values
-        priorityComboBox.getItems().addAll(Priority.values());
-
-        // Default value
-        priorityComboBox.setValue(Priority.LOW);
-
-        priorityComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                task = AppController.getFocusedTask().getTask();
-                task.setPriority(newValue.getLevel());
-                task.setColor(newValue.getColor());
-                try {
-                    task.saveTaskPriority();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-                // Update the rectangle in TaskController
-                taskCon = AppController.getFocusedTask();
-                if (taskCon != null) {
-                    taskCon.updatePriorityColor(task.getColor());
-                }
-            }
-        });
-
-        //Todo populate the tag field with the proper tags.
     }
 
     private void applyWindowLimits(double x, double y) {

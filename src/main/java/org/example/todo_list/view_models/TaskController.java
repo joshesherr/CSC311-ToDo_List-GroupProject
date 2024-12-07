@@ -83,16 +83,6 @@ public class TaskController implements Initializable {
             }
         });
 
-        taskNameField.textProperty().addListener((ov, oldValue, newValue) -> {
-            task.setTitle(newValue);
-            if (AppController.getTaskDetailsCon() != null) {
-                TaskController focusedTask = AppController.getFocusedTask();
-                if (focusedTask != null) {
-                    AppController.getTaskDetailsCon().updateTaskDetails(AppController.getFocusedTask().getTask());
-                }
-            }
-        });
-
         taskToggleCheck.selectedProperty().addListener((ov, oldValue, newValue) -> {
             task.setCompleted(newValue);
             if (parentController != null) {
