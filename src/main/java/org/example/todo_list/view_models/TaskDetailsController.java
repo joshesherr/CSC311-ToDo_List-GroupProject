@@ -248,21 +248,20 @@ public class TaskDetailsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //taskName.setText(task.getTitle());
-
+//        System.out.println(root.getLayoutX());
+//        System.out.println(root.getLayoutY());
+//        root.setLayoutX(100);
+//        root.setLayoutY(100);
         sceneManager = SceneManager.getInstance();
         root.setOnMousePressed(e->{
-            mouseAnchorX = e.getX();
             mouseAnchorY = e.getY();
+            System.out.println(e.getX());
+            mouseAnchorX = e.getX();
+            System.out.println(e.getY());
         });
         root.setOnMouseDragged(e->{//Make Detail window draggable
             applyWindowLimits(e.getSceneX()-mouseAnchorX , e.getSceneY()-mouseAnchorY);
         });
-
-        //Any time one of these Nodes are changed, the task instance will update.
-        //THIS WORKS SLOW!!!
-//        taskName.textProperty().addListener((ov, oldValue, newValue) -> {
-//            AppController.getFocusedTask().taskNameField.setText(newValue);//Task will be updated from TaskControllers Listener on taskNameField
-//        });
 
         //Any time one of these Nodes are changed, the task instance will update.
         taskNameDetailsTF.focusedProperty().addListener(((observable, oldValue, newValue) -> {

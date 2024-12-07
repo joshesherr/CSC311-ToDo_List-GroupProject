@@ -93,8 +93,8 @@ public class AppController implements Initializable {
             Parent taskDetailsRoot = (Parent) loader.load();
             root.getChildren().add(taskDetailsRoot);
             taskDetailsCon = loader.getController();
-            taskDetailsCon.root.setLayoutX(235);
-            taskDetailsCon.root.setLayoutY(420);
+            taskDetailsCon.root.setLayoutX(250);
+            taskDetailsCon.root.setLayoutY(410);
             taskDetailsCon.root.setVisible(false);
         } catch (IOException e) {
             e.printStackTrace();
