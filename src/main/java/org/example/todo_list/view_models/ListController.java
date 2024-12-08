@@ -93,11 +93,7 @@ public class ListController implements Initializable {
 
     @FXML
     void renameList(ActionEvent event) {
-//        if (parentController.getActiveListController() != null) {
-//            TextField activeListName = parentController.getActiveListController().getListNameTextField();
-//            activeListName.requestFocus();
-//            activeListName.selectAll();
-//        }
+        listName.requestFocus();
     }
 
     /**

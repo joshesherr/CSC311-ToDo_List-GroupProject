@@ -63,6 +63,10 @@ public class TaskController implements Initializable {
         parentController.removeTask(this);
     }
 
+    public void removeSelfForPriority() {
+        parentController.removeTask(this);
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,27 +74,7 @@ public class TaskController implements Initializable {
 
         //When a task is selected set it as the focused task in AppController.
         taskNameField.focusedProperty().addListener((ov, oldValue, newValue) -> {
-            if (newValue) AppController.setFocusedTask(this);
-            if (!newValue) {
-                try {
-                    task.setTitle(taskNameField.getText());
-                    task.setListID(parentController.taskList.getIdNum());
-
-                    task.saveToDatabase();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        taskNameField.textProperty().addListener((ov, oldValue, newValue) -> {
-            task.setTitle(newValue);
-            if (AppController.getTaskDetailsCon() != null) {
-                TaskController focusedTask = AppController.getFocusedTask();
-                if (focusedTask != null) {
-                    AppController.getTaskDetailsCon().updateTaskDetails(AppController.getFocusedTask().getTask());
-                }
-            }
+            AppController.setFocusedTask(this);
         });
 
         taskToggleCheck.selectedProperty().addListener((ov, oldValue, newValue) -> {
@@ -113,7 +97,7 @@ public class TaskController implements Initializable {
 
     public void setTask(Task task) {
         this.task = task;
-        Priority priority = task.getPriorityEnum();
+        Priority priority = task.getPriority();
         taskNameField.setText(task.getTitle());
         taskToggleCheck.setSelected(task.getCompleted());
         System.out.println("---New Task---");

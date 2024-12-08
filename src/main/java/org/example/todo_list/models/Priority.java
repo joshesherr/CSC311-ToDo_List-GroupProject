@@ -23,6 +23,10 @@ public enum Priority {
     }
 
 
+    public static Priority getFromInt(int level) {
+        return Priority.values()[level];
+    }
+
     public Color getColor() {
         return color;
     }

@@ -15,9 +15,11 @@ public class Task implements Comparable {
     private String description;
     private int listID;
     private boolean completed;
-    private int priority;
+    private Priority priority;
+
     private Color color;
     private ArrayList<Tag> taskTags = new ArrayList<>();
+    private ArrayList<String> tagsName = new ArrayList<>();
         // Create a default tag that each list will start with and be replaced?
         //Or start empty? Only reason I wonder this is because of color setting in tags,
         //and how we want to use Color
@@ -28,13 +30,13 @@ public class Task implements Comparable {
         this.idNum = -1;
         this.title = "";
         this.startDateTime = LocalDateTime.now();
-        this.endDateTime = null;
+        this.endDateTime = LocalDateTime.now();
         this.description = "";
-        this.priority = Priority.LOW.getLevel();
+        this.priority = Priority.LOW;
         this.completed = false;
     }
 
-    public Task(String title, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, int priority) {
+    public Task(String title, LocalDateTime startDateTime, LocalDateTime endDateTime, String description, Priority priority) {
         this.title = title;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -43,7 +45,7 @@ public class Task implements Comparable {
         this.completed = false;
     }
 
-    public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed,  int priority) {
+    public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed, Priority priority) {
         this.idNum = idNum;
         this.title = title;
         this.startDateTime = startDateTime;
@@ -54,11 +56,6 @@ public class Task implements Comparable {
         this.priority = priority;
     }
 
-    public Task(String title) {
-        this.title = title;
-        this.startDateTime = LocalDateTime.now();
-        this.completed = false;
-    }
 
     public int getIdNum() {
         return idNum;
@@ -93,7 +90,7 @@ public class Task implements Comparable {
     }
 
     public LocalDateTime getEndDateTime() {
-        return endDateTime==null?LocalDateTime.now():endDateTime;
+        return endDateTime;
     }
 
     public void setEndDateTime(LocalDateTime endDateTime) {
@@ -118,23 +115,12 @@ public class Task implements Comparable {
 
     public boolean getCompleted() {return completed;}
 
-    public int getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
-    }
-
-    public Priority getPriorityEnum() {
-        // Loop through enum priority values to match Priority.level to stored int priority and return correct enum value
-        for (Priority p : Priority.values()) {
-            if (p.getLevel() == this.priority) {
-                System.out.println("Returning priority lvl: " + p.getLevel());
-                return p;
-            }
-        }
-        throw new IllegalArgumentException("Invalid priority level: " + this.priority);
     }
 
     public ArrayList<Tag> getTaskTags() {
@@ -143,6 +129,11 @@ public class Task implements Comparable {
 
     public void setTaskTags(ArrayList<Tag> taskTags) {
         this.taskTags = taskTags;
+        try {
+            connDB.setTaskTags(this);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Color getColor() {
@@ -184,5 +175,15 @@ public class Task implements Comparable {
  //   public Task(int idNum, String title, LocalDateTime startDateTime, int listId, LocalDateTime endDateTime, String description, boolean completed,  int priority)
     public Task copy() {
         return new Task(idNum, title, startDateTime, listID, endDateTime, description, completed, priority);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "title='" + title + '\'' +
+                ", idNum=" + idNum +
+                ", listID=" + listID +
+                ", priority=" + priority +
+                '}';
     }
 }

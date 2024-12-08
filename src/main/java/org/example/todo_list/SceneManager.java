@@ -69,12 +69,12 @@ public class SceneManager {
      */
     public void showScene(String sceneName, int width, int height, boolean reload) {
         //If scene isn't loaded try to load it. Do not continue if scene can't be loaded.
-        if (!scenes.containsKey(sceneName) && !reload) {
-            if (!loadScene(sceneName)) return;
-        }
-        else {
-            if (!scenes.containsKey(sceneName)) scenes.remove(sceneName);
+        if (reload) {
+            scenes.remove(sceneName);
             loadScene(sceneName);
+        }
+        else if (!scenes.containsKey(sceneName)) {
+            if (!loadScene(sceneName)) return;
         }
 
         Scene scene = scenes.get(sceneName);

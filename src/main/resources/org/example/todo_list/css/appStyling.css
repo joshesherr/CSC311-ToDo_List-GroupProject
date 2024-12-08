@@ -80,7 +80,7 @@
 }
 
 /* Label styling */
-#myTasksLabel, #calendarLabel, #tagsLabel, #welcomeLbl{
+#myTasksLabel, #calendarLabel, .tagsLabel, #welcomeLbl{
     -fx-font-size: 16px;
     -fx-text-fill: #2c3e50; /* Darker color for distinction */
     -fx-padding: 10 0;

@@ -6,7 +6,9 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -68,20 +70,24 @@
             </MenuBar>
             <HBox fillHeight="false" prefHeight="677.0" prefWidth="963.0">
                <children>
-                  <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="238.0" spacing="10.0" HBox.hgrow="NEVER">
+                  <VBox id="taskBar" alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="677.0" prefWidth="238.0" spacing="10.0" HBox.hgrow="NEVER">
                      <children>
                         <Label fx:id="welcomeLbl" text="Welcome" />
-                        <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Home" />
+                        <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeClicked" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Home" />
                         <Button fx:id="addListBtn" mnemonicParsing="false" onAction="#addListBtnPressed" prefHeight="35.0" prefWidth="200.0" styleClass="side-btn" text="Add List" />
-                        <Label fx:id="calendarLabel" prefHeight="0.0" prefWidth="135.0" text="Calendar:" />
-                        <Button fx:id="daysTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="205.0" styleClass="side-btn" text="3 Days" />
-                        <Button fx:id="weekTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="220.0" styleClass="side-btn" text="This Week" />
-                        <Button fx:id="monthTasksBtn" mnemonicParsing="false" prefHeight="38.0" prefWidth="206.0" styleClass="side-btn" text="This Month" />
-                        <Label fx:id="tagsLabel" prefHeight="15.0" prefWidth="176.0" text="Show Lists by Priority:" />
-                        <Button fx:id="homeStuffTasksBtn" mnemonicParsing="false" onAction="#prioLowClicked" prefHeight="38.0" prefWidth="135.0" styleClass="side-btn" text="Low" />
-                        <Button fx:id="importantTasksBtn" mnemonicParsing="false" onAction="#prioMedClicked" prefHeight="38.0" prefWidth="216.0" styleClass="side-btn" text="Medium" />
-                        <Button fx:id="prioHighBtn" mnemonicParsing="false" onAction="#prioHighClicked" prefHeight="38.0" prefWidth="216.0" styleClass="side-btn" text="High" />
-                        <Button fx:id="criticalTasksBtn" mnemonicParsing="false" onAction="#prioCritClicked" prefHeight="38.0" prefWidth="215.0" styleClass="side-btn" text="Critical" />
+                        <Label fx:id="tagsLabel" prefHeight="15.0" prefWidth="176.0" styleClass="tagsLabel" text="Sort by:" />
+                        <Button fx:id="sortByPriority" mnemonicParsing="false" onAction="#sortByPriority" prefHeight="38.0" prefWidth="135.0" styleClass="side-btn" text="Priority" />
+                        <Button fx:id="sortByDate" mnemonicParsing="false" onAction="#sortByDate" prefHeight="38.0" prefWidth="216.0" styleClass="side-btn" text="Date" />
+                        <Button fx:id="sortByName" layoutX="29.0" layoutY="213.0" mnemonicParsing="false" onAction="#sortByName" prefHeight="38.0" prefWidth="135.0" styleClass="side-btn" text="Name" />
+                        <Label fx:id="tagsLabel1" layoutX="29.0" layoutY="163.0" prefHeight="15.0" prefWidth="176.0" styleClass="tagsLabel" text="Show Priority" />
+                        <RadioButton fx:id="radioCrit" mnemonicParsing="false" onAction="#prioCrit" styleClass="side-btn" text="Critcal">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="priorityShown" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioHigh" layoutX="85.0" layoutY="401.0" mnemonicParsing="false" onAction="#prioHigh" styleClass="side-btn" text="High" toggleGroup="$priorityShown" />
+                        <RadioButton fx:id="radioMed" layoutX="85.0" layoutY="611.0" mnemonicParsing="false" onAction="#prioMed" styleClass="side-btn" text="Medium" toggleGroup="$priorityShown" />
+                        <RadioButton fx:id="radioLow" layoutX="85.0" layoutY="637.0" mnemonicParsing="false" onAction="#prioLow" styleClass="side-btn" text="Low" toggleGroup="$priorityShown" />
                      </children>
                      <padding>
                         <Insets left="10.0" right="10.0" />

@@ -13,6 +13,9 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import org.example.todo_list.SceneManager;
+import org.example.todo_list.comparators.SortByDate;
+import org.example.todo_list.comparators.SortByName;
+import org.example.todo_list.comparators.SortByPriority;
 import org.example.todo_list.db.ConnDB;
 import org.example.todo_list.db.UserSession;
 import org.example.todo_list.models.Task;
@@ -22,12 +25,13 @@ import org.example.todo_list.models.Priority;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.PriorityQueue;
-import java.util.ResourceBundle;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class AppController implements Initializable {
-
+    @FXML
     public HBox listBox;
+    @FXML
     public AnchorPane root;
     SceneManager sceneManager = SceneManager.getInstance();
     private static TaskController focusedTaskCon=null;
@@ -39,6 +43,10 @@ public class AppController implements Initializable {
     private ObservableList<TaskList> listsData = FXCollections.observableArrayList();
     private ObservableList<Task> taskData = FXCollections.observableArrayList();
     private static Task copiedTask;
+
+    @FXML
+    private ToggleGroup priorityShown;
+
     public static void setCopiedTask(Task task) {
         copiedTask = task;
     }
@@ -84,7 +92,7 @@ public class AppController implements Initializable {
     private ProgressBar taskProgressBar;
 
     @FXML
-    private VBox taskContainer, listTaskContainer;
+    private VBox listTaskContainer;
 
     @FXML
     private ScrollPane scrollPane;
@@ -98,15 +106,14 @@ public class AppController implements Initializable {
             Parent taskDetailsRoot = (Parent) loader.load();
             root.getChildren().add(taskDetailsRoot);
             taskDetailsCon = loader.getController();
-            taskDetailsCon.root.setLayoutX(235);
-            taskDetailsCon.root.setLayoutY(420);
+            taskDetailsCon.root.setLayoutX(250);
+            taskDetailsCon.root.setLayoutY(410);
             taskDetailsCon.root.setVisible(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         loadTasksFromDB();
-
        // copyMenuItem.setDisable(AppController.getFocusedTask() == null);
      //   pasteMenuItem.setDisable(getCopiedTask() == null);
     }
@@ -114,7 +121,7 @@ public class AppController implements Initializable {
     public void loadTasksFromDB() {
         username = UserSession.getInstance().getUsername();
         listsData = connDB.loadingUsersLists(username);
-        welcomeLbl.setText("Welcome " + username + "!"); //username? name? probably username removable comment
+        welcomeLbl.setText("Welcome " + username + "!");
         ObservableList<TaskList> listsDataCopy = FXCollections.observableArrayList(listsData); // Create a copy of the list
 
         for (TaskList taskList : listsData) {
@@ -214,53 +221,113 @@ public class AppController implements Initializable {
         AppController.taskDetailsCon = taskDetailsCon;
     }
 
-    @FXML
-    void prioLowClicked(ActionEvent event) {
+
+    void showOnlyPriority(int priorityLevel) {
         ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
         for (Task task : taskData) {
-            if (task.getPriority() == Priority.LOW.getLevel()) {
+            if (task.getPriority().getLevel() == priorityLevel) {
                 filteredTasks.add(task);
                 System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
             }
         }
+        // Clear the current task container
+        listBox.getChildren().clear();
+        loadingTaskByPriority(filteredTasks);
     }
 
     @FXML
-    void prioMedClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.MEDIUM.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
-            }
-        }
+    private void prioLow() {
+        showOnlyPriority(Priority.LOW.getLevel());
     }
 
     @FXML
-    void prioHighClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.HIGH.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
-            }
-        }
+    private void prioMed() {
+        showOnlyPriority(Priority.MEDIUM.getLevel());
     }
 
     @FXML
-    void prioCritClicked(ActionEvent event) {
-        ObservableList<Task> filteredTasks = FXCollections.observableArrayList();
-        for (Task task : taskData) {
-            if (task.getPriority() == Priority.CRITICAL.getLevel()) {
-                filteredTasks.add(task);
-                System.out.println("Filtered out: [" + task.getTitle() + "] Prio: [" + task.getPriority() +"]");
+    private void prioHigh() {
+        showOnlyPriority(Priority.HIGH.getLevel());
+    }
+
+    @FXML
+    private void prioCrit() {
+        showOnlyPriority(Priority.CRITICAL.getLevel());
+    }
+
+
+    @FXML
+    void homeClicked(ActionEvent event) {
+        // Clear the current task containers and reset to original application state
+        priorityShown.getSelectedToggle().setSelected(false);
+        listBox.getChildren().clear();
+        loadingTaskByPriority(taskData);
+    }
+
+    public void loadingTaskByPriority(ObservableList<Task> filteredTasks) {
+        for (TaskList taskList : listsData) {
+            // Use stream to check if there are any tasks for this list
+            boolean hasTasksForList = filteredTasks.stream()
+                    .anyMatch(task -> task.getListID() == taskList.getIdNum());
+
+            // If there are no tasks for this list, skip it
+            if (!hasTasksForList) {
+                continue;
+            }
+
+            try {
+                FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("views/components/List.fxml"));
+                Parent listRoot = loader.load();
+                listCon = loader.getController();
+                listCon.setTaskList(taskList);
+                listCon.parentController = this;
+                listBox.getChildren().add(listRoot);
+
+                // Add filtered tasks to the task container within the list
+                for (Task task : filteredTasks) {
+                    if (task.getListID() == taskList.getIdNum()) {
+                        FXMLLoader taskLoader = new FXMLLoader(SceneManager.class.getResource("views/components/Task.fxml"));
+                        Parent taskRoot = taskLoader.load();
+                        TaskController taskCon = taskLoader.getController();
+                        taskCon.setTask(task);
+                        taskCon.setParentController(listCon); // Set the grandParent controller
+                        listCon.taskBox.getChildren().add(taskRoot); // Add task to the task container
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
-//    public void setActiveListController(ListController listController) {
-//        this.activeListController = listController;
-//    }
-//    public ListController getActiveListController() {
-//        return activeListController;
-//    }
+  
+    /**
+     * Sorts tasks depending on the comparator.
+     * @param comparator The task sorting comparator to use.
+     */
+    public void sortBy(Comparator comparator) {
+        listBox.getChildren().forEach((list)->{
+            List<TaskController> tasks = new ArrayList<>();
+            ListController listCon = (ListController) list.getUserData();
+            listCon.taskBox.getChildren().forEach((t)->{
+                tasks.add((TaskController) t.getUserData());
+            });
+            tasks.sort(comparator);
+            listCon.taskBox.getChildren().clear();
+            for (TaskController task : tasks) {
+                listCon.taskBox.getChildren().add(task.root);
+            }
+        });
+    }
+
+    public void sortByPriority() {
+        sortBy(new SortByPriority());
+    }
+
+    public void sortByDate() {
+        sortBy(new SortByDate());
+    }
+
+    public void sortByName() {
+        sortBy(new SortByName());
+    }
 }

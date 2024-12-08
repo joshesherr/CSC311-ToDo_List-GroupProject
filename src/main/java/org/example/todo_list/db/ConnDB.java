@@ -7,14 +7,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.todo_list.models.Person;
-import org.example.todo_list.models.Task;
-import org.example.todo_list.models.TaskList;
+import org.example.todo_list.models.*;
 import org.example.todo_list.view_models.RegisterController;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 public class ConnDB {
 
@@ -246,7 +245,7 @@ public class ConnDB {
                 preparedStatement.setString(4, String.valueOf(task.getEndDateTime()));
                 preparedStatement.setString(5, task.getDescription());
                 preparedStatement.setBoolean(6, task.getCompleted());
-                preparedStatement.setInt(7, task.getPriority());
+                preparedStatement.setInt(7, task.getPriority().getLevel());
 
                 preparedStatement.executeUpdate();
 
@@ -294,7 +293,7 @@ public class ConnDB {
                 LocalDateTime endDate = end_date != null ? LocalDateTime.parse(end_date, formatter) : null;
                 String description = resultSet.getString("description");
                 boolean completed = resultSet.getBoolean("completed");
-                int priority = resultSet.getInt("priority");
+                Priority priority = Priority.getFromInt(resultSet.getInt("priority"));
                 if (name != null) {
                     taskData.add(new Task(id_num, name, startDate, list_id, endDate, description, completed, priority));
                 }
@@ -362,7 +361,7 @@ public class ConnDB {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             String sql = "UPDATE task SET priority = ? WHERE id_num = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, task.getPriority());
+            preparedStatement.setInt(1, task.getPriority().getLevel());
             preparedStatement.setInt(2, task.getIdNum());
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -377,6 +376,23 @@ public class ConnDB {
             String sql = "UPDATE task SET end_date = ? WHERE id_num = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, String.valueOf(task.getEndDateTime()));
+            preparedStatement.setInt(2, task.getIdNum());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setTaskTags(Task task) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            String sql = "UPDATE task SET tags = ? WHERE id_num = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            String tags = task.getTaskTags().stream()
+                                            .map(Tag::getName)
+                                            .collect(Collectors.joining(","));
+            preparedStatement.setString(1, tags);
             preparedStatement.setInt(2, task.getIdNum());
             preparedStatement.executeUpdate();
             preparedStatement.close();
