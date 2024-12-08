@@ -397,18 +397,19 @@ public class TaskDetailsController implements Initializable {
 //            System.out.println("Copy ID " + copiedTask.getIdNum());
 //            System.out.println("Copy List ID" + copiedTask.getListID());
 //            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
-            int tempTaskIDNum = AppController.getFocusedTask().getTask().getIdNum();
-            int tempListID = AppController.getFocusedTask().getTask().getListID();
+//            int tempTaskIDNum = AppController.getFocusedTask().getTask().getIdNum();
+//            int tempListID = AppController.getFocusedTask().getTask().getListID();
             //Set copied tasks ID values to new ID values of the location of the pasted task
-            copiedTask.setIdNum(tempTaskIDNum);
-            copiedTask.setListID(tempListID);
-            AppController.getFocusedTask().setTask(copiedTask);
+            //copiedTask.setIdNum(tempTaskIDNum);
+            //copiedTask.setListID(tempListID);
+            //AppController.getFocusedTask().setTask(copiedTask);
 //            System.out.println("----Post Paste ID vals----");
 //            System.out.println("Focus ID " + AppController.getFocusedTask().getTask().getIdNum());
 //            System.out.println("Copy ID " + copiedTask.getIdNum());
 //            System.out.println("Copy List ID" + copiedTask.getListID());
 //            System.out.println("Focus List ID" + AppController.getFocusedTask().getTask().getListID());
-            updateTaskDetails(AppController.getFocusedTask().getTask());
+            updateTaskDetails(copiedTask);
+            taskNameDetailsTF.requestFocus();
 
             Platform.runLater(()->{
                 try {

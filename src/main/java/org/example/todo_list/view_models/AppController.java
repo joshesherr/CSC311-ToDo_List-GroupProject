@@ -194,6 +194,7 @@ public class AppController implements Initializable {
     public static void showTaskDetails() {
         taskDetailsCon.root.setVisible(true);
         taskDetailsCon.updateTaskDetails(AppController.getFocusedTask().getTask());
+        taskDetailsCon.taskNameDetailsTF.requestFocus();
     }
 
     /**

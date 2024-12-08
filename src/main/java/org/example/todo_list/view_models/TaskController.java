@@ -81,6 +81,7 @@ public class TaskController implements Initializable {
                     e.printStackTrace();
                 }
             }
+
             AppController.setFocusedTask(this);
         });
 
