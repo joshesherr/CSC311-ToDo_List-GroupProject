@@ -99,11 +99,6 @@ public class TaskDetailsController implements Initializable {
             });
         }
         task.setTaskTags(taskTags);
-
-        //removable test prnt loop
-        for (Tag tag : task.getTaskTags()) {
-            System.out.println("Tasks actual tag: " + taskTags.toString());
-        }
     }
 
     void repopulateTagButtons() {
@@ -113,7 +108,6 @@ public class TaskDetailsController implements Initializable {
         //Reset tag button state
         resetTagButtons();
 
-        System.out.println(taskTags.size());
         if (taskTags == null || taskTags.isEmpty()) {
             //handle empty tag list case, return (remove print when done)
             return;

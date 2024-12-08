@@ -108,11 +108,11 @@ public class ListController implements Initializable {
             taskCon.parentController = this;
             taskCon.taskNameField.requestFocus();
             taskList.addTask(taskCon.getTask());
+            updateProgress();
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-        updateProgress();
     }
 
     /**
