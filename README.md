@@ -32,7 +32,28 @@
 </p>
 
 <h2>Features</h2>
-<p>The application will primarily allow users to create and manage tasks, with the additional ability to create special task groups which contain sub-tasks. The user will be able to complete subtasks in the special task groups, checking them off to increase the task’s progress bar towards completion. Users can name these special task groups whatever they desire, and assign tags to be able to filter tasks by tag in addition to filtering by date. Users will be able to assign tasks priority settings based on their importance. The app will also send reminders for upcoming deadlines if the user desires, which will be determined by the due dates of tasks or starting times of meetings. A user will receive these reminders if they elect to via e-mail or notification. 
+<p>
+  <ul>
+    <li><h3>Task Management</h3>
+      <ul>
+        <li>Create, edit, and delete task lists and tasks.</li>
+        <li>Organize tasks into lists for better categorization.</li>
+        <li>Copy and paste task information.</li>
+      </ul>
+    </li>
+    <li><h3>Sorting & Filtering</h3>
+      <ul>
+        <li>Sort tasks by priority, due date, or name to ensure efficient organization.</li>
+        <li>Filter tasks by priority level, allowing users to focus on high-priority or specific tasks.</li>
+      </ul>
+    </li>
+    <li><h3>Progress Tracking</h3>
+      <ul>
+        <li>Special task groups allow the creation of subtasks.</li>
+        <li>Progress bar show completion status for task lists and their subtasks.</li>
+      </ul>
+    </li>
+  </ul>
 </p>
 
 <h2>How it Works</h2>
@@ -90,9 +111,21 @@
 ![DatabaseINF2](https://github.com/user-attachments/assets/7b906844-5a4c-408e-966b-b5c5eaf7de68)
 
 
-<h2>GUI Views</h2>
-<p>The application will utilize a variety of GUI views to display User task data according to the users needs at that time. The default view, or home page, will display all of a user’s individual tasks that they have created up until this point, along with tabs inserted into a FlowPane that allow a user to filter between personal tasks, group tasks, today tasks and recently completed tasks. Additionally, a user will be able to filter tasks to display all assignments on a particular day, week, or monthly view which will highlight all dates which currently have assigned tasks in a particular month. When a user selects to create a task, a new window will open displaying the relevant fields, such as Title, Due Date, Description, Add a task, Add user (If a group project). There will also be a login window and signup window for new and returning users respectively. A progress bar will also be displayed for each task, which will be filled as a user completes subtasks, or by personal selection.
-</p>
-<h2>Back-end Implementation</h2>
-<p>The database will be utilizing MS Azure and contain information of users, such as name, username, email, password, and tasks. Email will be used as the primary key for retrieving a user’s individual information. Email will be obfuscated when viewing another user in a group setting, displaying an individual's username instead. Updates to the database will occur on task creation or completion, with some small validation to confirm a task is completed. The database will be used to integrate basic user authentication and to securely store and retrieve each user’s tasks, individual task information and settings. 
-</p>
+<h2>Getting Started</h2>
+<p>To run the Just Do application, ensure you have the following:</p>
+<ol>
+  <li>Java JDK 22 installed.</li>
+  <li>An IDE like IntelliJ IDEA with Maven set up.</li>
+  <li>Access to a Microsoft Azure SQL Server instance.</li>
+</ol>
+<p>Clone the repository and run the application using your IDE.</p>
+
+<h2>Contributing</h2>
+<p>We welcome contributions!</p>
+<ul>
+  <li>Fork the repository and create a new branch for your feature or bug fix.</li>
+  <li>Submit a pull request with a detailed description of your changes.</li>
+</ul>
+
+<h2>Contact</h2>
+<p>For questions or suggestions, please contact one of the contributors.</p>
