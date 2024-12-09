@@ -3,7 +3,9 @@
   <h1>JustDo</h1>
 </div>
 
-<br/><br/>
+![Static Badge](https://img.shields.io/badge/-Open_In_Intellij_IDEA-blue?logo=intellijidea) ![GitHub contributors](https://img.shields.io/github/contributors/joshesherr/CSC311-ToDo_List-GroupProject)
+<br></br>
+
 
 <h2>General Description</h2>
 <p>The application will implement a number of features to provide the user with this experience. Creation of a task will include a number of entries that encompass a broad range of typical needs, such as: General tasks, Tests(Quizzes & Exams), Homework, Projects(Personal & Group), Jobs/Work Shifts, and Meetings. The application aims to track the progress of your tasks, set your goals, help users with time management and allow users to interact and share progress with each other while working on shared tasks. 
