@@ -23,12 +23,11 @@
 <p>The JustDo application leverages modern technologies to deliver a seamless user experience:</p>
 <p>
   <ul>
-    <li>IntelliJ IDEA primary IDE</li>
-    <li>Java JDK version 22, backend programming language</li>
-    <li>Maven dependency management tool</li>
-    <li>JavaFX Controls, Graphics, FXML frontend markup language</li>
-    <li>CSS for styling GUI components</li>
-    <li>Microsoft Azure SQL Server</li>
+    <li>Primary IDE: IntelliJ IDEA</li>
+    <li>Backend: Java JDK 22</li>
+    <li>Dependency Management: Maven</li>
+    <li>Frontend: JavaFX (Controls, Graphics, FXML) and CSS for styling</li>
+    <li>Database: Microsoft Azure SQL Server</li>
   </ul>
 </p>
 
@@ -64,6 +63,21 @@
   </ul>
 </p>
 
+![ListsTasks1](https://github.com/user-attachments/assets/ae904026-e96c-4cf6-bcd7-2ef76f928475)
+
+<p>
+  <ul>
+    <li>Copying and pasting task information which simplifies task duplication or enables sharing task details across lists.</li>
+    <li>Filtering tasks by priority level, enabling focus on specific categories of tasks.</li>
+    <li>Sorting tasks:
+      <ul>
+        <li>By priority, so the most urgent tasks are addressed first.</li>
+        <li>By due date, to keep the timeline on track.</li>
+        <li>By name, for quick alphabetical organization.</li>
+      </ul>
+    </li>
+  </ul>
+</p>
 
 <h2>GUI Views</h2>
 <p>The application will utilize a variety of GUI views to display User task data according to the users needs at that time. The default view, or home page, will display all of a user’s individual tasks that they have created up until this point, along with tabs inserted into a FlowPane that allow a user to filter between personal tasks, group tasks, today tasks and recently completed tasks. Additionally, a user will be able to filter tasks to display all assignments on a particular day, week, or monthly view which will highlight all dates which currently have assigned tasks in a particular month. When a user selects to create a task, a new window will open displaying the relevant fields, such as Title, Due Date, Description, Add a task, Add user (If a group project). There will also be a login window and signup window for new and returning users respectively. A progress bar will also be displayed for each task, which will be filled as a user completes subtasks, or by personal selection.
