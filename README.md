@@ -8,10 +8,19 @@
 
 
 <h2>General Description</h2>
-<p>The application will implement a number of features to provide the user with this experience. Creation of a task will include a number of entries that encompass a broad range of typical needs, such as: General tasks, Tests(Quizzes & Exams), Homework, Projects(Personal & Group), Jobs/Work Shifts, and Meetings. The application aims to track the progress of your tasks, set your goals, help users with time management and allow users to interact and share progress with each other while working on shared tasks. 
-</p>
+<p>JustDo is a task management application designed to help users efficiently organize their schedules and priorities. The application supports a variety of task types, including:</p>
+  <ul>
+    <li>General tasks</li>
+    <li>Tests (Quizzes & Exams)</li>
+    <li>Homework</li>
+    <li>Projects</li>
+    <li>Jobs/Work Shifts</li>
+    <li>Meetings</li>
+  </ul>
+<p>JustDo tracks task progress, sets goals, and assists with time management. It is designed with the user’s productivity and convenience in mind.</p>
 
 <h2>Technologies</h2>
+<p>The JustDo application leverages modern technologies to deliver a seamless user experience:</p>
 <p>
   <ul>
     <li>IntelliJ IDEA primary IDE</li>
@@ -34,14 +43,26 @@
 ![SignInUp](https://github.com/user-attachments/assets/4a11ec29-e883-4896-b6e5-b1e32c5b4cbe)
 
 
-<p>When launching JustDo, users can either login with existing credentials or register as a new user. This window has various UI elements like buttons, text fields, and password field.</p>
-<p>Sign up form has a field validation which implemented by using regex expression.</p>
+<p>When launching JustDo, users can either login with existing credentials or register as a new user.</p>
+<p>The sign-up form validates user inputs using regular expressions to ensure proper formatting of fields like email and password.</p>
 
 <h3>Login</h3>
 
 ![login1](https://github.com/user-attachments/assets/73a83f31-1000-44ff-b3a5-4197958fed05)
 
-<p>Login window validates user input against registered users in the Microsoft Azure database. If a match is found, it initializes the current user and navigates to the home page filled with user's lists and tasks. </p>
+<p>The login window verifies user credentials against the database stored in Microsoft Azure.</p>
+<p>Successful authentication initializes the current user's session and navigates to the Home Page, displaying the user’s personalized task lists. </p>
+
+<h3>Main Window & Home Page</h3>
+<img width="1624" alt="HomePage" src="https://github.com/user-attachments/assets/4f98364a-d71a-4ca2-9a4a-e724e5217211">
+<p>The Home Page is the central hub where users manage their tasks and lists. Key features include:</p>
+<p>
+  <ul>
+    <li>Creating task lists with custom names.</li>
+    <li>Adding tasks with the following details: name, date, time, priority, description, and tags.</li>
+    <li>Storing all lists and tasks securely in the Microsoft Azure SQL Server database.</li>
+  </ul>
+</p>
 
 
 <h2>GUI Views</h2>
