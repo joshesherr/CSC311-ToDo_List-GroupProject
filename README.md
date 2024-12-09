@@ -18,7 +18,7 @@
     <li>Java JDK version 22, backend programming language</li>
     <li>Maven dependency management tool</li>
     <li>JavaFX Controls, Graphics, FXML frontend markup language</li>
-    <li>CSS for stylying GUI components</li>
+    <li>CSS for styling GUI components</li>
     <li>Microsoft Azure SQL Server</li>
   </ul>
 </p>
