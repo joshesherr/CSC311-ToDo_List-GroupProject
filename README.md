@@ -35,8 +35,13 @@
 
 
 <p>When launching JustDo, users can either login with existing credentials or register as a new user. This window has various UI elements like buttons, text fields, and password field.</p>
-<p>Sign up form has field validation which implemented by using regex expression.</p>
+<p>Sign up form has a field validation which implemented by using regex expression.</p>
 
+<h3>Login</h3>
+
+![login1](https://github.com/user-attachments/assets/73a83f31-1000-44ff-b3a5-4197958fed05)
+
+<p>Login window validates user input against registered users in the Microsoft Azure database. If a match is found, it initializes the current user and navigates to the home page filled with user's lists and tasks. </p>
 
 
 <h2>GUI Views</h2>
