@@ -59,7 +59,6 @@
   <ul>
     <li>Creating task lists with custom names.</li>
     <li>Adding tasks with the following details: name, date, time, priority, description, and tags.</li>
-    <li>Storing all lists and tasks securely in the Microsoft Azure SQL Server database.</li>
   </ul>
 </p>
 
@@ -78,6 +77,18 @@
     </li>
   </ul>
 </p>
+
+![FilteringSorting](https://github.com/user-attachments/assets/e4815286-b9ca-4382-b39f-9e19cf0699ef)
+<p>
+  <ul>
+        <li>Storing all lists and tasks securely in the Microsoft Azure SQL Server database.</li>
+  </ul>
+</p>
+
+![databaseINF1](https://github.com/user-attachments/assets/906468ad-bdcc-4723-87e8-bf90e0e60174)
+
+![DatabaseINF2](https://github.com/user-attachments/assets/7b906844-5a4c-408e-966b-b5c5eaf7de68)
+
 
 <h2>GUI Views</h2>
 <p>The application will utilize a variety of GUI views to display User task data according to the users needs at that time. The default view, or home page, will display all of a user’s individual tasks that they have created up until this point, along with tabs inserted into a FlowPane that allow a user to filter between personal tasks, group tasks, today tasks and recently completed tasks. Additionally, a user will be able to filter tasks to display all assignments on a particular day, week, or monthly view which will highlight all dates which currently have assigned tasks in a particular month. When a user selects to create a task, a new window will open displaying the relevant fields, such as Title, Due Date, Description, Add a task, Add user (If a group project). There will also be a login window and signup window for new and returning users respectively. A progress bar will also be displayed for each task, which will be filled as a user completes subtasks, or by personal selection.
