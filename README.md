@@ -56,6 +56,11 @@
   </ul>
 </p>
 
+<h2>Our Development and Design Process</h2>
+
+![Process](https://github.com/user-attachments/assets/85597fcf-24da-4c34-b609-df21c3327aca)
+
+
 <h2>How it Works</h2>
 
 <h3>Sign In/Up window</h3>
